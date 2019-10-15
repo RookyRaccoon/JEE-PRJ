@@ -13,7 +13,7 @@
 	
 	<!-- Needed to serve static files -->
 	<servlet>
-		<servlet-name>default</servlet-name>
+		<servlet-name>static</servlet-name>
 		<servlet-class>
 			org.apache.catalina.servlets.DefaultServlet
 		</servlet-class>
@@ -29,7 +29,7 @@
 	</servlet>
 	
 	<servlet-mapping>
-		<servlet-name>default</servlet-name>
+		<servlet-name>static</servlet-name>
 		<url-pattern>*.css</url-pattern>
 		<url-pattern>*.js</url-pattern>
 		<url-pattern>*.svg</url-pattern>
