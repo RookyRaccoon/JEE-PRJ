@@ -1,16 +1,40 @@
-<c:url var="bootstrapCSS" value="/static/bootstrap-4.3.1/css/bootstrap.min.css" />
+<c:url var="bootstrapCSS" value="/static/bootstrap-4.3.1/css/bootstrap.min.css"/>
+<c:url var="loginUrl" value="/login"/>
 
 <%@ page pageEncoding="UTF-8" %>
 <html>
 <head>
-    <meta charset="UTF-8" />
+	<meta charset="UTF-8"/>
 
-    <!-- Bootstrap -->
-    <link type="text/css" rel="stylesheet" href="${bootstrapCSS}" />
+	<!-- Bootstrap -->
+	<link type="text/css" rel="stylesheet" href="${bootstrapCSS}"/>
 
-    <title>Login</title>
+	<title>Login</title>
 </head>
-<body>
+<body class="vh-100 bg-light">
+	<div class="h-100">
+		<div class="row h-100 align-items-center">
+			<div class="col-sm-8 offset-sm-2 col-xl-6 offset-xl-3">
+				<div class="card w-100 bg-white px-5 pt-5 pb-1 ">
+					<h1 class="card-title">Login</h1>
+					<form action="${loginUrl}" class="card-body px-0">
+						<div class="form-group">
+							<label for="username-input">Username</label>
+							<input type="text" id="username-input" name="username" placeholder="Username" class="form-control form-control-lg" />
+						</div>
 
+						<div class="form-group">
+							<label for="password-input">Password</label>
+							<input type="password" id="password-input" name="password" placeholder="Password" class="form-control form-control-lg" />
+						</div>
+
+						<div class="form-group text-right p-0 m-0 mt-4">
+							<input type="submit" value="Login" class="btn btn-lg btn-primary" />
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>
