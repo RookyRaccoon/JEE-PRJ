@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static efrei.m1.se.utils.Constants.*;
+
 public class LoginServlet extends HttpServlet {
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
@@ -19,6 +21,6 @@ public class LoginServlet extends HttpServlet {
 
 
 	private void handleRequest(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
-		this.getServletContext().getRequestDispatcher("").forward(req, res);
+		this.getServletContext().getRequestDispatcher(JSP_LOGIN).forward(req, res);
 	}
 }
