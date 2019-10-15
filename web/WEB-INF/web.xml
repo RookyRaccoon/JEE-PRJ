@@ -5,6 +5,14 @@
          version="4.0">
 	
 	
+	<jsp-config>
+		<jsp-property-group>
+			<url-pattern>*.jsp</url-pattern>
+			<include-prelude>/WEB-INF/taglibs.jsp</include-prelude>
+		</jsp-property-group>
+	</jsp-config>
+	
+	
 	<servlet>
 		<servlet-name>Login Servlet</servlet-name>
 		<servlet-class>efrei.m1.se.servlet.LoginServlet</servlet-class>
