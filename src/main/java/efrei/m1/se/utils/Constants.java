@@ -7,4 +7,8 @@ public class Constants {
 	private Constants() {}
 
 	public static final String JSP_LOGIN = "/WEB-INF/jsp/login.jsp";
+
+
+	public static final String DEFAULT_ADMIN_USERNAME = "admin";
+	public static final String DEFAULT_ADMIN_PASSWORD = "admin";
 }

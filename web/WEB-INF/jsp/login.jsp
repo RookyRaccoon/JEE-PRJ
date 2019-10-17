@@ -17,7 +17,7 @@
 			<div class="col-sm-8 offset-sm-2 col-xl-6 offset-xl-3">
 				<div class="card w-100 bg-white px-5 pt-5 pb-1 ">
 					<h1 class="card-title">Login</h1>
-					<form action="${loginUrl}" class="card-body px-0 pb-0">
+					<form method="post" action="${loginUrl}" class="card-body px-0 pb-0">
 						<div class="form-group">
 							<label for="username-input">Username</label>
 							<input type="text" id="username-input" name="username" placeholder="Username" class="form-control form-control-lg" required />
