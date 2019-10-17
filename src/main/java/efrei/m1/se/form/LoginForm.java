@@ -1,4 +1,4 @@
 package efrei.m1.se.form;
 
-public class LoginForm {
+public final class LoginForm {
 }
