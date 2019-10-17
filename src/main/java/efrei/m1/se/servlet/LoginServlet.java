@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import efrei.m1.se.form.LoginForm;
 import static efrei.m1.se.utils.Constants.*;
 
 public class LoginServlet extends HttpServlet {
@@ -16,6 +17,7 @@ public class LoginServlet extends HttpServlet {
 
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+		LoginForm.login(req);
 		this.handleRequest(req, res);
 	}
 
