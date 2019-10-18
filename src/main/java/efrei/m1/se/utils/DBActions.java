@@ -11,6 +11,11 @@ public class DBActions {
 
 	private static Connection DB_CONNECTION = null;
 
+	/**
+	 * Private constructor to make the class "fully static"
+	 */
+	private DBActions() {}
+
 
 	public static void initConnection(String url, String username, String password) {
 		// Do not (re)load the database if not necessary
