@@ -2,7 +2,8 @@
 <c:url var="loginUrl" value="/login"/>
 
 <%@ page pageEncoding="UTF-8" %>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
 	<meta charset="UTF-8"/>
 
