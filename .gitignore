@@ -3,3 +3,6 @@ target/**
 out/**
 *.iml
 classes/**
+
+# Project files that should no longer be under version control
+web/WEB-INF/db.properties
