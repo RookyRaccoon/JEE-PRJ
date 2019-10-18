@@ -2,6 +2,9 @@ package efrei.m1.se.model;
 
 public class User {
 
+	private static final String DEFAULT_USERNAME = "John Doe";
+	private static final String DEFAULT_PASSWORD = "password";
+
 	/**
 	 * Unique username allowing to identify a user in the database.
 	 */
@@ -16,7 +19,10 @@ public class User {
 	/**
 	 * No arguments constructor. Water is wet.
 	 */
-	public User() {}
+	public User() {
+		this.username = DEFAULT_USERNAME;
+		this.password = DEFAULT_PASSWORD;
+	}
 
 
 	/**
