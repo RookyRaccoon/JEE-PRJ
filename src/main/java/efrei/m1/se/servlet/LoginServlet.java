@@ -11,14 +11,23 @@ import static efrei.m1.se.utils.Constants.*;
 
 public class LoginServlet extends HttpServlet {
 	@Override
-	public void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
-		this.handleRequest(req, res);
+	public void doGet(HttpServletRequest req, HttpServletResponse res) {
+		try {
+			this.handleRequest(req, res);
+		} catch (IOException | ServletException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
-	public void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+	public void doPost(HttpServletRequest req, HttpServletResponse res) {
 		LoginForm.login(req);
-		this.handleRequest(req, res);
+
+		try {
+			this.handleRequest(req, res);
+		} catch (IOException | ServletException e) {
+			e.printStackTrace();
+		}
 	}
 
 
