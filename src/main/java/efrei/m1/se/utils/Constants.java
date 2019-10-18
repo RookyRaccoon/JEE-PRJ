@@ -11,4 +11,6 @@ public class Constants {
 
 	public static final String DEFAULT_ADMIN_USERNAME = "admin";
 	public static final String DEFAULT_ADMIN_PASSWORD = "admin";
+
+	public static final String DB_PROP_FILE_PATH = "/WEB-INF/db.properties";
 }
