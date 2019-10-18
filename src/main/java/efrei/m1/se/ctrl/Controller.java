@@ -1,4 +1,4 @@
-package efrei.m1.se.servlet;
+package efrei.m1.se.ctrl;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -9,7 +9,7 @@ import java.io.IOException;
 import efrei.m1.se.form.LoginForm;
 import static efrei.m1.se.utils.Constants.*;
 
-public class LoginServlet extends HttpServlet {
+public class Controller extends HttpServlet {
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse res) {
 		try {
