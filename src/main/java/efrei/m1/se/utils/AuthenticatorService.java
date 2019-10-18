@@ -2,11 +2,11 @@ package efrei.m1.se.utils;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class Authenticator {
+public class AuthenticatorService {
 	/**
 	 * Make the class "fully static"
 	 */
-	private Authenticator() {}
+	private AuthenticatorService() {}
 
 	/**
 	 * Check whether or not a User is authenticated through its session data
