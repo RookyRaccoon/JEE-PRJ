@@ -1,5 +1,7 @@
 package efrei.m1.se.form;
 
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 import javax.servlet.http.HttpServletRequest;
 
 import static efrei.m1.se.utils.Constants.*;
@@ -24,16 +26,8 @@ public final class LoginForm {
 		final String username = req.getParameter(USERNAME_FIELD);
 		final String password = req.getParameter(PASSWORD_FIELD);
 
-		// TODO: log the user in using database entries
-
-		if (username.equals(DEFAULT_ADMIN_USERNAME) && password.equals(DEFAULT_ADMIN_PASSWORD)) {
-			req.setAttribute("connectionFailed", false);
-			// TODO: set the session and redirect the user
-
-			return;
-		}
-
-		req.setAttribute("connectionFailed", true);
+		// TODO: log user in using database records
+		throw new NotImplementedException();
 	}
 
 
