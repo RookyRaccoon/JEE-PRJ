@@ -9,10 +9,6 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class DBActions {
-	private static String DB_USERNAME;
-	private static String DB_PASSWORD;
-	private static String DB_URL;
-
 	private static Connection DB_CONNECTION = null;
 
 	/**
@@ -20,30 +16,30 @@ public class DBActions {
 	 */
 	private DBActions() {}
 
-
-	public static void initConnection(String url, String username, String password) {
-		// Do not (re)load the database if not necessary
+	public static void initConnection() {
+		// Do not reload the database connection if already loaded
 		if (DB_CONNECTION != null) {
 			return;
 		}
 
-		DB_URL = url;
-		DB_USERNAME = username;
-		DB_PASSWORD = password;
+		Properties dbProps = DBActions.getDBProperties();
+		String url = dbProps.getProperty("dbUrl");
+		String user = dbProps.getProperty("dbUser");
+		String pwd = dbProps.getProperty("dbPassword");
 
 		try {
 			Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+
+			DB_CONNECTION = DriverManager.getConnection(url, user, pwd);
 		} catch (ClassNotFoundException e) {
 			System.out.println("An error occurred while instantiating Derby JDBC driver");
 			e.printStackTrace();
-		}
-
-		try {
-			DB_CONNECTION = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
 		} catch (SQLException e) {
+			System.out.println("An error occurred while gathering a database connection");
 			e.printStackTrace();
 		}
 	}
+
 
 	/**
 	 * Get a {@link Properties} object representing database connection information
