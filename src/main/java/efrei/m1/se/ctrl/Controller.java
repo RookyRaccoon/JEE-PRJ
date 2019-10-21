@@ -15,7 +15,11 @@ import static efrei.m1.se.utils.Constants.*;
 public class Controller extends HttpServlet {
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse res) {
-		this.sendToLoginPage(req, res);
+		if (AuthenticatorService.isAuthenticated(req)) {
+			this.sendToPage(JSP_HOME, req, res);
+		} else {
+			this.sendToPage(JSP_LOGIN, req, res);
+		}
 	}
 
 	@Override
@@ -26,7 +30,7 @@ public class Controller extends HttpServlet {
 			System.out.println("Logged in user tried to access homepage");
 
 			// TODO: redirect user to the home page accordingly to his type and remove the following line
-			this.sendToLoginPage(req, res);
+			this.sendToPage(JSP_HOME, req, res);
 		} else {
 			// Check if request was sent to path /login
 			if (req.getServletPath().equals("/login")) {
@@ -38,16 +42,35 @@ public class Controller extends HttpServlet {
 				}
 			}
 
-			this.sendToLoginPage(req, res);
+			this.redirectToHome(req, res);
 		}
 	}
 
-
-	private void sendToLoginPage(HttpServletRequest req, HttpServletResponse res) {
+	/**
+	 * Makes a forwarding to the passed in JSP
+	 * @param jspPath Path to the JSP to redirect to
+	 * @param req Incoming request.
+	 * @param res Outgoing response.
+	 */
+	private void sendToPage(String jspPath, HttpServletRequest req, HttpServletResponse res) {
 		try {
-			this.getServletContext().getRequestDispatcher(JSP_LOGIN).forward(req, res);
+			this.getServletContext().getRequestDispatcher(jspPath).forward(req, res);
 		} catch (ServletException | IOException e) {
 			e.printStackTrace();
 		}
 	}
+
+	/**
+	 * Redirects the user to the home page (list of users).
+	 * @param req Incoming request.
+	 * @param res Outgoing response.
+	 */
+	private void redirectToHome(HttpServletRequest req, HttpServletResponse res) {
+		try {
+			res.sendRedirect(req.getContextPath());
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+	}
+
 }
