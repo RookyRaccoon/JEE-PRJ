@@ -36,4 +36,12 @@ public class AuthenticatorService {
 
 		req.setAttribute("connectionFailed", true);
 	}
+
+	/**
+	 * Logs a user out
+	 * @param req Incoming request.
+	 */
+	public static void logout(HttpServletRequest req) {
+		req.getSession().invalidate();
+	}
 }
