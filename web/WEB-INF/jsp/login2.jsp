@@ -24,7 +24,7 @@
 	<link rel="stylesheet" href="${architectUI}/pe-icon-7-stroke/css/pe-icon-7-stroke.css"/>
 	<link rel="stylesheet" href="${architectUI}/pe-icon-7-stroke/css/helper.css"/>
 
-	<script src="https://kit.fontawesome.com/05417d287a.js" crossorigin="anonymous"></script>
+<%--	<script src="https://kit.fontawesome.com/05417d287a.js" crossorigin="anonymous"></script>--%>  <!-- TODO: determine if needed -->
 
 	<title>Employees</title>
 </head>
