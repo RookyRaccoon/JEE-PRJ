@@ -6,7 +6,9 @@ public class Constants {
 	 */
 	private Constants() {}
 
-	public static final String JSP_LOGIN = "/WEB-INF/jsp/login2.jsp";
+	public static final String JSP_LOGIN = "/WEB-INF/jsp/login.jsp";
+	public static final String JSP_DETAILS = "/WEB-INF/jsp/details.jsp";
+	public static final String JSP_HOME = "/WEB-INF/jsp/home.jsp";
 
 
 	public static final String DEFAULT_ADMIN_USERNAME = "admin";
