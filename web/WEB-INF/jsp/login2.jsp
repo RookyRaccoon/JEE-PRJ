@@ -31,7 +31,7 @@
 	<script src="https://kit.fontawesome.com/05417d287a.js" crossorigin="anonymous"></script>
 </head>
 <body>
-<div class="app-container app-theme-white body-tabs-shadow fixed-sidebar">
+<div class="app-container app-theme-white body-tabs-shadow fixed-sidebar closed-sidebar">
 
 	<!-- Header -->
 	<div class="app-header header-shadow">
@@ -41,30 +41,36 @@
 				<div>
 					<button type="button" class="hamburger close-sidebar-btn hamburger--elastic" data-class="closed-sidebar">
             <span class="hamburger-box">
-                <span class="hamburger-inner"></span>
+              <span class="hamburger-inner"></span>
             </span>
 					</button>
 				</div>
 			</div>
 		</div>
+
+		<!-- Mobile header -->
 		<div class="app-header__mobile-menu">
 			<div>
 				<button type="button" class="hamburger hamburger--elastic mobile-toggle-nav">
           <span class="hamburger-box">
-              <span class="hamburger-inner"></span>
+            <span class="hamburger-inner"></span>
           </span>
 				</button>
 			</div>
 		</div>
+
 		<div class="app-header__menu">
       <span>
-        <button type="button" class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav">
+	      <!-- Mobile disconnect button -->
+        <button type="button" class="btn-icon btn-icon-only btn btn-primary btn-sm">
           <span class="btn-icon-wrapper">
-            <i class="fa fa-ellipsis-v fa-w-6"></i>
+            <i class="text-white pe-7s-power pe-2x pr-1 pl-1"></i>
           </span>
         </button>
+
       </span>
 		</div>
+
 		<div class="app-header__content">
 			<div class="app-header-left"></div>
 			<div class="app-header-right">
@@ -90,12 +96,10 @@
 	</div>
 
 
-	<!-- Main content -->
 	<div class="app-main">
 		<!-- Sidebar -->
 		<div class="app-sidebar sidebar-shadow">
 			<div class="app-header__logo">
-				<div class="logo-src"></div>
 				<div class="header__pane ml-auto">
 					<div>
 						<button type="button" class="hamburger close-sidebar-btn hamburger--elastic" data-class="closed-sidebar">
@@ -134,8 +138,8 @@
 						<li class="app-sidebar__heading">Sidebar section title</li>
 						<li class="mm-active">
 							<a href="${pageContext.request.contextPath}">
-								<i class="metismenu-icon pe-7s-display2"></i>
-								Tables
+								<i class="metismenu-icon pe-7s-users"></i>
+								Users
 							</a>
 						</li>
 
@@ -151,7 +155,7 @@
 			</div>
 		</div>
 
-
+		<!-- Main content -->
 		<div class="app-main__outer">
 			<div class="app-main__inner">
 				<div class="app-page-title">
@@ -160,12 +164,12 @@
 						<!-- Page title -->
 						<div class="page-title-heading">
 							<div class="page-title-icon">
-								<i class="pe-7s-drawer icon-gradient bg-happy-itmeo"></i>
+								<i class="pe-7s-users icon-gradient bg-happy-itmeo"></i>
 							</div>
 							<div>
-								Regular Tables
+								Users
 								<div class="page-title-subheading">
-									Tables are the backbone of almost all web applications.
+									List of users of the company.
 								</div>
 							</div>
 						</div>
@@ -178,321 +182,42 @@
 				</div>
 
 				<div class="row">
-
-					<div class="col-lg-6">
+					<div class="col-12">
 						<div class="main-card mb-3 card">
 							<div class="card-body">
-								<h5 class="card-title">Simple table</h5>
-								<table class="mb-0 table">
-									<thead>
-									<tr>
-										<th>#</th>
-										<th>First Name</th>
-										<th>Last Name</th>
-										<th>Username</th>
-									</tr>
-									</thead>
-									<tbody>
-									<tr>
-										<th scope="row">1</th>
-										<td>Mark</td>
-										<td>Otto</td>
-										<td>@mdo</td>
-									</tr>
-									<tr>
-										<th scope="row">2</th>
-										<td>Jacob</td>
-										<td>Thornton</td>
-										<td>@fat</td>
-									</tr>
-									<tr>
-										<th scope="row">3</th>
-										<td>Larry</td>
-										<td>the Bird</td>
-										<td>@twitter</td>
-									</tr>
-									</tbody>
-								</table>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-lg-6">
-						<div class="main-card mb-3 card">
-							<div class="card-body">
-								<h5 class="card-title">Table bordered</h5>
-								<table class="mb-0 table table-bordered">
-									<thead>
-									<tr>
-										<th>#</th>
-										<th>First Name</th>
-										<th>Last Name</th>
-										<th>Username</th>
-									</tr>
-									</thead>
-									<tbody>
-									<tr>
-										<th scope="row">1</th>
-										<td>Mark</td>
-										<td>Otto</td>
-										<td>@mdo</td>
-									</tr>
-									<tr>
-										<th scope="row">2</th>
-										<td>Jacob</td>
-										<td>Thornton</td>
-										<td>@fat</td>
-									</tr>
-									<tr>
-										<th scope="row">3</th>
-										<td>Larry</td>
-										<td>the Bird</td>
-										<td>@twitter</td>
-									</tr>
-									</tbody>
-								</table>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-lg-6">
-						<div class="main-card mb-3 card">
-							<div class="card-body">
-								<h5 class="card-title">Table without border</h5>
-								<table class="mb-0 table table-borderless">
-									<thead>
-									<tr>
-										<th>#</th>
-										<th>First Name</th>
-										<th>Last Name</th>
-										<th>Username</th>
-									</tr>
-									</thead>
-									<tbody>
-									<tr>
-										<th scope="row">1</th>
-										<td>Mark</td>
-										<td>Otto</td>
-										<td>@mdo</td>
-									</tr>
-									<tr>
-										<th scope="row">2</th>
-										<td>Jacob</td>
-										<td>Thornton</td>
-										<td>@fat</td>
-									</tr>
-									<tr>
-										<th scope="row">3</th>
-										<td>Larry</td>
-										<td>the Bird</td>
-										<td>@twitter</td>
-									</tr>
-									</tbody>
-								</table>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-lg-6">
-						<div class="main-card mb-3 card">
-							<div class="card-body">
-								<h5 class="card-title">Table dark</h5>
-								<table class="mb-0 table table-dark">
-									<thead>
-									<tr>
-										<th>#</th>
-										<th>First Name</th>
-										<th>Last Name</th>
-										<th>Username</th>
-									</tr>
-									</thead>
-									<tbody>
-									<tr>
-										<th scope="row">1</th>
-										<td>Mark</td>
-										<td>Otto</td>
-										<td>@mdo</td>
-									</tr>
-									<tr>
-										<th scope="row">2</th>
-										<td>Jacob</td>
-										<td>Thornton</td>
-										<td>@fat</td>
-									</tr>
-									<tr>
-										<th scope="row">3</th>
-										<td>Larry</td>
-										<td>the Bird</td>
-										<td>@twitter</td>
-									</tr>
-									</tbody>
-								</table>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-lg-6">
-						<div class="main-card mb-3 card">
-							<div class="card-body">
-								<h5 class="card-title">Table with hover</h5>
-								<table class="mb-0 table table-hover">
-									<thead>
-									<tr>
-										<th>#</th>
-										<th>First Name</th>
-										<th>Last Name</th>
-										<th>Username</th>
-									</tr>
-									</thead>
-									<tbody>
-									<tr>
-										<th scope="row">1</th>
-										<td>Mark</td>
-										<td>Otto</td>
-										<td>@mdo</td>
-									</tr>
-									<tr>
-										<th scope="row">2</th>
-										<td>Jacob</td>
-										<td>Thornton</td>
-										<td>@fat</td>
-									</tr>
-									<tr>
-										<th scope="row">3</th>
-										<td>Larry</td>
-										<td>the Bird</td>
-										<td>@twitter</td>
-									</tr>
-									</tbody>
-								</table>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-lg-6">
-						<div class="main-card mb-3 card">
-							<div class="card-body">
-								<h5 class="card-title">Table responsive</h5>
+								<h5 class="card-title">Table striped</h5>
 								<div class="table-responsive">
-									<table class="mb-0 table">
+									<table class="mb-0 table table-striped table-hover">
 										<thead>
 										<tr>
 											<th>#</th>
-											<th>Table heading</th>
-											<th>Table heading</th>
-											<th>Table heading</th>
-											<th>Table heading</th>
-											<th>Table heading</th>
-											<th>Table heading</th>
+											<th>First Name</th>
+											<th>Last Name</th>
+											<th>Username</th>
 										</tr>
 										</thead>
 										<tbody>
 										<tr>
 											<th scope="row">1</th>
-											<td>Table cell</td>
-											<td>Table cell</td>
-											<td>Table cell</td>
-											<td>Table cell</td>
-											<td>Table cell</td>
-											<td>Table cell</td>
+											<td>Mark</td>
+											<td>Otto</td>
+											<td>@mdo</td>
 										</tr>
 										<tr>
 											<th scope="row">2</th>
-											<td>Table cell</td>
-											<td>Table cell</td>
-											<td>Table cell</td>
-											<td>Table cell</td>
-											<td>Table cell</td>
-											<td>Table cell</td>
+											<td>Jacob</td>
+											<td>Thornton</td>
+											<td>@fat</td>
 										</tr>
 										<tr>
 											<th scope="row">3</th>
-											<td>Table cell</td>
-											<td>Table cell</td>
-											<td>Table cell</td>
-											<td>Table cell</td>
-											<td>Table cell</td>
-											<td>Table cell</td>
+											<td>Larry</td>
+											<td>the Bird</td>
+											<td>@twitter</td>
 										</tr>
 										</tbody>
 									</table>
 								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-lg-6">
-						<div class="main-card mb-3 card">
-							<div class="card-body">
-								<h5 class="card-title">Table sizing</h5>
-								<table class="mb-0 table table-sm">
-									<thead>
-									<tr>
-										<th>#</th>
-										<th>First Name</th>
-										<th>Last Name</th>
-										<th>Username</th>
-									</tr>
-									</thead>
-									<tbody>
-									<tr>
-										<th scope="row">1</th>
-										<td>Mark</td>
-										<td>Otto</td>
-										<td>@mdo</td>
-									</tr>
-									<tr>
-										<th scope="row">2</th>
-										<td>Jacob</td>
-										<td>Thornton</td>
-										<td>@fat</td>
-									</tr>
-									<tr>
-										<th scope="row">3</th>
-										<td>Larry</td>
-										<td>the Bird</td>
-										<td>@twitter</td>
-									</tr>
-									</tbody>
-								</table>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-lg-6">
-						<div class="main-card mb-3 card">
-							<div class="card-body">
-								<h5 class="card-title">Table striped</h5>
-								<table class="mb-0 table table-striped">
-									<thead>
-									<tr>
-										<th>#</th>
-										<th>First Name</th>
-										<th>Last Name</th>
-										<th>Username</th>
-									</tr>
-									</thead>
-									<tbody>
-									<tr>
-										<th scope="row">1</th>
-										<td>Mark</td>
-										<td>Otto</td>
-										<td>@mdo</td>
-									</tr>
-									<tr>
-										<th scope="row">2</th>
-										<td>Jacob</td>
-										<td>Thornton</td>
-										<td>@fat</td>
-									</tr>
-									<tr>
-										<th scope="row">3</th>
-										<td>Larry</td>
-										<td>the Bird</td>
-										<td>@twitter</td>
-									</tr>
-									</tbody>
-								</table>
 							</div>
 						</div>
 					</div>
