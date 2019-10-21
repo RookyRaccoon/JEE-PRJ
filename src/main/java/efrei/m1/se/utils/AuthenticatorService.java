@@ -22,7 +22,7 @@ public class AuthenticatorService {
 	}
 
 
-	public static void defaultLogin(HttpServletRequest req) {
+	public static boolean defaultLogin(HttpServletRequest req) {
 		final String username = req.getParameter("username");
 		final String password = req.getParameter("password");
 
@@ -31,10 +31,11 @@ public class AuthenticatorService {
 
 			req.getSession().setAttribute("username", username);
 
-			return;
+			return true;
 		}
 
 		req.setAttribute("connectionFailed", true);
+		return false;
 	}
 
 	/**

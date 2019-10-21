@@ -52,7 +52,11 @@ public class Controller extends HttpServlet {
 				try {
 					LoginForm.login(req);
 				} catch (NotImplementedException e) {
-					AuthenticatorService.defaultLogin(req);  // TODO: remove this line once LoginForm.login is fully implemented
+					// TODO: remove this line once LoginForm.login is fully implemented
+					if (!AuthenticatorService.defaultLogin(req)) {  // If authentication failed
+						this.sendToPage(JSP_LOGIN, req, res);
+						return;  // To avoid errors
+					}
 				}
 			}
 
