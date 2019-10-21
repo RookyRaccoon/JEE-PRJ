@@ -28,7 +28,8 @@ public class AuthenticatorService {
 
 		if (username.equals(DEFAULT_ADMIN_USERNAME) && password.equals(DEFAULT_ADMIN_PASSWORD)) {
 			req.setAttribute("connectionFailed", false);
-			// TODO: set the session and redirect the user
+
+			req.getSession().setAttribute("username", username);
 
 			return;
 		}
