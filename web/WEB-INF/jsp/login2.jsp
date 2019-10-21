@@ -31,7 +31,7 @@
 	<script src="https://kit.fontawesome.com/05417d287a.js" crossorigin="anonymous"></script>
 </head>
 <body>
-<div class="app-container app-theme-white body-tabs-shadow fixed-sidebar closed-sidebar closed-sidebar-mobile">
+<div class="app-container app-theme-white body-tabs-shadow fixed-sidebar closed-sidebar closed-sidebar-mobile fixed-header">
 
 	<!-- Header -->
 	<div class="app-header header-shadow">
@@ -64,7 +64,7 @@
 	      <!-- Mobile disconnect button -->
         <button type="button" class="btn-icon btn-icon-only btn btn-primary btn-sm">
           <span class="btn-icon-wrapper">
-            <i class="text-white pe-7s-power pe-2x pr-1 pl-1"></i>
+            <i class="text-white pe-7s-power pe-inverse pe-2x pr-1 pl-1"></i>
           </span>
         </button>
 
@@ -77,14 +77,15 @@
 				<div class="header-btn-lg pr-0">
 					<div class="widget-content p-0">
 						<div class="widget-content-wrapper">
+							<div class="widget-content-left mr-2">
+								<span>Hello, User</span>
+							</div>
 							<div class="widget-content-left">
 								<div class="btn-group">
-
 									<!-- Disconnect button -->
-									<button type="button" class="btn-shadow p-1 btn btn-primary btn-sm show-toastr-example">
+									<button type="button" data-toggle="tooltip" title="Disconnect" data-placement="left" class="btn-shadow p-1 btn btn-primary btn-sm">
 										<i class="text-white pe-7s-power pe-2x pr-1 pl-1"></i>
 									</button>
-
 								</div>
 							</div>
 							<div class="widget-content-right header-user-info ml-3"></div>
@@ -168,14 +169,11 @@
 							</div>
 							<div>
 								Users
-								<div class="page-title-subheading">
-									List of users of the company.
-								</div>
 							</div>
 						</div>
 						<div class="page-title-actions">
-							<button type="button" data-toggle="tooltip" title="Example Tooltip" data-placement="bottom" class="btn-shadow mr-3 btn btn-dark">
-								<i class="fa fa-star"></i>
+							<button type="button" data-toggle="tooltip" title="Add a user" data-placement="left" class="btn-shadow mr-3 btn btn-dark">
+								<i class="pe-7s-plus pe-2x align-middle"></i>
 							</button>
 						</div>
 					</div>
@@ -185,9 +183,9 @@
 					<div class="col-12">
 						<div class="main-card mb-3 card">
 							<div class="card-body">
-								<h5 class="card-title">Table striped</h5>
+								<h5 class="card-title">Users</h5>
 								<div class="table-responsive">
-									<table class="mb-0 table table-striped table-hover">
+									<table class="mb-0 table table-striped table-hover" id="users-table">
 										<thead>
 										<tr>
 											<th>#</th>
@@ -229,20 +227,7 @@
 			<div class="app-wrapper-footer">
 				<div class="app-footer">
 					<div class="app-footer__inner">
-						<div class="app-footer-left">
-							<ul class="nav">
-								<li class="nav-item">
-									<a href="javascript:void(0);" class="nav-link">
-										Footer Link 1
-									</a>
-								</li>
-								<li class="nav-item">
-									<a href="javascript:void(0);" class="nav-link">
-										Footer Link 2
-									</a>
-								</li>
-							</ul>
-						</div>
+						<div class="app-footer-left"></div>
 						<div class="app-footer-right">
 							<ul class="nav">
 								<li class="nav-item">
