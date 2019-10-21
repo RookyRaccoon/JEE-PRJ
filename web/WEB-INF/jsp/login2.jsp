@@ -8,7 +8,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta http-equiv="Content-Language" content="en">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-	<title>Regular Tables - Tables are the backbone of almost all web applications.</title>
+	<title>Employees</title>
 	<meta name="viewport"
 	      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no"/>
 	<meta name="description" content="Tables are the backbone of almost all web applications.">
@@ -25,22 +25,24 @@
 	-->
 	<link href="${architectUI}/main.css" rel="stylesheet">
 
-	<link rel="stylesheet" href="${architectUI}/pe-icon-7-stroke/css/pe-icon-7-stroke.css" />
-	<link rel="stylesheet" href="${architectUI}/pe-icon-7-stroke/css/helper.css" />
+	<link rel="stylesheet" href="${architectUI}/pe-icon-7-stroke/css/pe-icon-7-stroke.css"/>
+	<link rel="stylesheet" href="${architectUI}/pe-icon-7-stroke/css/helper.css"/>
 
 	<script src="https://kit.fontawesome.com/05417d287a.js" crossorigin="anonymous"></script>
 </head>
 <body>
 <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar">
+
+	<!-- Header -->
 	<div class="app-header header-shadow">
 		<div class="app-header__logo">
 			<div class="logo-src"></div>
 			<div class="header__pane ml-auto">
 				<div>
 					<button type="button" class="hamburger close-sidebar-btn hamburger--elastic" data-class="closed-sidebar">
-                            <span class="hamburger-box">
-                                <span class="hamburger-inner"></span>
-                            </span>
+            <span class="hamburger-box">
+                <span class="hamburger-inner"></span>
+            </span>
 					</button>
 				</div>
 			</div>
@@ -48,21 +50,20 @@
 		<div class="app-header__mobile-menu">
 			<div>
 				<button type="button" class="hamburger hamburger--elastic mobile-toggle-nav">
-                        <span class="hamburger-box">
-                            <span class="hamburger-inner"></span>
-                        </span>
+          <span class="hamburger-box">
+              <span class="hamburger-inner"></span>
+          </span>
 				</button>
 			</div>
 		</div>
 		<div class="app-header__menu">
-                <span>
-                    <button type="button"
-                            class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav">
-                        <span class="btn-icon-wrapper">
-                            <i class="fa fa-ellipsis-v fa-w-6"></i>
-                        </span>
-                    </button>
-                </span>
+      <span>
+        <button type="button" class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav">
+          <span class="btn-icon-wrapper">
+            <i class="fa fa-ellipsis-v fa-w-6"></i>
+          </span>
+        </button>
+      </span>
 		</div>
 		<div class="app-header__content">
 			<div class="app-header-left"></div>
@@ -80,47 +81,50 @@
 
 								</div>
 							</div>
-							<div class="widget-content-right header-user-info ml-3">
-
-							</div>
+							<div class="widget-content-right header-user-info ml-3"></div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+
+
+	<!-- Main content -->
 	<div class="app-main">
+		<!-- Sidebar -->
 		<div class="app-sidebar sidebar-shadow">
 			<div class="app-header__logo">
 				<div class="logo-src"></div>
 				<div class="header__pane ml-auto">
 					<div>
 						<button type="button" class="hamburger close-sidebar-btn hamburger--elastic" data-class="closed-sidebar">
-                                    <span class="hamburger-box">
-                                        <span class="hamburger-inner"></span>
-                                    </span>
+              <span class="hamburger-box">
+                <span class="hamburger-inner"></span>
+              </span>
 						</button>
 					</div>
 				</div>
 			</div>
+
 			<div class="app-header__mobile-menu">
 				<div>
 					<button type="button" class="hamburger hamburger--elastic mobile-toggle-nav">
-                                <span class="hamburger-box">
-                                    <span class="hamburger-inner"></span>
-                                </span>
+            <span class="hamburger-box">
+              <span class="hamburger-inner"></span>
+            </span>
 					</button>
 				</div>
 			</div>
+
 			<div class="app-header__menu">
-                        <span>
-                            <button type="button"
-                                    class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav">
-                                <span class="btn-icon-wrapper">
-                                    <i class="fa fa-ellipsis-v fa-w-6"></i>
-                                </span>
-                            </button>
-                        </span>
+        <span>
+          <button type="button" class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav">
+            <span class="btn-icon-wrapper">
+              <i class="fa fa-ellipsis-v fa-w-6"></i>
+            </span>
+          </button>
+        </span>
 			</div>
 
 
@@ -146,6 +150,8 @@
 				</div>
 			</div>
 		</div>
+
+
 		<div class="app-main__outer">
 			<div class="app-main__inner">
 				<div class="app-page-title">
@@ -161,16 +167,14 @@
 							</div>
 						</div>
 						<div class="page-title-actions">
-							<button type="button" data-toggle="tooltip" title="Example Tooltip" data-placement="bottom"
-							        class="btn-shadow mr-3 btn btn-dark">
+							<button type="button" data-toggle="tooltip" title="Example Tooltip" data-placement="bottom" class="btn-shadow mr-3 btn btn-dark">
 								<i class="fa fa-star"></i>
 							</button>
 							<div class="d-inline-block dropdown">
-								<button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-								        class="btn-shadow dropdown-toggle btn btn-info">
-                                            <span class="btn-icon-wrapper pr-2 opacity-7">
-                                                <i class="fa fa-business-time fa-w-20"></i>
-                                            </span>
+								<button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn-shadow dropdown-toggle btn btn-info">
+                  <span class="btn-icon-wrapper pr-2 opacity-7">
+                    <i class="fa fa-business-time fa-w-20"></i>
+                  </span>
 									Buttons
 								</button>
 								<div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
@@ -179,8 +183,8 @@
 											<a href="javascript:void(0);" class="nav-link">
 												<i class="nav-link-icon lnr-inbox"></i>
 												<span>
-                                                            Inbox
-                                                        </span>
+                          Inbox
+                        </span>
 												<div class="ml-auto badge badge-pill badge-secondary">86</div>
 											</a>
 										</li>
@@ -188,8 +192,8 @@
 											<a href="javascript:void(0);" class="nav-link">
 												<i class="nav-link-icon lnr-book"></i>
 												<span>
-                                                            Book
-                                                        </span>
+                          Book
+	                      </span>
 												<div class="ml-auto badge badge-pill badge-danger">5</div>
 											</a>
 										</li>
@@ -197,16 +201,16 @@
 											<a href="javascript:void(0);" class="nav-link">
 												<i class="nav-link-icon lnr-picture"></i>
 												<span>
-                                                            Picture
-                                                        </span>
+                          Picture
+                        </span>
 											</a>
 										</li>
 										<li class="nav-item">
 											<a disabled href="javascript:void(0);" class="nav-link disabled">
 												<i class="nav-link-icon lnr-file-empty"></i>
 												<span>
-                                                            File Disabled
-                                                        </span>
+                          File Disabled
+                        </span>
 											</a>
 										</li>
 									</ul>
@@ -215,10 +219,13 @@
 						</div>
 					</div>
 				</div>
+
 				<div class="row">
+
 					<div class="col-lg-6">
 						<div class="main-card mb-3 card">
-							<div class="card-body"><h5 class="card-title">Simple table</h5>
+							<div class="card-body">
+								<h5 class="card-title">Simple table</h5>
 								<table class="mb-0 table">
 									<thead>
 									<tr>
@@ -252,9 +259,11 @@
 							</div>
 						</div>
 					</div>
+
 					<div class="col-lg-6">
 						<div class="main-card mb-3 card">
-							<div class="card-body"><h5 class="card-title">Table bordered</h5>
+							<div class="card-body">
+								<h5 class="card-title">Table bordered</h5>
 								<table class="mb-0 table table-bordered">
 									<thead>
 									<tr>
@@ -288,9 +297,11 @@
 							</div>
 						</div>
 					</div>
+
 					<div class="col-lg-6">
 						<div class="main-card mb-3 card">
-							<div class="card-body"><h5 class="card-title">Table without border</h5>
+							<div class="card-body">
+								<h5 class="card-title">Table without border</h5>
 								<table class="mb-0 table table-borderless">
 									<thead>
 									<tr>
@@ -324,9 +335,11 @@
 							</div>
 						</div>
 					</div>
+
 					<div class="col-lg-6">
 						<div class="main-card mb-3 card">
-							<div class="card-body"><h5 class="card-title">Table dark</h5>
+							<div class="card-body">
+								<h5 class="card-title">Table dark</h5>
 								<table class="mb-0 table table-dark">
 									<thead>
 									<tr>
@@ -360,9 +373,11 @@
 							</div>
 						</div>
 					</div>
+
 					<div class="col-lg-6">
 						<div class="main-card mb-3 card">
-							<div class="card-body"><h5 class="card-title">Table with hover</h5>
+							<div class="card-body">
+								<h5 class="card-title">Table with hover</h5>
 								<table class="mb-0 table table-hover">
 									<thead>
 									<tr>
@@ -396,9 +411,11 @@
 							</div>
 						</div>
 					</div>
+
 					<div class="col-lg-6">
 						<div class="main-card mb-3 card">
-							<div class="card-body"><h5 class="card-title">Table responsive</h5>
+							<div class="card-body">
+								<h5 class="card-title">Table responsive</h5>
 								<div class="table-responsive">
 									<table class="mb-0 table">
 										<thead>
@@ -446,9 +463,11 @@
 							</div>
 						</div>
 					</div>
+
 					<div class="col-lg-6">
 						<div class="main-card mb-3 card">
-							<div class="card-body"><h5 class="card-title">Table sizing</h5>
+							<div class="card-body">
+								<h5 class="card-title">Table sizing</h5>
 								<table class="mb-0 table table-sm">
 									<thead>
 									<tr>
@@ -482,9 +501,11 @@
 							</div>
 						</div>
 					</div>
+
 					<div class="col-lg-6">
 						<div class="main-card mb-3 card">
-							<div class="card-body"><h5 class="card-title">Table striped</h5>
+							<div class="card-body">
+								<h5 class="card-title">Table striped</h5>
 								<table class="mb-0 table table-striped">
 									<thead>
 									<tr>
@@ -520,6 +541,9 @@
 					</div>
 				</div>
 			</div>
+
+
+			<!-- Footer -->
 			<div class="app-wrapper-footer">
 				<div class="app-footer">
 					<div class="app-footer__inner">
