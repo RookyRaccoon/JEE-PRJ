@@ -1,4 +1,3 @@
-<%--suppress XmlPathReference --%>
 <c:url var="bootstrapCSS" value="/static/bootstrap-4.3.1/css/bootstrap.min.css"/>
 <c:url var="loginUrl" value="/login"/>
 
