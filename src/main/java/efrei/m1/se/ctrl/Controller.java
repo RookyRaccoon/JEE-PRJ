@@ -15,21 +15,35 @@ import static efrei.m1.se.utils.Constants.*;
 public class Controller extends HttpServlet {
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse res) {
-		if (AuthenticatorService.isAuthenticated(req)) {
-			this.sendToPage(JSP_HOME, req, res);
-		} else {
-			this.sendToPage(JSP_LOGIN, req, res);
+		switch (req.getServletPath()) {
+			case "/":
+				if (AuthenticatorService.isAuthenticated(req)) {
+					this.sendToPage(JSP_HOME, req, res);
+				} else {
+					this.sendToPage(JSP_LOGIN, req, res);
+				}
+				break;
+
+			case "/logout":
+				if(AuthenticatorService.isAuthenticated(req)) {
+					AuthenticatorService.logout(req);
+					this.sendToPage(JSP_GOODBYE, req, res);
+				} else {
+					this.redirectToHome(req, res);
+				}
+				break;
+
+			default:
+				this.redirectToHome(req, res);  // Redirects the user to "/", this URL shouldn't be GET
+				break;
 		}
 	}
+
 
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse res) {
 		if (AuthenticatorService.isAuthenticated(req)) {
-			// TODO: analyze user type
-
-			System.out.println("Logged in user tried to access homepage");
-
-			// TODO: redirect user to the home page accordingly to his type and remove the following line
+			// TODO: redirect user to the home page accordingly to his type
 			this.sendToPage(JSP_HOME, req, res);
 		} else {
 			// Check if request was sent to path /login
