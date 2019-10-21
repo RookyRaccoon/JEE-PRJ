@@ -31,7 +31,7 @@
 	<script src="https://kit.fontawesome.com/05417d287a.js" crossorigin="anonymous"></script>
 </head>
 <body>
-<div class="app-container app-theme-white body-tabs-shadow fixed-sidebar closed-sidebar">
+<div class="app-container app-theme-white body-tabs-shadow fixed-sidebar closed-sidebar closed-sidebar-mobile">
 
 	<!-- Header -->
 	<div class="app-header header-shadow">
