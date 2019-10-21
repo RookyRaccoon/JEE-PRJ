@@ -63,8 +63,8 @@
       <span>
 	      <!-- Mobile disconnect button -->
         <button type="button" class="btn-icon btn-icon-only btn btn-primary btn-sm">
-          <span class="btn-icon-wrapper">
-            <i class="text-white pe-7s-power pe-inverse pe-2x pr-1 pl-1"></i>
+          <span class="btn-icon-wrapper text-center">
+            <i class="text-white pe-7s-power pe-inverse pe-2x px-1 align-middle"></i>
           </span>
         </button>
 
@@ -77,14 +77,14 @@
 				<div class="header-btn-lg pr-0">
 					<div class="widget-content p-0">
 						<div class="widget-content-wrapper">
-							<div class="widget-content-left mr-2">
+							<div class="widget-content-left mr-4">
 								<span>Hello, User</span>
 							</div>
 							<div class="widget-content-left">
 								<div class="btn-group">
 									<!-- Disconnect button -->
 									<button type="button" data-toggle="tooltip" title="Disconnect" data-placement="left" class="btn-shadow p-1 btn btn-primary btn-sm">
-										<i class="text-white pe-7s-power pe-2x pr-1 pl-1"></i>
+										<i class="text-white pe-7s-power pe-2x p-1 align-middle"></i>
 									</button>
 								</div>
 							</div>
@@ -216,6 +216,9 @@
 										</tbody>
 									</table>
 								</div>
+							</div>
+							<div class="card-footer">
+								<a href="#" class="btn btn-primary">Test</a>
 							</div>
 						</div>
 					</div>
