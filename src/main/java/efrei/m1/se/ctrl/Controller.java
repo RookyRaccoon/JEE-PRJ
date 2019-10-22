@@ -15,6 +15,7 @@ import static efrei.m1.se.utils.Constants.*;
 public class Controller extends HttpServlet {
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse res) {
+		// Pick the right action to perform based on the route (URL)
 		switch (req.getServletPath()) {
 			case "/":
 				handleGetRoot(req, res);
@@ -53,7 +54,7 @@ public class Controller extends HttpServlet {
 				}
 				break;
 
-			default:  // Redirect all unbound requests to home page as a GET request
+			default:  // Redirect all unbound requests to home page ("/") as a GET request
 				this.redirectToHome(req, res);
 				break;
 		}
