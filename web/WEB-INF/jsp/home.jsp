@@ -1,5 +1,6 @@
 <c:url var="architectUI" value="/static/architect-ui"/>
 <c:url var="logoutUrl" value="/logout" />
+<c:url var="addUserUrl" value="/add-user" />
 
 <!DOCTYPE html>
 <html lang="en">
@@ -113,19 +114,18 @@
 			<div class="scrollbar-sidebar">
 				<div class="app-sidebar__inner">
 					<ul class="vertical-nav-menu">
-						<li class="app-sidebar__heading">Employees management</li>  <!-- TODO: update this title -->
+						<li class="app-sidebar__heading">Employees management</li>
 						<li class="mm-active">
-							<a href="${pageContext.request.contextPath}">
+							<a href="#">
 								<i class="metismenu-icon pe-7s-users"></i>
-								Users  <!-- TODO: update this title -->
+								List of employees
 							</a>
 						</li>
 
-						<!-- TODO: update this navigation item -->
 						<li>
-							<a href="${pageContext.request.contextPath}">
-								<i class="metismenu-icon pe-7s-note2"></i>
-								Dashboard Boxes
+							<a href="${addUserUrl}">
+								<i class="metismenu-icon pe-7s-add-user"></i>
+								Add a user
 							</a>
 						</li>
 					</ul>
@@ -146,15 +146,14 @@
 							</div>
 							<div>
 								<span>
-									Users  <!-- TODO: update page title -->
+									List of employees
 								</span>
 							</div>
 						</div>
 						<div class="page-title-actions">
 							<!-- "Add a user" button -->
-							<!-- TODO: make this button navigate to user creation page -->
-							<button type="button" data-toggle="tooltip" title="Add a user" data-placement="left" class="btn-shadow mr-lg-3 btn btn-dark">
-								<i class="pe-7s-plus pe-2x align-middle"></i>
+							<button type="button" data-toggle="tooltip" title="Add a user" data-placement="left" class="btn-shadow mr-lg-3 btn btn-dark" onclick="window.location.href='${addUserUrl}'">
+								<i class="pe-7s-add-user pe-2x align-middle"></i>
 							</button>
 						</div>
 					</div>

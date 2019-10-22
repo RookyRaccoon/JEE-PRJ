@@ -1,7 +1,8 @@
 <c:url var="architectUI" value="/static/architect-ui"/>
 <c:url var="logoutUrl" value="/logout" />
+<c:url var="addUserUrl" value="/add-user" />
+<c:url var="homeUrl" value="/" />
 
-<c:url var="logoutUrl" value="/logout" />
 
 <!DOCTYPE html>
 <html lang="en">
@@ -27,9 +28,7 @@
 	<link rel="stylesheet" href="${architectUI}/pe-icon-7-stroke/css/pe-icon-7-stroke.css"/>
 	<link rel="stylesheet" href="${architectUI}/pe-icon-7-stroke/css/helper.css"/>
 
-	<%--	<script src="https://kit.fontawesome.com/05417d287a.js" crossorigin="anonymous"></script>--%>  <!-- TODO: determine if needed -->
-
-	<title>Employee Details</title>
+	<title>Add Employee</title>
 </head>
 <body>
 <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar closed-sidebar closed-sidebar-mobile fixed-header">
@@ -55,7 +54,7 @@
           <span class="btn-icon-wrapper text-center">
             <i class="text-white pe-7s-power pe-inverse pe-2x px-1 align-middle"></i>
           </span>
-	        </a>
+        </button>
       </span>
 		</div>
 
@@ -67,14 +66,14 @@
 					<div class="widget-content p-0">
 						<div class="widget-content-wrapper">
 							<div class="widget-content-left mr-4">
-								<span>Hello, $username</span>  <!-- TODO: update $username here -->
+								<span>Hello, admin</span>
 							</div>
 							<div class="widget-content-left">
 								<div class="btn-group">
 									<!-- Disconnect button -->
 									<button type="button" data-toggle="tooltip" title="Disconnect" data-placement="left" class="btn-shadow p-1 btn btn-primary btn-sm" onclick="window.location.href='${logoutUrl}'">
 										<i class="text-white pe-7s-power pe-2x p-1 align-middle"></i>
-										</a>
+									</button>
 								</div>
 							</div>
 							<div class="widget-content-right header-user-info ml-3"></div>
@@ -115,19 +114,18 @@
 			<div class="scrollbar-sidebar">
 				<div class="app-sidebar__inner">
 					<ul class="vertical-nav-menu">
-						<li class="app-sidebar__heading">Employees management</li>  <!-- TODO: update this title -->
-						<li class="mm-active">
-							<a href="${pageContext.request.contextPath}">
+						<li class="app-sidebar__heading">Employees management</li>
+						<li>
+							<a href="${homeUrl}">
 								<i class="metismenu-icon pe-7s-users"></i>
-								Users  <!-- TODO: update this title -->
+								List of employees
 							</a>
 						</li>
 
-						<!-- TODO: update this navigation item -->
-						<li>
-							<a href="${pageContext.request.contextPath}">
+						<li class="mm-active">
+							<a href="#">
 								<i class="metismenu-icon pe-7s-note2"></i>
-								Dashboard Boxes
+								Add a user
 							</a>
 						</li>
 					</ul>
