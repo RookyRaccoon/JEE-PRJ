@@ -77,6 +77,15 @@ public class Controller extends HttpServlet {
 				}
 				break;
 
+			case "/add-user":
+				try {
+					handlePostAddUser(req, res);
+				} catch (NotImplementedException e) {
+					System.out.println("Adding a user is not implemented yet");
+					this.sendToPage(JSP_ADDUSER, req, res);
+				}
+				break;
+
 			default:  // Redirect all unbound requests to home page as a GET request
 				this.redirectToHome(req, res);
 				break;
@@ -113,5 +122,15 @@ public class Controller extends HttpServlet {
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
+	}
+
+
+	/**
+	 * Handles POST request made to "/add-user" endpoint
+	 * @param req Incoming request.
+	 * @param res Outgoing response.
+	 */
+	private void handlePostAddUser(HttpServletRequest req, HttpServletResponse res) {
+		throw new NotImplementedException();
 	}
 }
