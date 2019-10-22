@@ -17,21 +17,11 @@ public class Controller extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse res) {
 		switch (req.getServletPath()) {
 			case "/":
-				if (AuthenticatorService.isAuthenticated(req)) {
-					// TODO: check access rights
-					this.sendToPage(JSP_HOME, req, res);
-				} else {
-					this.sendToPage(JSP_LOGIN, req, res);
-				}
+				handleGetRoot(req, res);
 				break;
 
 			case "/logout":
-				if (AuthenticatorService.isAuthenticated(req)) {
-					AuthenticatorService.logout(req);
-					this.sendToPage(JSP_GOODBYE, req, res);
-				} else {
-					this.redirectToHome(req, res);
-				}
+				handleGetLogout(req, res);
 				break;
 
 			case "/add-user":
@@ -129,6 +119,35 @@ public class Controller extends HttpServlet {
 		if(!AuthenticatorService.login(req)) {
 			this.sendToPage(JSP_LOGIN, req, res);  // Send use to login page if authentication failed
 			return;
+		}
+	}
+
+
+	/**
+	 * Handles GET request made to "/" endpoint.
+	 * @param req Incoming request.
+	 * @param res Outgoing response.
+	 */
+	private void handleGetRoot(HttpServletRequest req, HttpServletResponse res) {
+		if (AuthenticatorService.isAuthenticated(req)) {
+			// TODO: check access rights
+			this.sendToPage(JSP_HOME, req, res);
+		} else {
+			this.sendToPage(JSP_LOGIN, req, res);
+		}
+	}
+
+	/**
+	 * Handles GET request made to "/logout" endpoint.
+	 * @param req Incoming request.
+	 * @param res Outgoing response.
+	 */
+	private void handleGetLogout(HttpServletRequest req, HttpServletResponse res) {
+		if (AuthenticatorService.isAuthenticated(req)) {
+			AuthenticatorService.logout(req);
+			this.sendToPage(JSP_GOODBYE, req, res);
+		} else {
+			this.redirectToHome(req, res);
 		}
 	}
 }
