@@ -61,21 +61,12 @@ public class Controller extends HttpServlet {
 				}
 
 				// Attempt to log the user in
-				// TODO: remove the try/catch block once LoginForm.login is fully implemented
-
-						if(!AuthenticatorService.login(req)) {
-							this.sendToPage(JSP_LOGIN, req, res);
-							return;
-						}
-					}
-				// TODO: remove this line once LoginForm.login is fully implemented
-					/*if (!AuthenticatorService.defaultLogin(req)) {  // If authentication failed
-						this.sendToPage(JSP_LOGIN, req, res);
-						return;  // To avoid errors
-					}*/
-					}
+				if(!AuthenticatorService.login(req)) {
+					this.sendToPage(JSP_LOGIN, req, res);  // Send use to login page if authentication failed
+					return;
 				}
 				break;
+
 
 			case "/add-user":
 				try {
@@ -91,9 +82,6 @@ public class Controller extends HttpServlet {
 				break;
 		}
 	}
-
-
-
 
 
 
