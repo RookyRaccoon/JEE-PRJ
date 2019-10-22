@@ -114,7 +114,8 @@ public class Controller extends HttpServlet {
 		// Attempt to log the user in
 		if(!AuthenticatorService.login(req)) {
 			this.sendToPage(JSP_LOGIN, req, res);  // Send use to login page if authentication failed
-			return;
+		} else {  // If authentication succeeded
+			this.redirectToHome(req, res);
 		}
 	}
 
