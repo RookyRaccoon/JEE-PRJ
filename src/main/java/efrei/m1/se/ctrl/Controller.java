@@ -18,6 +18,7 @@ public class Controller extends HttpServlet {
 		switch (req.getServletPath()) {
 			case "/":
 				if (AuthenticatorService.isAuthenticated(req)) {
+					// TODO: check access rights
 					this.sendToPage(JSP_HOME, req, res);
 				} else {
 					this.sendToPage(JSP_LOGIN, req, res);
@@ -25,11 +26,20 @@ public class Controller extends HttpServlet {
 				break;
 
 			case "/logout":
-				if(AuthenticatorService.isAuthenticated(req)) {
+				if (AuthenticatorService.isAuthenticated(req)) {
 					AuthenticatorService.logout(req);
 					this.sendToPage(JSP_GOODBYE, req, res);
 				} else {
 					this.redirectToHome(req, res);
+				}
+				break;
+
+			case "/add-user":
+				if (AuthenticatorService.isAuthenticated(req)) {
+					// TODO: check access rights
+					this.sendToPage(JSP_ADDUSER, req, res);
+				} else {
+					this.sendToPage(JSP_LOGIN, req, res);
 				}
 				break;
 
