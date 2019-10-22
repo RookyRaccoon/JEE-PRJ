@@ -52,13 +52,15 @@ public class Controller extends HttpServlet {
 
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse res) {
-		if (AuthenticatorService.isAuthenticated(req)) {
-			// TODO: redirect user to the home page accordingly to his type
+		switch(req.getServletPath()) {
+			case "/login":
+				// If user is already logged in, redirect him to home page
+				if (AuthenticatorService.isAuthenticated(req)) {
+					this.redirectToHome(req, res);
+					return;
+				}
 
-			this.sendToPage(JSP_HOME, req, res);
-		} else {
-			// Check if request was sent to path /login
-			if (req.getServletPath().equals("/login")) {
+				// Attempt to log the user in
 				// TODO: remove the try/catch block once LoginForm.login is fully implemented
 
 						if(!AuthenticatorService.login(req)) {
@@ -72,8 +74,13 @@ public class Controller extends HttpServlet {
 						return;  // To avoid errors
 					}*/
 					}
-		this.redirectToHome(req, res);
+				}
+				break;
 
+			default:  // Redirect all unbound requests to home page as a GET request
+				this.redirectToHome(req, res);
+				break;
+		}
 	}
 
 
@@ -107,5 +114,4 @@ public class Controller extends HttpServlet {
 			ex.printStackTrace();
 		}
 	}
-
 }
