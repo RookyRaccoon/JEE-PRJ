@@ -1,8 +1,6 @@
 <c:url var="architectUI" value="/static/architect-ui"/>
 <c:url var="logoutUrl" value="/logout" />
 
-<c:url var="logoutUrl" value="/logout" />
-
 <!DOCTYPE html>
 <html lang="en">
 <!--
@@ -55,7 +53,7 @@
           <span class="btn-icon-wrapper text-center">
             <i class="text-white pe-7s-power pe-inverse pe-2x px-1 align-middle"></i>
           </span>
-        </a>
+        </button>
       </span>
 		</div>
 
@@ -74,7 +72,7 @@
 									<!-- Disconnect button -->
 									<button type="button" data-toggle="tooltip" title="Disconnect" data-placement="left" class="btn-shadow p-1 btn btn-primary btn-sm" onclick="window.location.href='${logoutUrl}'">
 										<i class="text-white pe-7s-power pe-2x p-1 align-middle"></i>
-									</a>
+									</button>
 								</div>
 							</div>
 							<div class="widget-content-right header-user-info ml-3"></div>
