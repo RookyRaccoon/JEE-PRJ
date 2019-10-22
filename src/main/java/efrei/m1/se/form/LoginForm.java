@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import static efrei.m1.se.utils.Constants.*;
 
 public final class LoginForm {
-	private static final String USERNAME_FIELD = "username";
-	private static final String PASSWORD_FIELD = "password";
+	public static final String USERNAME_FIELD = "username";
+	public static final String PASSWORD_FIELD = "password";
 
 	private String username;
 	private String password;

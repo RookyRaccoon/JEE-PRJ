@@ -44,25 +44,32 @@ public class Controller extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse res) {
 		if (AuthenticatorService.isAuthenticated(req)) {
 			// TODO: redirect user to the home page accordingly to his type
+
 			this.sendToPage(JSP_HOME, req, res);
 		} else {
 			// Check if request was sent to path /login
 			if (req.getServletPath().equals("/login")) {
 				// TODO: remove the try/catch block once LoginForm.login is fully implemented
-				try {
-					LoginForm.login(req);
-				} catch (NotImplementedException e) {
-					// TODO: remove this line once LoginForm.login is fully implemented
-					if (!AuthenticatorService.defaultLogin(req)) {  // If authentication failed
+
+						if(!AuthenticatorService.login(req)) {
+							this.sendToPage(JSP_LOGIN, req, res);
+							return;
+						}
+					}
+				// TODO: remove this line once LoginForm.login is fully implemented
+					/*if (!AuthenticatorService.defaultLogin(req)) {  // If authentication failed
 						this.sendToPage(JSP_LOGIN, req, res);
 						return;  // To avoid errors
+					}*/
 					}
-				}
-			}
+		this.redirectToHome(req, res);
 
-			this.redirectToHome(req, res);
-		}
 	}
+
+
+
+
+
 
 	/**
 	 * Makes a forwarding to the passed in JSP
