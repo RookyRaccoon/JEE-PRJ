@@ -91,7 +91,7 @@ public class Controller extends HttpServlet {
 
 
 	/**
-	 * Handles POST request made to "/add-user" endpoint
+	 * Handles POST requests made to "/add-user" endpoint
 	 * @param req Incoming request.
 	 * @param res Outgoing response.
 	 */
@@ -100,7 +100,7 @@ public class Controller extends HttpServlet {
 	}
 
 	/**
-	 * Handles POST request made to "/login" endpoint.
+	 * Handles POST requests made to "/login" endpoint.
 	 * @param req Incoming request.
 	 * @param res Outgoing response.
 	 */
@@ -120,7 +120,7 @@ public class Controller extends HttpServlet {
 
 
 	/**
-	 * Handles GET request made to "/" endpoint.
+	 * Handles GET requests made to "/" endpoint.
 	 * @param req Incoming request.
 	 * @param res Outgoing response.
 	 */
@@ -134,7 +134,7 @@ public class Controller extends HttpServlet {
 	}
 
 	/**
-	 * Handles GET request made to "/logout" endpoint.
+	 * Handles GET requests made to "/logout" endpoint.
 	 * @param req Incoming request.
 	 * @param res Outgoing response.
 	 */
@@ -148,7 +148,7 @@ public class Controller extends HttpServlet {
 	}
 
 	/**
-	 * Handles GET request made to "/add-user" endpoint.
+	 * Handles GET requests made to "/add-user" endpoint.
 	 * @param req Incoming request.
 	 * @param res Outgoing response.
 	 */
