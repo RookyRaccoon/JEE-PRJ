@@ -1,4 +1,4 @@
-<c:url var="bootstrapCSS" value="/static/bootstrap-4.3.1/css/bootstrap.min.css"/>
+<c:url var="architectUI" value="/static/architect-ui"/>
 <c:url var="loginUrl" value="/login"/>
 
 <%@ page pageEncoding="UTF-8" %>
@@ -8,7 +8,7 @@
 	<meta charset="UTF-8"/>
 
 	<!-- Bootstrap -->
-	<link type="text/css" rel="stylesheet" href="${bootstrapCSS}"/>
+	<link type="text/css" rel="stylesheet" href="${architectUI}/main.css"/>
 
 	<title>Login</title>
 </head>
@@ -18,7 +18,7 @@
 			<div class="col-sm-8 offset-sm-2 col-xl-6 offset-xl-3">
 				<div class="card w-100 bg-white px-5 pt-5 pb-1 ">
 					<h1 class="card-title">Login</h1>
-					<form method="post" action="${loginUrl}" class="card-body px-0 pb-0">
+					<form method="post" action="${loginUrl}" class="card-body px-0 pb-5">
 						<div class="form-group">
 							<label for="username-input">Username</label>
 							<input type="text" id="username-input" name="username" placeholder="Username" class="form-control form-control-lg" required />

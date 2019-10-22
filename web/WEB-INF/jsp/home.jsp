@@ -1,4 +1,5 @@
 <c:url var="architectUI" value="/static/architect-ui"/>
+<c:url var="logoutUrl" value="/logout" />
 
 <c:url var="logoutUrl" value="/logout" />
 
@@ -50,7 +51,7 @@
 		<div class="app-header__menu">
       <span>
 	      <!-- Mobile disconnect button -->
-        <a href="${logoutUrl}" type="button" class="btn-icon btn-icon-only btn btn-primary btn-sm">
+        <button type="button" class="btn-icon btn-icon-only btn btn-primary btn-sm" onclick="window.location.href='${logoutUrl}'">
           <span class="btn-icon-wrapper text-center">
             <i class="text-white pe-7s-power pe-inverse pe-2x px-1 align-middle"></i>
           </span>
@@ -71,7 +72,7 @@
 							<div class="widget-content-left">
 								<div class="btn-group">
 									<!-- Disconnect button -->
-									<a href="${logoutUrl}" type="button" data-toggle="tooltip" title="Disconnect" data-placement="left" class="btn-shadow p-1 btn btn-primary btn-sm">
+									<button type="button" data-toggle="tooltip" title="Disconnect" data-placement="left" class="btn-shadow p-1 btn btn-primary btn-sm" onclick="window.location.href='${logoutUrl}'">
 										<i class="text-white pe-7s-power pe-2x p-1 align-middle"></i>
 									</a>
 								</div>
