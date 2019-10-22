@@ -25,12 +25,7 @@ public class Controller extends HttpServlet {
 				break;
 
 			case "/add-user":
-				if (AuthenticatorService.isAuthenticated(req)) {
-					// TODO: check access rights
-					this.sendToPage(JSP_ADDUSER, req, res);
-				} else {
-					this.sendToPage(JSP_LOGIN, req, res);
-				}
+				handleGetAddUser(req, res);
 				break;
 
 			default:
@@ -148,6 +143,20 @@ public class Controller extends HttpServlet {
 			this.sendToPage(JSP_GOODBYE, req, res);
 		} else {
 			this.redirectToHome(req, res);
+		}
+	}
+
+	/**
+	 * Handles GET request made to "/add-user" endpoint.
+	 * @param req Incoming request.
+	 * @param res Outgoing response.
+	 */
+	private void handleGetAddUser(HttpServletRequest req, HttpServletResponse res) {
+		if (AuthenticatorService.isAuthenticated(req)) {
+			// TODO: check access rights
+			this.sendToPage(JSP_ADDUSER, req, res);
+		} else {
+			this.sendToPage(JSP_LOGIN, req, res);
 		}
 	}
 }
