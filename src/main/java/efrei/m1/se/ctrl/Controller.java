@@ -52,23 +52,14 @@ public class Controller extends HttpServlet {
 
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse res) {
+		// Pick the right action to perform based on the route (URL)
 		switch(req.getServletPath()) {
 			case "/login":
-				// If user is already logged in, redirect him to home page
-				if (AuthenticatorService.isAuthenticated(req)) {
-					this.redirectToHome(req, res);
-					return;
-				}
-
-				// Attempt to log the user in
-				if(!AuthenticatorService.login(req)) {
-					this.sendToPage(JSP_LOGIN, req, res);  // Send use to login page if authentication failed
-					return;
-				}
+				handlePostLogin(req, res);
 				break;
 
-
 			case "/add-user":
+				// TODO: remove the try/catch block once handlePostAddUser is fully implemented
 				try {
 					handlePostAddUser(req, res);
 				} catch (NotImplementedException e) {
@@ -120,5 +111,24 @@ public class Controller extends HttpServlet {
 	 */
 	private void handlePostAddUser(HttpServletRequest req, HttpServletResponse res) {
 		throw new NotImplementedException();
+	}
+
+	/**
+	 * Handles POST request made to "/login" endpoint.
+	 * @param req Incoming request.
+	 * @param res Outgoing response.
+	 */
+	private void handlePostLogin(HttpServletRequest req, HttpServletResponse res) {
+		// If user is already logged in, redirect him to home page
+		if (AuthenticatorService.isAuthenticated(req)) {
+			this.redirectToHome(req, res);
+			return;
+		}
+
+		// Attempt to log the user in
+		if(!AuthenticatorService.login(req)) {
+			this.sendToPage(JSP_LOGIN, req, res);  // Send use to login page if authentication failed
+			return;
+		}
 	}
 }
