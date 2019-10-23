@@ -7,6 +7,20 @@ The team behind this project is composed of:
 * [Elodie Dehache *(RookyRaccoon)*](https://github.com/RookyRaccoon)
 * [Jules Lagny *(RaEace)*](https://github.com/RaEace)
 
+
+## Tools
+
+This project was built using the following tools:
+
+* **[IntelliJ IDEA](https://www.jetbrains.com/idea/)** - IDE
+* **[SonarQube](https://www.sonarqube.org)** - Code quality analysis
+* **[Git](https://git-scm.com)** *(Obviously)* - Source Code Management
+* **[GitHub](https://github.com)** *(Obviously too)* - Git repo hosting
+* **[Azure DevOps](https://dev.azure.com)** - Git repo hosting, Agile project management tool, CI/CD
+* **[Amazon Web Services](https://aws.amazon.com/)** - Web application hosting and cloud database solution (*[Elastic Beanstalk](https://aws.amazon.com/fr/elasticbeanstalk/) and [RDS](https://aws.amazon.com/fr/rds/)*)
+* **[Docker](https://www.docker.com)** - Container system *(used for SonarQube)*
+
+
 ## External Resources ("Special thanks to...")
 
 For this project, the following external resources were used:
