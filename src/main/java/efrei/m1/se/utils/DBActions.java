@@ -3,22 +3,20 @@ package efrei.m1.se.utils;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.Properties;
 
 public class DBActions {
-	private static Connection DB_CONNECTION = null;
+	private static Connection dbConnection = null;
 
 	/**
 	 * Private constructor to make the class "fully static"
 	 */
 	private DBActions() {}
 
-	public static void initConnection() {
+	private static void initConnection() {
 		// Do not reload the database connection if already loaded
-		if (DB_CONNECTION != null) {
+		if (dbConnection != null) {
 			return;
 		}
 
@@ -30,7 +28,7 @@ public class DBActions {
 		try {
 			Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
 
-			DB_CONNECTION = DriverManager.getConnection(url, user, pwd);
+			dbConnection = DriverManager.getConnection(url, user, pwd);
 		} catch (ClassNotFoundException e) {
 			System.out.println("An error occurred while instantiating Derby JDBC driver");
 			e.printStackTrace();
@@ -62,5 +60,43 @@ public class DBActions {
 		}
 
 		return dbProps;
+	}
+
+
+	/**
+	 * Executes an update type query (INSERT, UPDATE, DELETE) on the database
+	 * @param query SQL query to execute
+	 * @return Status of the query
+	 */
+	public static int executeUpdate(final String query) {
+		DBActions.initConnection();
+
+		try {
+			Statement stmt = dbConnection.createStatement();
+
+			return stmt.executeUpdate(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return -1;
+	}
+
+	/**
+	 * Executes a read type query (SELECT) on the database
+	 * @param query SQL query to execute
+	 * @return Matching rows
+	 */
+	public static ResultSet executeRead(final String query) {
+		DBActions.initConnection();
+
+		try {
+			Statement stmt = dbConnection.createStatement();
+			return stmt.executeQuery(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return null;
 	}
 }
