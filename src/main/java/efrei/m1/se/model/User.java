@@ -13,11 +13,10 @@ public class User {
 	private String personalPhone;
 	private String mobilePhone;
 	private String workPhone;
-	private String adress;
+	private String address;
 	private String postalCode;
 	private String city;
 	private String email;
-	private static int count = 0;
 
 	public User() {
 		name = "";
@@ -25,11 +24,22 @@ public class User {
 		personalPhone = "";
 		mobilePhone = "";
 		workPhone = "";
-		adress = "";
+		address = "";
 		postalCode = "";
 		city = "";
 		email = "";
-		count++;
+	}
+
+	public User(String name, String surname, String personalPhone, String mobilePhone, String workPhone, String address, String postalCode, String city, String email) {
+		this.name = name;
+		this.surname = surname;
+		this.personalPhone = personalPhone;
+		this.mobilePhone = mobilePhone;
+		this.workPhone = workPhone;
+		this.address = address;
+		this.postalCode = postalCode;
+		this.city = city;
+		this.email = email;
 	}
 
 	public String getName() {
@@ -52,8 +62,8 @@ public class User {
 		return this.workPhone;
 	}
 
-	public String getAdress() {
-		return this.adress;
+	public String getAddress() {
+		return this.address;
 	}
 
 	public String getPostalCode() {
@@ -88,8 +98,8 @@ public class User {
 		this.workPhone = workPhone;
 	}
 
-	public void setAdress(String adress) {
-		this.adress = adress;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	public void setPostalCode(String postalCode) {
@@ -105,9 +115,9 @@ public class User {
 	}
 
 	public String toString() {
-		return "USER " + count + " \n**IDENTITY** \n| Name : " + this.name + "\n| Surname : " + this.surname + "\n"
+		return "USER : \n**IDENTITY** \n| Name : " + this.name + "\n| Surname : " + this.surname + "\n"
 			+ "**PHONES** \n| Personal phone : " + personalPhone + "\n| Mobile phone " + mobilePhone + "\n| Work Phone : " + workPhone + "\n"
-			+ "**ADRESS**\n| Street : " + adress + "\n| Code : " + postalCode + "\n| City : " + city + "\n"
+			+ "**ADRESS**\n| Street : " + address + "\n| Code : " + postalCode + "\n| City : " + city + "\n"
 			+ "**CONTACT** \n|Mail : " + email + "\n\n";
 	}
 
@@ -124,7 +134,7 @@ public class User {
 			stmt.setString(3, this.personalPhone);
 			stmt.setString(4, this.mobilePhone);
 			stmt.setString(5, this.workPhone);
-			stmt.setString(6, this.adress);
+			stmt.setString(6, this.address);
 			stmt.setString(7, this.postalCode);
 			stmt.setString(8, this.city);
 			stmt.setString(9, this.email);
