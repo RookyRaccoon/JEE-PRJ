@@ -1,14 +1,13 @@
 package efrei.m1.se.ctrl;
 
+import efrei.m1.se.utils.AuthenticatorService;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
-import efrei.m1.se.form.LoginForm;
-import efrei.m1.se.utils.AuthenticatorService;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import static efrei.m1.se.utils.Constants.*;
 
