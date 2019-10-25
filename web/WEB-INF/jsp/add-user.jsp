@@ -160,7 +160,7 @@
 					<div class="col-12">
 						<div class="main-card mb-3 card">
 							<div class="card-body p-5">
-								<form action="${loginUrl}" method="post" class="row">
+								<form action="${addUserUrl}" method="post" class="row">
 									<div class="form-group col-12 col-lg-6">
 										<label for="lastname-input">Last name</label>
 										<div class="input-group">
