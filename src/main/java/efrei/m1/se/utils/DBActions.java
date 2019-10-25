@@ -99,4 +99,16 @@ public class DBActions {
 
 		return null;
 	}
+
+	/**
+	 * Produces a prepared statement linked to the database
+	 * @param sql SQL prepared statement query string
+	 * @return Prepared statement connected to the database
+	 * @throws SQLException In case of an error with the SQL
+	 */
+	public static PreparedStatement getPreparedStatement(final String sql) throws SQLException {
+		DBActions.initConnection();
+
+		return dbConnection.prepareStatement(sql);
+	}
 }
