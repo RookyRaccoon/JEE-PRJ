@@ -262,7 +262,7 @@
 									</div>
 
 									<div class="form-group col-12 text-center text-md-right">
-										<a href="#" class="btn btn-lg btn-outline-secondary mx-2 px-3">Cancel</a>
+										<a href="${homeUrl}" class="btn btn-lg btn-outline-secondary mx-2 px-3">Cancel</a>
 										<input type="submit" value="Save" class="btn btn-primary btn-lg px-4" />
 									</div>
 								</form>
