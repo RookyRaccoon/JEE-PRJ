@@ -2,10 +2,10 @@ package efrei.m1.se.utils;
 
 import efrei.m1.se.form.LoginForm;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
-import static efrei.m1.se.utils.Constants.*;
+import static efrei.m1.se.utils.Constants.DEFAULT_ADMIN_PASSWORD;
+import static efrei.m1.se.utils.Constants.DEFAULT_ADMIN_USERNAME;
 
 public class AuthenticatorService {
 	/**
