@@ -16,7 +16,5 @@ public class Constants {
 	public static final String DEFAULT_ADMIN_USERNAME = "admin";
 	public static final String DEFAULT_ADMIN_PASSWORD = "admin";
 
-	public static final String DB_PROP_FILE_PATH = "/WEB-INF/db.properties";
-
 	public static final String SQL_PREP_INSERT_EMPLOYEE = "INSERT INTO employees(name, firstname, homephone, mobilephone, workphone, address, postal, city, email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 }
