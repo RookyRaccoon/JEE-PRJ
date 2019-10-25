@@ -29,6 +29,10 @@
 		<param-value>empl</param-value>
 	</context-param>
 	
+	<context-param>
+		<param-name>dbPropFilePath</param-name>
+		<param-value>/WEB-INF/db.properties</param-value>
+	</context-param>
 	
 	<!--
 	=============================================================
