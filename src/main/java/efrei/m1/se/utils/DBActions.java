@@ -1,65 +1,50 @@
 package efrei.m1.se.utils;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.*;
 import java.util.Properties;
 
 public class DBActions {
 	private static Connection dbConnection = null;
 
+	private static Properties dbProperties = null;
+
 	/**
 	 * Private constructor to make the class "fully static"
 	 */
 	private DBActions() {}
 
-	private static void initConnection() {
-		// Do not reload the database connection if already loaded
-		if (dbConnection != null) {
+	public static boolean isReady() {
+		return !(dbProperties == null || dbConnection == null);
+	}
+
+	public static void init(final InputStream dbPropsInputStream) {
+		// No need to initialize the database connection multiple times
+		if (isReady()) {
 			return;
 		}
 
-		Properties dbProps = DBActions.getDBProperties();
-		String url = dbProps.getProperty("dbUrl");
-		String user = dbProps.getProperty("dbUser");
-		String pwd = dbProps.getProperty("dbPassword");
-
 		try {
-			Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+			// Load the database properties
+			DBActions.dbProperties = new Properties();
+			DBActions.dbProperties.load(dbPropsInputStream);
 
-			dbConnection = DriverManager.getConnection(url, user, pwd);
-		} catch (ClassNotFoundException e) {
-			System.out.println("An error occurred while instantiating Derby JDBC driver");
-			e.printStackTrace();
-		} catch (SQLException e) {
-			System.out.println("An error occurred while gathering a database connection");
-			e.printStackTrace();
-		}
-	}
+			final String url = dbProperties.getProperty("dbUrl");
+			final String user = dbProperties.getProperty("dbUser");
+			final String pwd = dbProperties.getProperty("dbPassword");
 
+			// Initialize database connection
+			try {
+				Class.forName("com.mysql.jdbc.Driver");
 
-	/**
-	 * Get a {@link Properties} object representing database connection information
-	 * @return {@link Properties} object representing database connection information
-	 */
-	private static Properties getDBProperties() {
-		Properties dbProps = new Properties();
-
-		try {
-			FileInputStream propsFile = new FileInputStream(Constants.DB_PROP_FILE_PATH);
-
-			dbProps.load(propsFile);
-
-		} catch (FileNotFoundException e) {
-			System.err.println("Unable to find db.properties file");
-			e.printStackTrace();
+				DBActions.dbConnection = DriverManager.getConnection(url, user, pwd);
+			} catch (ClassNotFoundException | SQLException e) {
+				e.printStackTrace();
+			}
 		} catch (IOException e) {
-			System.err.println("Unable to read database properties file");
 			e.printStackTrace();
 		}
-
-		return dbProps;
 	}
 
 
@@ -69,7 +54,9 @@ public class DBActions {
 	 * @return Status of the query
 	 */
 	public static int executeUpdate(final String query) {
-		DBActions.initConnection();
+		if (!DBActions.isReady()) {
+			return -1;
+		}
 
 		try {
 			Statement stmt = dbConnection.createStatement();
@@ -88,7 +75,9 @@ public class DBActions {
 	 * @return Matching rows
 	 */
 	public static ResultSet executeRead(final String query) {
-		DBActions.initConnection();
+		if (!DBActions.isReady()) {
+			return null;
+		}
 
 		try {
 			Statement stmt = dbConnection.createStatement();
@@ -107,7 +96,9 @@ public class DBActions {
 	 * @throws SQLException In case of an error with the SQL
 	 */
 	public static PreparedStatement getPreparedStatement(final String sql) throws SQLException {
-		DBActions.initConnection();
+		if (!DBActions.isReady()) {
+			return null;
+		}
 
 		return dbConnection.prepareStatement(sql);
 	}
