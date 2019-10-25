@@ -6,11 +6,11 @@ public class Constants {
 	 */
 	private Constants() {}
 
-	public static final String JSP_LOGIN = "/WEB-INF/jsp/login.jsp";
-	public static final String JSP_DETAILS = "/WEB-INF/jsp/details.jsp";
-	public static final String JSP_HOME = "/WEB-INF/jsp/home.jsp";
-	public static final String JSP_GOODBYE = "/WEB-INF/jsp/goodbye.jsp";
-	public static final String JSP_ADDUSER = "/WEB-INF/jsp/add-user.jsp";
+	public static final String JSP_LOGIN = "/WEB-INF/pages/login.jsp";
+	public static final String JSP_DETAILS = "/WEB-INF/pages/details.jsp";
+	public static final String JSP_HOME = "/WEB-INF/pages/home.jsp";
+	public static final String JSP_GOODBYE = "/WEB-INF/pages/goodbye.jsp";
+	public static final String JSP_ADDUSER = "/WEB-INF/pages/add-user.jsp";
 
 
 	public static final String DEFAULT_ADMIN_USERNAME = "admin";
