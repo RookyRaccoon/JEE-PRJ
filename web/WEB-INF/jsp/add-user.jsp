@@ -2,6 +2,7 @@
 <c:url var="logoutUrl" value="/logout" />
 <c:url var="addUserUrl" value="/add-user" />
 <c:url var="homeUrl" value="/" />
+<c:url var="loginUrl" value="/login" />
 
 
 <!DOCTYPE html>
@@ -159,8 +160,7 @@
 					<div class="col-12">
 						<div class="main-card mb-3 card">
 							<div class="card-body p-5">
-								<!-- TODO: populate the form with the data of the employee -->
-								<form action="#" method="post" class="row">
+								<form action="${loginUrl}" method="post" class="row">
 									<div class="form-group col-12 col-lg-6">
 										<label for="lastname-input">Last name</label>
 										<div class="input-group">
@@ -169,7 +169,7 @@
 													<i class="pe-7s-user"></i>
 												</span>
 											</div>
-											<input id="lastname-input" type="text" class="form-control form-control-lg" placeholder="Doe" required />
+											<input id="lastname-input" name="lastname" type="text" class="form-control form-control-lg" placeholder="Doe" required />
 										</div>
 									</div>
 
@@ -181,7 +181,7 @@
 													<i class="pe-7s-user"></i>
 												</span>
 											</div>
-											<input id="firstname-input" type="text" class="form-control form-control-lg" placeholder="John" required />
+											<input id="firstname-input" name="firstname" type="text" class="form-control form-control-lg" placeholder="John" required />
 										</div>
 									</div>
 
@@ -193,7 +193,7 @@
 													<i class="pe-7s-call"></i>
 												</span>
 											</div>
-											<input id="homephone-input" type="tel" class="form-control" placeholder="0112345678" required />
+											<input id="homephone-input" name="homephone" type="tel" class="form-control" placeholder="0112345678" required />
 										</div>
 									</div>
 
@@ -205,7 +205,7 @@
 													<i class="pe-7s-phone"></i>
 												</span>
 											</div>
-											<input id="mobilephone-input" type="tel" class="form-control" placeholder="0612345678" required />
+											<input id="mobilephone-input" name="mobilephone" type="tel" class="form-control" placeholder="0612345678" required />
 										</div>
 									</div>
 
@@ -217,7 +217,7 @@
 													<i class="pe-7s-call"></i>
 												</span>
 											</div>
-											<input id="workphone-input" type="tel" class="form-control" placeholder="0912345678" required />
+											<input id="workphone-input" name="workphone" type="tel" class="form-control" placeholder="0912345678" required />
 										</div>
 									</div>
 
@@ -229,14 +229,14 @@
 													<i class="pe-7s-home"></i>
 												</span>
 											</div>
-											<input id="address-input" type="text" class="form-control" placeholder="742 Evergreen Terrace" required />
+											<input id="address-input" name="address" type="text" class="form-control" placeholder="742 Evergreen Terrace" required />
 										</div>
 
 									</div>
 
 									<div class="form-group col-5 col-lg-2">
 										<label for="zipcode-input">ZIP Code</label>
-										<input id="zipcode-input" type="text" class="form-control" placeholder="89011" required />
+										<input id="zipcode-input" name="zipcode" type="text" class="form-control" placeholder="89011" required />
 									</div>
 
 									<div class="form-group col-7 col-lg-4">
@@ -247,7 +247,7 @@
 													<i class="pe-7s-map"></i>
 												</span>
 											</div>
-											<input id="city-input" type="text" class="form-control" placeholder="Springfield" required />
+											<input id="city-input" name="city" type="text" class="form-control" placeholder="Springfield" required />
 										</div>
 									</div>
 
@@ -257,7 +257,7 @@
 											<div class="input-group-prepend">
 												<span class="input-group-text">@</span>
 											</div>
-											<input id="email-input" type="email" class="form-control form-control-lg" placeholder="jdoe@mail.com" required />
+											<input id="email-input" name="email" type="email" class="form-control form-control-lg" placeholder="jdoe@mail.com" required />
 										</div>
 									</div>
 
