@@ -1,6 +1,8 @@
 package efrei.m1.se.ctrl;
 
+import efrei.m1.se.form.AddUserForm;
 import efrei.m1.se.utils.AuthenticatorService;
+import efrei.m1.se.utils.DBActions;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.servlet.ServletException;
@@ -8,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.InputStream;
 
 import static efrei.m1.se.utils.Constants.*;
 
@@ -95,7 +98,22 @@ public class Controller extends HttpServlet {
 	 * @param res Outgoing response.
 	 */
 	private void handlePostAddUser(HttpServletRequest req, HttpServletResponse res) {
-		throw new NotImplementedException();
+		if (!DBActions.isReady()) {
+			final String propsPath = this.getServletContext().getInitParameter("dbPropFilePath");
+			InputStream props = this.getServletContext().getResourceAsStream(propsPath);
+			DBActions.init(props);
+		}
+
+		AddUserForm form = new AddUserForm(req);
+		int rowsAffected = form.store();
+
+		// Set status code of the response if
+		if (rowsAffected != 1) {  // (We expect only 1 row to be affected since we use an INSERT statement)
+			res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			this.sendToPage(JSP_ADDUSER, req, res);
+		} else {
+			this.redirectToHome(req, res);
+		}
 	}
 
 	/**
