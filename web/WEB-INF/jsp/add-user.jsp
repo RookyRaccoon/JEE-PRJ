@@ -1,6 +1,8 @@
 <c:url var="architectUI" value="/static/architect-ui"/>
 <c:url var="logoutUrl" value="/logout" />
 <c:url var="addUserUrl" value="/add-user" />
+<c:url var="homeUrl" value="/" />
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -26,9 +28,7 @@
 	<link rel="stylesheet" href="${architectUI}/pe-icon-7-stroke/css/pe-icon-7-stroke.css"/>
 	<link rel="stylesheet" href="${architectUI}/pe-icon-7-stroke/css/helper.css"/>
 
-<%--	<script src="https://kit.fontawesome.com/05417d287a.js" crossorigin="anonymous"></script>--%>  <!-- TODO: determine if needed -->
-
-	<title>Employees</title>
+	<title>Add Employee</title>
 </head>
 <body>
 <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar closed-sidebar closed-sidebar-mobile fixed-header">
@@ -66,7 +66,7 @@
 					<div class="widget-content p-0">
 						<div class="widget-content-wrapper">
 							<div class="widget-content-left mr-4">
-								<span>Hello, $username</span>  <!-- TODO: update $username here -->
+								<span>Hello, admin</span>
 							</div>
 							<div class="widget-content-left">
 								<div class="btn-group">
@@ -115,16 +115,16 @@
 				<div class="app-sidebar__inner">
 					<ul class="vertical-nav-menu">
 						<li class="app-sidebar__heading">Employees management</li>
-						<li class="mm-active">
-							<a href="#">
+						<li>
+							<a href="${homeUrl}">
 								<i class="metismenu-icon pe-7s-users"></i>
 								List of employees
 							</a>
 						</li>
 
-						<li>
-							<a href="${addUserUrl}">
-								<i class="metismenu-icon pe-7s-add-user"></i>
+						<li class="mm-active">
+							<a href="#">
+								<i class="metismenu-icon pe-7s-note2"></i>
 								Add a user
 							</a>
 						</li>
@@ -142,19 +142,15 @@
 						<!-- Page title -->
 						<div class="page-title-heading">
 							<div class="page-title-icon">
-								<i class="pe-7s-users icon-gradient bg-happy-itmeo"></i>
+								<i class="pe-7s-user icon-gradient bg-happy-itmeo"></i>
 							</div>
 							<div>
 								<span>
-									List of employees
+									Add a new employee
 								</span>
 							</div>
 						</div>
 						<div class="page-title-actions">
-							<!-- "Add a user" button -->
-							<button type="button" data-toggle="tooltip" title="Add a user" data-placement="left" class="btn-shadow mr-lg-3 btn btn-dark" onclick="window.location.href='${addUserUrl}'">
-								<i class="pe-7s-add-user pe-2x align-middle"></i>
-							</button>
 						</div>
 					</div>
 				</div>
@@ -162,48 +158,114 @@
 				<div class="row">
 					<div class="col-12">
 						<div class="main-card mb-3 card">
-							<div class="card-body">
-								<h5 class="card-title">Users</h5>  <!-- TODO: update the table header -->
-								<div class="table-responsive">
-									<!-- TODO: put the right data inside this table -->
-									<table class="mb-0 table table-striped table-hover" id="users-table">
-										<thead>
-											<tr>
-												<th>#</th>
-												<th>First Name</th>
-												<th>Last Name</th>
-												<th>Username</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<th scope="row">1</th>
-												<td>Mark</td>
-												<td>Otto</td>
-												<td>@mdo</td>
-											</tr>
-											<tr>
-												<th scope="row">2</th>
-												<td>Jacob</td>
-												<td>Thornton</td>
-												<td>@fat</td>
-											</tr>
-											<tr>
-												<th scope="row">3</th>
-												<td>Larry</td>
-												<td>the Bird</td>
-												<td>@twitter</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-							</div>
+							<div class="card-body p-5">
+								<!-- TODO: populate the form with the data of the employee -->
+								<form action="#" method="post" class="row">
+									<div class="form-group col-12 col-lg-6">
+										<label for="lastname-input">Last name</label>
+										<div class="input-group">
+											<div class="input-group-prepend">
+												<span class="input-group-text">
+													<i class="pe-7s-user"></i>
+												</span>
+											</div>
+											<input id="lastname-input" type="text" class="form-control form-control-lg" placeholder="Doe" required />
+										</div>
+									</div>
 
-							<!-- TODO: bind actions to these buttons -->
-							<div class="card-footer">
-								<button href="#" class="btn btn-outline-danger mr-1">Delete</button>
-								<button href="#" class="btn btn-outline-secondary mx-1">Details</button>
-								<button href="#" class="btn btn-outline-primary ml-1">Add</button>
+									<div class="form-group col-12 col-lg-6">
+										<label for="firstname-input">First name</label>
+										<div class="input-group">
+											<div class="input-group-prepend">
+												<span class="input-group-text">
+													<i class="pe-7s-user"></i>
+												</span>
+											</div>
+											<input id="firstname-input" type="text" class="form-control form-control-lg" placeholder="John" required />
+										</div>
+									</div>
+
+									<div class="form-group col-12 col-lg-4">
+										<label for="homephone-input">Home phone</label>
+										<div class="input-group">
+											<div class="input-group-prepend">
+												<span class="input-group-text">
+													<i class="pe-7s-call"></i>
+												</span>
+											</div>
+											<input id="homephone-input" type="tel" class="form-control" placeholder="0112345678" required />
+										</div>
+									</div>
+
+									<div class="form-group col-12 col-lg-4">
+										<label for="mobilephone-input">Mobile phone</label>
+										<div class="input-group">
+											<div class="input-group-prepend">
+												<span class="input-group-text">
+													<i class="pe-7s-phone"></i>
+												</span>
+											</div>
+											<input id="mobilephone-input" type="tel" class="form-control" placeholder="0612345678" required />
+										</div>
+									</div>
+
+									<div class="form-group col-12 col-lg-4">
+										<label for="workphone-input">Work phone</label>
+										<div class="input-group">
+											<div class="input-group-prepend">
+												<span class="input-group-text">
+													<i class="pe-7s-call"></i>
+												</span>
+											</div>
+											<input id="workphone-input" type="tel" class="form-control" placeholder="0912345678" required />
+										</div>
+									</div>
+
+									<div class="form-group col-12 col-lg-6">
+										<label for="address-input">Address</label>
+										<div class="input-group">
+											<div class="input-group-prepend">
+												<span class="input-group-text">
+													<i class="pe-7s-home"></i>
+												</span>
+											</div>
+											<input id="address-input" type="text" class="form-control" placeholder="742 Evergreen Terrace" required />
+										</div>
+
+									</div>
+
+									<div class="form-group col-5 col-lg-2">
+										<label for="zipcode-input">ZIP Code</label>
+										<input id="zipcode-input" type="text" class="form-control" placeholder="89011" required />
+									</div>
+
+									<div class="form-group col-7 col-lg-4">
+										<label for="city-input">City</label>
+										<div class="input-group">
+											<div class="input-group-prepend">
+												<span class="input-group-text">
+													<i class="pe-7s-map"></i>
+												</span>
+											</div>
+											<input id="city-input" type="text" class="form-control" placeholder="Springfield" required />
+										</div>
+									</div>
+
+									<div class="form-group col-12 col-lg-8">
+										<label for="email-input">Email</label>
+										<div class="input-group">
+											<div class="input-group-prepend">
+												<span class="input-group-text">@</span>
+											</div>
+											<input id="email-input" type="email" class="form-control form-control-lg" placeholder="jdoe@mail.com" required />
+										</div>
+									</div>
+
+									<div class="form-group col-12 text-center text-md-right">
+										<a href="#" class="btn btn-lg btn-outline-secondary mx-2 px-3">Cancel</a>
+										<input type="submit" value="Save" class="btn btn-primary btn-lg px-4" />
+									</div>
+								</form>
 							</div>
 						</div>
 					</div>

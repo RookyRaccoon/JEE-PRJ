@@ -15,22 +15,18 @@ import static efrei.m1.se.utils.Constants.*;
 public class Controller extends HttpServlet {
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse res) {
+		// Pick the right action to perform based on the route (URL)
 		switch (req.getServletPath()) {
 			case "/":
-				if (AuthenticatorService.isAuthenticated(req)) {
-					this.sendToPage(JSP_HOME, req, res);
-				} else {
-					this.sendToPage(JSP_LOGIN, req, res);
-				}
+				handleGetRoot(req, res);
 				break;
 
 			case "/logout":
-				if(AuthenticatorService.isAuthenticated(req)) {
-					AuthenticatorService.logout(req);
-					this.sendToPage(JSP_GOODBYE, req, res);
-				} else {
-					this.redirectToHome(req, res);
-				}
+				handleGetLogout(req, res);
+				break;
+
+			case "/add-user":
+				handleGetAddUser(req, res);
 				break;
 
 			default:
@@ -42,27 +38,29 @@ public class Controller extends HttpServlet {
 
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse res) {
-		if (AuthenticatorService.isAuthenticated(req)) {
-			// TODO: redirect user to the home page accordingly to his type
-			this.sendToPage(JSP_HOME, req, res);
-		} else {
-			// Check if request was sent to path /login
-			if (req.getServletPath().equals("/login")) {
-				// TODO: remove the try/catch block once LoginForm.login is fully implemented
-				try {
-					LoginForm.login(req);
-				} catch (NotImplementedException e) {
-					// TODO: remove this line once LoginForm.login is fully implemented
-					if (!AuthenticatorService.defaultLogin(req)) {  // If authentication failed
-						this.sendToPage(JSP_LOGIN, req, res);
-						return;  // To avoid errors
-					}
-				}
-			}
+		// Pick the right action to perform based on the route (URL)
+		switch(req.getServletPath()) {
+			case "/login":
+				handlePostLogin(req, res);
+				break;
 
-			this.redirectToHome(req, res);
+			case "/add-user":
+				// TODO: remove the try/catch block once handlePostAddUser is fully implemented
+				try {
+					handlePostAddUser(req, res);
+				} catch (NotImplementedException e) {
+					System.out.println("Adding a user is not implemented yet");
+					this.sendToPage(JSP_ADDUSER, req, res);
+				}
+				break;
+
+			default:  // Redirect all unbound requests to home page ("/") as a GET request
+				this.redirectToHome(req, res);
+				break;
 		}
 	}
+
+
 
 	/**
 	 * Makes a forwarding to the passed in JSP
@@ -91,4 +89,76 @@ public class Controller extends HttpServlet {
 		}
 	}
 
+
+	/**
+	 * Handles POST requests made to "/add-user" endpoint
+	 * @param req Incoming request.
+	 * @param res Outgoing response.
+	 */
+	private void handlePostAddUser(HttpServletRequest req, HttpServletResponse res) {
+		throw new NotImplementedException();
+	}
+
+	/**
+	 * Handles POST requests made to "/login" endpoint.
+	 * @param req Incoming request.
+	 * @param res Outgoing response.
+	 */
+	private void handlePostLogin(HttpServletRequest req, HttpServletResponse res) {
+		// If user is already logged in, redirect him to home page
+		if (AuthenticatorService.isAuthenticated(req)) {
+			this.redirectToHome(req, res);
+			return;
+		}
+
+		// Attempt to log the user in
+		if(!AuthenticatorService.login(req)) {
+			this.sendToPage(JSP_LOGIN, req, res);  // Send use to login page if authentication failed
+		} else {  // If authentication succeeded
+			this.redirectToHome(req, res);
+		}
+	}
+
+
+	/**
+	 * Handles GET requests made to "/" endpoint.
+	 * @param req Incoming request.
+	 * @param res Outgoing response.
+	 */
+	private void handleGetRoot(HttpServletRequest req, HttpServletResponse res) {
+		if (AuthenticatorService.isAuthenticated(req)) {
+			// TODO: check access rights
+			this.sendToPage(JSP_HOME, req, res);
+		} else {
+			this.sendToPage(JSP_LOGIN, req, res);
+		}
+	}
+
+	/**
+	 * Handles GET requests made to "/logout" endpoint.
+	 * @param req Incoming request.
+	 * @param res Outgoing response.
+	 */
+	private void handleGetLogout(HttpServletRequest req, HttpServletResponse res) {
+		if (AuthenticatorService.isAuthenticated(req)) {
+			AuthenticatorService.logout(req);
+			this.sendToPage(JSP_GOODBYE, req, res);
+		} else {
+			this.redirectToHome(req, res);
+		}
+	}
+
+	/**
+	 * Handles GET requests made to "/add-user" endpoint.
+	 * @param req Incoming request.
+	 * @param res Outgoing response.
+	 */
+	private void handleGetAddUser(HttpServletRequest req, HttpServletResponse res) {
+		if (AuthenticatorService.isAuthenticated(req)) {
+			// TODO: check access rights
+			this.sendToPage(JSP_ADDUSER, req, res);
+		} else {
+			this.sendToPage(JSP_LOGIN, req, res);
+		}
+	}
 }
