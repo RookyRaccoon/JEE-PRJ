@@ -1,3 +1,5 @@
+package efrei.m1.se.beans;
+
 public class UserBean {
     private String name;
     private String surname;
@@ -8,7 +10,7 @@ public class UserBean {
     private String postalCode;
     private String city;
     private String email;
-    static int count = 0;
+    private static int count = 0;
 
     public UserBean() {
         name = "";
