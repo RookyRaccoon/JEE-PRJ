@@ -106,6 +106,7 @@ public class Controller extends HttpServlet {
 			res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			this.sendToPage(JSP_ADDUSER, req, res);
 		} else {
+			res.setStatus(HttpServletResponse.SC_CREATED);
 			this.redirectToHome(req, res);
 		}
 	}
