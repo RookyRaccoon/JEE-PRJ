@@ -47,13 +47,7 @@ public class Controller extends HttpServlet {
 				break;
 
 			case "/add-user":
-				// TODO: remove the try/catch block once handlePostAddUser is fully implemented
-				try {
-					handlePostAddUser(req, res);
-				} catch (NotImplementedException e) {
-					System.out.println("Adding a user is not implemented yet");
-					this.sendToPage(JSP_ADDUSER, req, res);
-				}
+				handlePostAddUser(req, res);
 				break;
 
 			default:  // Redirect all unbound requests to home page ("/") as a GET request
