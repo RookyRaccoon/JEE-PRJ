@@ -1,6 +1,7 @@
 package efrei.m1.se.ctrl;
 
 import efrei.m1.se.form.AddUserForm;
+import efrei.m1.se.model.User;
 import efrei.m1.se.utils.AuthenticatorService;
 import efrei.m1.se.utils.DBActions;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
@@ -138,8 +139,15 @@ public class Controller extends HttpServlet {
 	 * @param res Outgoing response.
 	 */
 	private void handleGetRoot(HttpServletRequest req, HttpServletResponse res) {
+		if (!DBActions.isReady()) {
+			final String propsPath = this.getServletContext().getInitParameter("dbPropFilePath");
+			InputStream props = this.getServletContext().getResourceAsStream(propsPath);
+			DBActions.init(props);
+		}
+
 		if (AuthenticatorService.isAuthenticated(req)) {
 			// TODO: check access rights
+			req.setAttribute("employees", User.getAllUsers());
 			this.sendToPage(JSP_HOME, req, res);
 		} else {
 			this.sendToPage(JSP_LOGIN, req, res);

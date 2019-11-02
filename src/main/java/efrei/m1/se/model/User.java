@@ -73,7 +73,7 @@ public class User {
 	}
 
 	public String getCity() {
-		return this.postalCode;
+		return this.city;
 	}
 
 	public String getEmail() {
@@ -152,25 +152,25 @@ public class User {
 	}
 
 
-	public ArrayList<User> getAllUsers() {
+	public static ArrayList<User> getAllUsers() {
 		ArrayList<User> users = new ArrayList<>();
 
 		try {
 			ResultSet rs = DBActions.executeRead(SQL_SELECT_ALL_EMPLOYEES);
 			if (rs != null) {
 				while (rs.next()) {
-					users.add(this.castFromResultSetRow(rs));
+					users.add(User.castFromResultSetRow(rs));
 				}
 			}
-		} catch (SQLException ignored) {
-			ignored.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 
 		return users;
 	}
 
 
-	private User castFromResultSetRow(ResultSet rs) {
+	private static User castFromResultSetRow(ResultSet rs) {
 		User u = new User();
 
 		if (rs != null) {
