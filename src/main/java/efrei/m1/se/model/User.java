@@ -3,7 +3,9 @@ package efrei.m1.se.model;
 import efrei.m1.se.utils.DBActions;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import static efrei.m1.se.utils.Constants.*;
 
@@ -147,5 +149,48 @@ public class User {
 			e.printStackTrace();
 			return -1;
 		}
+	}
+
+
+	public ArrayList<User> getAllUsers() {
+		ArrayList<User> users = new ArrayList<>();
+
+		try {
+			ResultSet rs = DBActions.executeRead(SQL_SELECT_ALL_EMPLOYEES);
+			if (rs != null) {
+				while (rs.next()) {
+					users.add(this.castFromResultSetRow(rs));
+				}
+			}
+		} catch (SQLException ignored) {
+			ignored.printStackTrace();
+		}
+
+		return users;
+	}
+
+
+	private User castFromResultSetRow(ResultSet rs) {
+		User u = new User();
+
+		if (rs != null) {
+			try {
+				u.setName(rs.getString("name"));
+				u.setSurname(rs.getString("firstname"));
+				u.setPersonalPhone(rs.getString("homephone"));
+				u.setWorkPhone(rs.getString("workphone"));
+				u.setMobilePhone(rs.getString("mobilephone"));
+				u.setAddress(rs.getString("address"));
+				u.setPostalCode(rs.getString("postal"));
+				u.setCity(rs.getString("city"));
+				u.setEmail(rs.getString("email"));
+
+				return u;
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return null;
 	}
 }
