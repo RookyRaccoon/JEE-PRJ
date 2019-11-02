@@ -203,7 +203,7 @@
 							<div class="card-footer">
 								<button href="#" class="btn btn-outline-danger mr-1">Delete</button>
 								<button href="#" class="btn btn-outline-secondary mx-1">Details</button>
-								<button href="${addUserUrl}" class="btn btn-outline-primary ml-1">Add</button>
+								<a href="${addUserUrl}" class="btn btn-outline-primary ml-1">Add</a>
 							</div>
 						</div>
 					</div>
