@@ -168,6 +168,7 @@
 									<table class="mb-0 table table-striped table-hover" id="users-table">
 										<thead>
 											<tr>
+												<th></th>
 												<th>First Name</th>
 												<th>Last Name</th>
 												<th>Email</th>
@@ -182,6 +183,10 @@
 										<tbody>
 											<c:forEach items="${requestScope.employees}" var="employee" varStatus="status">
 												<tr>
+													<td>
+														<c:set var="employeeId" value="12" />
+														<input type="radio" name="employeeSelector" value="${employeeId}" />
+													</td>
 													<td><c:out value="${employee.surname}" /></td>
 													<td><c:out value="${employee.name}" /></td>
 													<td><c:out value="${employee.email}" /></td>
