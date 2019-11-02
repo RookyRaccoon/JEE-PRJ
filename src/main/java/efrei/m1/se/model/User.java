@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import static efrei.m1.se.utils.Constants.*;
 
 public class User {
+	private String dbId;
 	private String name;
 	private String surname;
 	private String personalPhone;
@@ -30,6 +31,7 @@ public class User {
 		postalCode = "";
 		city = "";
 		email = "";
+		dbId = "";
 	}
 
 	public User(String name, String surname, String personalPhone, String mobilePhone, String workPhone, String address, String postalCode, String city, String email) {
@@ -42,6 +44,15 @@ public class User {
 		this.postalCode = postalCode;
 		this.city = city;
 		this.email = email;
+		this.dbId = "";
+	}
+
+	public String getDbId() {
+		return dbId;
+	}
+
+	public void setDbId(String dbId) {
+		this.dbId = dbId;
 	}
 
 	public String getName() {
@@ -175,6 +186,7 @@ public class User {
 
 		if (rs != null) {
 			try {
+				u.setDbId(rs.getString("employee_id"));
 				u.setName(rs.getString("name"));
 				u.setSurname(rs.getString("firstname"));
 				u.setPersonalPhone(rs.getString("homephone"));

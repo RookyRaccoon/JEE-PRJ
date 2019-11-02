@@ -1,6 +1,8 @@
 <c:url var="architectUI" value="/static/architect-ui"/>
 <c:url var="logoutUrl" value="/logout" />
 <c:url var="addUserUrl" value="/add-user" />
+<c:url var="userDetailsUrl" value="/details" />
+<c:url var="deleteUserUrl" value="/delete" />
 
 <!DOCTYPE html>
 <html lang="en">
@@ -161,9 +163,9 @@
 
 				<div class="row">
 					<div class="col-12">
-						<div class="main-card mb-3 card">
+						<form method="get" class="main-card mb-3 card">
 							<div class="card-body">
-								<h5 class="card-title">Users</h5>  <!-- TODO: update the table header -->
+								<h5 class="card-title">Employees</h5>
 								<div class="table-responsive">
 									<table class="mb-0 table table-striped table-hover" id="users-table">
 										<thead>
@@ -184,8 +186,7 @@
 											<c:forEach items="${requestScope.employees}" var="employee" varStatus="status">
 												<tr>
 													<td>
-														<c:set var="employeeId" value="12" />
-														<input type="radio" name="employeeSelector" value="${employeeId}" />
+														<input type="radio" name="employeeId" value="${employee.dbId}" />
 													</td>
 													<td><c:out value="${employee.surname}" /></td>
 													<td><c:out value="${employee.name}" /></td>
@@ -203,13 +204,12 @@
 								</div>
 							</div>
 
-							<!-- TODO: bind actions to these buttons -->
 							<div class="card-footer">
-								<button href="#" class="btn btn-outline-danger mr-1">Delete</button>
-								<button href="#" class="btn btn-outline-secondary mx-1">Details</button>
+								<input type="submit" formaction="${deleteUserUrl}" value="Delete" class="btn btn-outline-danger mr-1" />
+								<input type="submit" formaction="${userDetailsUrl}" value="Details" class="btn btn-outline-secondary mx-1" />
 								<a href="${addUserUrl}" class="btn btn-outline-primary ml-1">Add</a>
 							</div>
-						</div>
+						</form>
 					</div>
 				</div>
 			</div>

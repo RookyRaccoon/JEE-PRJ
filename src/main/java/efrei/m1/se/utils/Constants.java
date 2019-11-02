@@ -17,5 +17,5 @@ public class Constants {
 	public static final String DEFAULT_ADMIN_PASSWORD = "admin";
 
 	public static final String SQL_PREP_INSERT_EMPLOYEE = "INSERT INTO employees(name, firstname, homephone, mobilephone, workphone, address, postal, city, email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-	public static final String SQL_SELECT_ALL_EMPLOYEES = "SELECT name, firstname, homephone, mobilephone, workphone, address, postal, city, email FROM employees";
+	public static final String SQL_SELECT_ALL_EMPLOYEES = "SELECT employee_id, name, firstname, homephone, mobilephone, workphone, address, postal, city, email FROM employees";
 }
