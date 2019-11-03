@@ -29,6 +29,10 @@ public class Controller extends HttpServlet {
 				handleGetAddUser(req, res);
 				break;
 
+			case "/delete":
+				handleUserDeletion(req, res);
+				break;
+
 			default:
 				this.redirectToHome(req, res);  // Redirects the user to "/", this URL shouldn't be GET
 				break;
@@ -46,6 +50,10 @@ public class Controller extends HttpServlet {
 
 			case "/add-user":
 				handlePostAddUser(req, res);
+				break;
+
+			case "/delete":
+				handleUserDeletion(req, res);
 				break;
 
 			default:  // Redirect all unbound requests to home page ("/") as a GET request
@@ -165,5 +173,20 @@ public class Controller extends HttpServlet {
 		} else {
 			this.sendToPage(JSP_LOGIN, req, res);
 		}
+	}
+
+	/**
+	 * Handles all requests made to "/delete" endpoint
+	 * @param req Incoming request.
+	 * @param res Outgoing response.
+	 */
+	private void handleUserDeletion(HttpServletRequest req, HttpServletResponse res) {
+		final String employeeId = req.getParameter(PARAM_EMPLOYEE_ID);
+
+		if (User.isDBIdValid(employeeId)) {
+			User.deleteRecord(employeeId);
+		}
+
+		this.redirectToHome(req, res);
 	}
 }
