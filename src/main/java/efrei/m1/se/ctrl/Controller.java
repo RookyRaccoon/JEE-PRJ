@@ -175,6 +175,7 @@ public class Controller extends HttpServlet {
 		}
 	}
 
+
 	/**
 	 * Handles all requests made to "/delete" endpoint
 	 * @param req Incoming request.
