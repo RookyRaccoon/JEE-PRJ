@@ -34,6 +34,22 @@
 		<param-value>/WEB-INF/db.properties</param-value>
 	</context-param>
 	
+	
+	<!--
+	=============================================================
+	===============           Filters           =================
+	=============================================================
+	-->
+	
+	<filter>
+		<filter-name>DBInitFilter</filter-name>
+		<filter-class>efrei.m1.se.ctrl.DBInitFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>DBInitFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
 	<!--
 	=============================================================
 	===============          Servlets           =================
