@@ -12,6 +12,7 @@ public class Constants {
 	public static final String JSP_GOODBYE = "/WEB-INF/pages/goodbye.jsp";
 	public static final String JSP_ADDUSER = "/WEB-INF/pages/add-user.jsp";
 
+	public static final String PARAM_EMPLOYEE_ID = "employeeId";
 
 	public static final String DEFAULT_ADMIN_USERNAME = "admin";
 	public static final String DEFAULT_ADMIN_PASSWORD = "admin";
