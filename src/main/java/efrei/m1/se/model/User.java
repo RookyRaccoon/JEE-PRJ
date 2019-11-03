@@ -214,4 +214,22 @@ public class User {
 	public static boolean isDBIdValid(String id) {
 		return id != null && id.matches("\\d+");
 	}
+
+	/**
+	 * Securely handles the deletion of a User record in the database
+	 * @param id Id of the user to delete
+	 */
+	public static void deleteRecord(String id) {
+		try {
+			PreparedStatement ps = DBActions.getPreparedStatement(SQL_PREP_DELETE_EMPLOYEE);
+
+			// Check if prepared statement is OK
+			if (ps != null) {
+				ps.setString(1, id);
+				ps.executeUpdate();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 }
