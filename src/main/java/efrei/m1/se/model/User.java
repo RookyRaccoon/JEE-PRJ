@@ -4,6 +4,8 @@ import efrei.m1.se.utils.DBActions;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,9 +14,9 @@ import java.util.ArrayList;
 
 import static efrei.m1.se.utils.Constants.*;
 
-@NoArgsConstructor
+@NoArgsConstructor @ToString
 public class User {
-	@Getter @Setter
+	@Getter @Setter @ToString.Exclude
 	transient private String dbId;
 
 	@Getter @Setter
@@ -57,14 +59,6 @@ public class User {
 		this.dbId = "";
 	}
 
-	@Override
-	public String toString() {
-		return "USER : \n**IDENTITY** \n| Name : " + this.name + "\n| Surname : " + this.surname + "\n"
-			+ "**PHONES** \n| Personal phone : " + personalPhone + "\n| Mobile phone " + mobilePhone + "\n| Work Phone : " + workPhone + "\n"
-			+ "**ADRESS**\n| Street : " + address + "\n| Code : " + postalCode + "\n| City : " + city + "\n"
-			+ "**CONTACT** \n|Mail : " + email + "\n\n";
-	}
-
 	/**
 	 * Create a user record in the database
 	 * @return Status of the request (number of rows affected), <code>-1</code> if an error occurs
@@ -72,6 +66,10 @@ public class User {
 	public int createRecord() {
 		try {
 			final PreparedStatement stmt = DBActions.getPreparedStatement(SQL_PREP_INSERT_EMPLOYEE);
+
+			if (stmt == null) {
+				return -1;
+			}
 
 			stmt.setString(1, this.name);
 			stmt.setString(2, this.surname);
@@ -173,7 +171,11 @@ public class User {
 	}
 
 
+	/**
+	 * Update a {@link User} record in the database
+	 * @param id Database id of the {@link User} record to update
+	 */
 	public void updateRecord(String id) {
-
+		throw new NotImplementedException();
 	}
 }
