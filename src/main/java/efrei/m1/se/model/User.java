@@ -163,6 +163,10 @@ public class User {
 	}
 
 
+	/**
+	 * Get all users from the database as an {@link ArrayList} of {@link User}. Water is wet.
+	 * @return {@link ArrayList} of {@link User}
+	 */
 	public static ArrayList<User> getAllUsers() {
 		ArrayList<User> users = new ArrayList<>();
 
@@ -180,7 +184,11 @@ public class User {
 		return users;
 	}
 
-
+	/**
+	 * Cast a {@link ResultSet} row to a {@link User} object
+	 * @param rs {@link ResultSet} row to cast
+	 * @return {@link User} casted from {@code rs}
+	 */
 	private static User castFromResultSetRow(ResultSet rs) {
 		User u = new User();
 
