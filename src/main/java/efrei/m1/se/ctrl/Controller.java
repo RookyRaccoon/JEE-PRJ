@@ -3,15 +3,12 @@ package efrei.m1.se.ctrl;
 import efrei.m1.se.form.AddUserForm;
 import efrei.m1.se.model.User;
 import efrei.m1.se.utils.AuthenticatorService;
-import efrei.m1.se.utils.DBActions;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.InputStream;
 
 import static efrei.m1.se.utils.Constants.*;
 
@@ -93,12 +90,6 @@ public class Controller extends HttpServlet {
 	 * @param res Outgoing response.
 	 */
 	private void handlePostAddUser(HttpServletRequest req, HttpServletResponse res) {
-		if (!DBActions.isReady()) {
-			final String propsPath = this.getServletContext().getInitParameter("dbPropFilePath");
-			InputStream props = this.getServletContext().getResourceAsStream(propsPath);
-			DBActions.init(props);
-		}
-
 		AddUserForm form = new AddUserForm(req);
 		int rowsAffected = form.store();
 
@@ -139,12 +130,6 @@ public class Controller extends HttpServlet {
 	 * @param res Outgoing response.
 	 */
 	private void handleGetRoot(HttpServletRequest req, HttpServletResponse res) {
-		if (!DBActions.isReady()) {
-			final String propsPath = this.getServletContext().getInitParameter("dbPropFilePath");
-			InputStream props = this.getServletContext().getResourceAsStream(propsPath);
-			DBActions.init(props);
-		}
-
 		if (AuthenticatorService.isAuthenticated(req)) {
 			// TODO: check access rights
 			req.setAttribute("employees", User.getAllUsers());
