@@ -1,6 +1,9 @@
 package efrei.m1.se.model;
 
 import efrei.m1.se.utils.DBActions;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,30 +12,37 @@ import java.util.ArrayList;
 
 import static efrei.m1.se.utils.Constants.*;
 
+@NoArgsConstructor
 public class User {
-	private String dbId;
-	private String name;
-	private String surname;
-	private String personalPhone;
-	private String mobilePhone;
-	private String workPhone;
-	private String address;
-	private String postalCode;
-	private String city;
-	private String email;
+	@Getter @Setter
+	transient private String dbId;
 
-	public User() {
-		name = "";
-		surname = "";
-		personalPhone = "";
-		mobilePhone = "";
-		workPhone = "";
-		address = "";
-		postalCode = "";
-		city = "";
-		email = "";
-		dbId = "";
-	}
+	@Getter @Setter
+	private String name;
+
+	@Getter @Setter
+	private String surname;
+
+	@Getter @Setter
+	private String personalPhone;
+
+	@Getter @Setter
+	private String mobilePhone;
+
+	@Getter @Setter
+	private String workPhone;
+
+	@Getter @Setter
+	private String address;
+
+	@Getter @Setter
+	private String postalCode;
+
+	@Getter @Setter
+	private String city;
+
+	@Getter @Setter
+	private String email;
 
 	public User(String name, String surname, String personalPhone, String mobilePhone, String workPhone, String address, String postalCode, String city, String email) {
 		this.name = name;
@@ -47,86 +57,7 @@ public class User {
 		this.dbId = "";
 	}
 
-	public String getDbId() {
-		return dbId;
-	}
-
-	public void setDbId(String dbId) {
-		this.dbId = dbId;
-	}
-
-	public String getName() {
-		return this.name;
-	}
-
-	public String getSurname() {
-		return this.surname;
-	}
-
-	public String getPersonalPhone() {
-		return this.personalPhone;
-	}
-
-	public String getMobilePhone() {
-		return this.mobilePhone;
-	}
-
-	public String getWorkPhone() {
-		return this.workPhone;
-	}
-
-	public String getAddress() {
-		return this.address;
-	}
-
-	public String getPostalCode() {
-		return this.postalCode;
-	}
-
-	public String getCity() {
-		return this.city;
-	}
-
-	public String getEmail() {
-		return this.email;
-	}
-
-	public void setName(String nom) {
-		this.name = nom;
-	}
-
-	public void setSurname(String prenom) {
-		this.surname = prenom;
-	}
-
-	public void setPersonalPhone(String phone) {
-		this.personalPhone = phone;
-	}
-
-	public void setMobilePhone(String mobilePhone) {
-		this.mobilePhone = mobilePhone;
-	}
-
-	public void setWorkPhone(String workPhone) {
-		this.workPhone = workPhone;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public void setPostalCode(String postalCode) {
-		this.postalCode = postalCode;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
+	@Override
 	public String toString() {
 		return "USER : \n**IDENTITY** \n| Name : " + this.name + "\n| Surname : " + this.surname + "\n"
 			+ "**PHONES** \n| Personal phone : " + personalPhone + "\n| Mobile phone " + mobilePhone + "\n| Work Phone : " + workPhone + "\n"
@@ -239,5 +170,10 @@ public class User {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+
+	public void updateRecord(String id) {
+
 	}
 }
