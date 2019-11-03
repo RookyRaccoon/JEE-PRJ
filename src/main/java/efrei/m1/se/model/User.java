@@ -205,4 +205,13 @@ public class User {
 
 		return null;
 	}
+
+	/**
+	 * Check if the passed in {@code id} is a valid database id
+	 * @param id Id to check
+	 * @return Whether the id is a valid id
+	 */
+	public static boolean isDBIdValid(String id) {
+		return id != null && id.matches("\\d+");
+	}
 }
