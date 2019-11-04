@@ -60,6 +60,10 @@ public class Controller extends HttpServlet {
 				handleUserDeletion(req, res);
 				break;
 
+			case "/details":
+				handlePostDetails(req, res);
+				break;
+
 			default:  // Redirect all unbound requests to home page ("/") as a GET request
 				this.redirectToHome(req, res);
 				break;
@@ -133,6 +137,15 @@ public class Controller extends HttpServlet {
 		} else {  // If authentication succeeded
 			this.redirectToHome(req, res);
 		}
+	}
+
+	/**
+	 * Handles POST requests made to "/details" endpoint
+	 * @param req Incoming request.
+	 * @param res Outgoing response.
+	 */
+	private void handlePostDetails(HttpServletRequest req, HttpServletResponse res) {
+		this.redirectToHome(req, res);
 	}
 
 
