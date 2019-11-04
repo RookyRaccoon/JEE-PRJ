@@ -28,8 +28,6 @@
 	<link rel="stylesheet" href="${architectUI}/pe-icon-7-stroke/css/pe-icon-7-stroke.css"/>
 	<link rel="stylesheet" href="${architectUI}/pe-icon-7-stroke/css/helper.css"/>
 
-	<%--	<script src="https://kit.fontawesome.com/05417d287a.js" crossorigin="anonymous"></script>--%>  <!-- TODO: determine if needed -->
-
 	<title>Employee Details</title>
 </head>
 <body>
@@ -162,7 +160,6 @@
 					<div class="col-12">
 						<div class="main-card mb-3 card">
 							<div class="card-body p-5">
-								<!-- TODO: populate the form with the data of the employee -->
 								<form action="#" method="post" class="row">
 									<div class="form-group col-12 col-lg-6">
 										<label for="lastname-input">Last name</label>
