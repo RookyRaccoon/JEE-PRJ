@@ -209,11 +209,11 @@ public class Controller extends HttpServlet {
 		// Check if request is valid (queried employee exists and has been retrieved)
 		if (queriedEmployee == null) {
 			this.redirectToHome(req, res);
+		} else {
+			req.setAttribute("employee", queriedEmployee);
+
+			this.sendToPage(JSP_DETAILS, req, res);
 		}
-
-		req.setAttribute("employee", queriedEmployee);
-
-		this.sendToPage(JSP_DETAILS, req, res);
 	}
 
 
