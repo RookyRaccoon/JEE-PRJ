@@ -1,10 +1,7 @@
 package efrei.m1.se.model;
 
 import efrei.m1.se.utils.DBActions;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.sql.PreparedStatement;
@@ -57,6 +54,13 @@ public class User {
 		this.city = city;
 		this.email = email;
 		this.dbId = "";
+	}
+
+
+	public static User withId(@NonNull String id) {
+		throw new NotImplementedException();
+		
+		PreparedStatement ps = DBActions.getPreparedStatement();
 	}
 
 	/**
