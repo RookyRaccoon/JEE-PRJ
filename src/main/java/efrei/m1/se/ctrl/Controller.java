@@ -188,6 +188,8 @@ public class Controller extends HttpServlet {
 		// Gather employee id from URL parameter
 		String employeeId = req.getParameter(PARAM_EMPLOYEE_ID);
 
+		req.setAttribute("employee", User.withId(employeeId));
+
 		this.redirectToHome(req, res);
 	}
 
