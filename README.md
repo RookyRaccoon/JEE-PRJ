@@ -21,6 +21,13 @@ This project was built using the following tools:
 * **[Docker](https://www.docker.com)** - Container system *(used for SonarQube)*
 
 
+## Libraries
+
+For this project, the following libraries were used:
+
+* **[Lombok](https://projectlombok.org)** Lightweight library to improve readability in Java Beans thanks
+  to a simple annotations system
+
 ## External Resources ("Special thanks to...")
 
 For this project, the following external resources were used:
