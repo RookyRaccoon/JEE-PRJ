@@ -56,11 +56,32 @@ public class User {
 		this.dbId = "";
 	}
 
-
+	/**
+	 * Retrieve a single {@link User} from the database based upon its {@code id}
+	 * @param id Id of the {@link User} to retrieve from the database
+	 * @return {@link User} object for the matching database record
+	 */
 	public static User withId(@NonNull String id) {
-		throw new NotImplementedException();
-		
-		PreparedStatement ps = DBActions.getPreparedStatement();
+		User user = null;
+
+		try {
+			PreparedStatement ps = DBActions.getPreparedStatement(SQL_PREP_SELECT_EMPLOYEE_WITH_ID);
+
+			if (ps != null) {
+				ps.setString(1, id);
+
+				ResultSet rs = ps.executeQuery();
+
+				// Check if a user was found and use it as a return value
+				if (rs != null) {
+					user = User.castFromResultSetRow(rs);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return user;
 	}
 
 	/**
