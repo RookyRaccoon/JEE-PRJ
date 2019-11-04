@@ -148,7 +148,7 @@
 							</div>
 							<div>
 								<span>
-									Details of employee $employeeName  <!-- TODO: update user name -->
+									Details of employee <c:out value="${employee.surname} ${employee.name}" />
 								</span>
 							</div>
 						</div>
