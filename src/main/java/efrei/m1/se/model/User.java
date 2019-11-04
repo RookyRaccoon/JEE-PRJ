@@ -76,12 +76,13 @@ public class User {
 				ps.setString(1, id);
 
 				ResultSet rs = ps.executeQuery();
-				ps.close();
 
 				// Check if a user was found and use it as a return value
 				if (rs.next()) {
 					user = User.castFromResultSetRow(rs);
 				}
+
+				ps.close();
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -224,14 +225,16 @@ public class User {
 	 * @throws SQLException If there is a SQL problem with the prepared statement (shouldn't happen)
 	 */
 	private void setPreparedStatementStrings(PreparedStatement ps) throws SQLException {
-		ps.setString(1, this.name);
-		ps.setString(2, this.surname);
-		ps.setString(3, this.personalPhone);
-		ps.setString(4, this.mobilePhone);
-		ps.setString(5, this.workPhone);
-		ps.setString(6, this.address);
-		ps.setString(7, this.postalCode);
-		ps.setString(8, this.city);
-		ps.setString(9, this.email);
+		DBActions.initPreparedStatement(ps,
+			this.name,
+			this.surname,
+			this.personalPhone,
+			this.mobilePhone,
+			this.workPhone,
+			this.address,
+			this.postalCode,
+			this.city,
+			this.email
+			);
 	}
 }
