@@ -33,6 +33,10 @@ public class Controller extends HttpServlet {
 				handleUserDeletion(req, res);
 				break;
 
+			case "/details":
+				handleGetDetails(req, res);
+				break;
+
 			default:
 				this.redirectToHome(req, res);  // Redirects the user to "/", this URL shouldn't be GET
 				break;
@@ -173,6 +177,18 @@ public class Controller extends HttpServlet {
 		} else {
 			this.sendToPage(JSP_LOGIN, req, res);
 		}
+	}
+
+	/**
+	 * Handles GET requests made to "/details" endpoint
+	 * @param req Incoming request.
+	 * @param res Outgoing response.
+	 */
+	private void handleGetDetails(HttpServletRequest req, HttpServletResponse res) {
+		// Gather employee id from URL parameter
+		String employeeId = req.getParameter(PARAM_EMPLOYEE_ID);
+
+		this.redirectToHome(req, res);
 	}
 
 
