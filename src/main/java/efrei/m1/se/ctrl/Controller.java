@@ -185,6 +185,11 @@ public class Controller extends HttpServlet {
 	 * @param res Outgoing response.
 	 */
 	private void handleGetDetails(HttpServletRequest req, HttpServletResponse res) {
+		// Check access rights
+		if (!AuthenticatorService.isAuthenticated(req)) {
+			this.sendToPage(JSP_LOGIN, req, res);
+		}
+
 		// Gather queried employee thanks to employeeId passed as URL parameter
 		User queriedEmployee = User.withId(req.getParameter(PARAM_EMPLOYEE_ID));
 
