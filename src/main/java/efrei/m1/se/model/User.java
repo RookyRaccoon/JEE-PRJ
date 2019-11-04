@@ -203,9 +203,8 @@ public class User {
 
 	/**
 	 * Update a {@link User} record in the database
-	 * @param id Database id of the {@link User} record to update
 	 */
-	public void updateRecord(String id) {
+	public void updateRecord() {
 		throw new NotImplementedException();
 	}
 }
