@@ -61,8 +61,13 @@ public class User {
 	 * @param id Id of the {@link User} to retrieve from the database
 	 * @return {@link User} object for the matching database record
 	 */
-	public static User withId(@NonNull String id) {
+	public static User withId(String id) {
 		User user = null;
+
+		// No need to perform a DB read if no id was provided
+		if (id == null) {
+			return null;
+		}
 
 		try {
 			PreparedStatement ps = DBActions.getPreparedStatement(SQL_PREP_SELECT_EMPLOYEE_WITH_ID);
