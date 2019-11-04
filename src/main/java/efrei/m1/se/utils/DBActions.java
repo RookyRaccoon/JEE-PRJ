@@ -1,5 +1,7 @@
 package efrei.m1.se.utils;
 
+import lombok.NonNull;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
@@ -102,5 +104,20 @@ public class DBActions {
 		}
 
 		return dbConnection.prepareStatement(sql);
+	}
+
+	/**
+	 * Inits all parameters of a {@link PreparedStatement}
+	 * @param ps Prepared Statement to set objects for
+	 * @param parameters Ordered list of parameters with objects to pass as arguments
+	 */
+	public static void initPreparedStatement(@NonNull PreparedStatement ps, Object... parameters) {
+		try {
+			for (int i = 0; i < parameters.length; i++) {
+				ps.setObject(i+1, parameters[i]);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }
