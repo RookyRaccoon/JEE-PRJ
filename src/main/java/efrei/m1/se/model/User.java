@@ -101,15 +101,7 @@ public class User {
 				return -1;
 			}
 
-			stmt.setString(1, this.name);
-			stmt.setString(2, this.surname);
-			stmt.setString(3, this.personalPhone);
-			stmt.setString(4, this.mobilePhone);
-			stmt.setString(5, this.workPhone);
-			stmt.setString(6, this.address);
-			stmt.setString(7, this.postalCode);
-			stmt.setString(8, this.city);
-			stmt.setString(9, this.email);
+			setPreparedStatementStrings(stmt);
 
 			int rowsAffected = stmt.executeUpdate();
 			stmt.close();
@@ -204,7 +196,39 @@ public class User {
 	/**
 	 * Update a {@link User} record in the database
 	 */
-	public void updateRecord() {
-		throw new NotImplementedException();
+	public int updateRecord() {
+		int rowsAffected = -1;
+
+		try {
+			final PreparedStatement ps = DBActions.getPreparedStatement(SQL_PREP_UPDATE_EMPLOYEE);
+
+			if (ps != null) {
+				setPreparedStatementStrings(ps);
+				ps.setString(10, this.dbId);  // Set DB ID to update the correct record
+
+				rowsAffected = ps.executeUpdate();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return rowsAffected;
+	}
+
+	/**
+	 * Refactored method to avoid duplicated prepared statement string setting code
+	 * @param ps Prepared statement to set
+	 * @throws SQLException If there is a SQL problem with the prepared statement (shouldn't happen)
+	 */
+	private void setPreparedStatementStrings(PreparedStatement ps) throws SQLException {
+		ps.setString(1, this.name);
+		ps.setString(2, this.surname);
+		ps.setString(3, this.personalPhone);
+		ps.setString(4, this.mobilePhone);
+		ps.setString(5, this.workPhone);
+		ps.setString(6, this.address);
+		ps.setString(7, this.postalCode);
+		ps.setString(8, this.city);
+		ps.setString(9, this.email);
 	}
 }
