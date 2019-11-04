@@ -207,6 +207,7 @@ public class User {
 				ps.setString(10, this.dbId);  // Set DB ID to update the correct record
 
 				rowsAffected = ps.executeUpdate();
+				ps.close();
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
