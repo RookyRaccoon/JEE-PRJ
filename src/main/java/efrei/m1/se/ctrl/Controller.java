@@ -149,7 +149,7 @@ public class Controller extends HttpServlet {
 		User updatedUser = new AddUserForm(req).getUser();
 		updatedUser.setDbId(req.getParameter(PARAM_EMPLOYEE_ID));
 
-
+		updatedUser.updateRecord();
 
 		this.redirectToHome(req, res);
 	}
