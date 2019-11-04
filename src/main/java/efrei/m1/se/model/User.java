@@ -73,7 +73,7 @@ public class User {
 				ResultSet rs = ps.executeQuery();
 
 				// Check if a user was found and use it as a return value
-				if (rs != null) {
+				if (rs.next()) {
 					user = User.castFromResultSetRow(rs);
 				}
 			}
