@@ -1,6 +1,7 @@
 package efrei.m1.se.ctrl;
 
 import efrei.m1.se.form.AddUserForm;
+import efrei.m1.se.form.UserDetailsForm;
 import efrei.m1.se.model.User;
 import efrei.m1.se.utils.AuthenticatorService;
 
@@ -145,11 +146,8 @@ public class Controller extends HttpServlet {
 	 * @param res Outgoing response.
 	 */
 	private void handlePostDetails(HttpServletRequest req, HttpServletResponse res) {
-		// Create a User object representing the updated user
-		User updatedUser = new AddUserForm(req).getUser();
-		updatedUser.setDbId(req.getParameter(PARAM_EMPLOYEE_ID));
-
-		updatedUser.updateRecord();
+		UserDetailsForm form = new UserDetailsForm(req);
+		form.store(req.getParameter(PARAM_EMPLOYEE_ID));
 
 		this.redirectToHome(req, res);
 	}
