@@ -115,19 +115,18 @@
 			<div class="scrollbar-sidebar">
 				<div class="app-sidebar__inner">
 					<ul class="vertical-nav-menu">
-						<li class="app-sidebar__heading">Employees management</li>  <!-- TODO: update this title -->
-						<li class="mm-active">
-							<a href="${pageContext.request.contextPath}">
+						<li class="app-sidebar__heading">Employees management</li>
+						<li class="">
+							<a href="${homeUrl}">
 								<i class="metismenu-icon pe-7s-users"></i>
-								Users  <!-- TODO: update this title -->
+								List of employees
 							</a>
 						</li>
 
-						<!-- TODO: update this navigation item -->
 						<li>
-							<a href="${pageContext.request.contextPath}">
-								<i class="metismenu-icon pe-7s-note2"></i>
-								Dashboard Boxes
+							<a href="${addUserUrl}">
+								<i class="metismenu-icon pe-7s-add-user"></i>
+								Add a user
 							</a>
 						</li>
 					</ul>
