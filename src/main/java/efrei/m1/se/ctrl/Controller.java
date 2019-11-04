@@ -33,6 +33,10 @@ public class Controller extends HttpServlet {
 				handleUserDeletion(req, res);
 				break;
 
+			case "/details":
+				handleGetDetails(req, res);
+				break;
+
 			default:
 				this.redirectToHome(req, res);  // Redirects the user to "/", this URL shouldn't be GET
 				break;
@@ -54,6 +58,10 @@ public class Controller extends HttpServlet {
 
 			case "/delete":
 				handleUserDeletion(req, res);
+				break;
+
+			case "/details":
+				handlePostDetails(req, res);
 				break;
 
 			default:  // Redirect all unbound requests to home page ("/") as a GET request
@@ -131,6 +139,21 @@ public class Controller extends HttpServlet {
 		}
 	}
 
+	/**
+	 * Handles POST requests made to "/details" endpoint
+	 * @param req Incoming request.
+	 * @param res Outgoing response.
+	 */
+	private void handlePostDetails(HttpServletRequest req, HttpServletResponse res) {
+		// Create a User object representing the updated user
+		User updatedUser = new AddUserForm(req).getUser();
+		updatedUser.setDbId(req.getParameter(PARAM_EMPLOYEE_ID));
+
+		updatedUser.updateRecord();
+
+		this.redirectToHome(req, res);
+	}
+
 
 	/**
 	 * Handles GET requests made to "/" endpoint.
@@ -174,6 +197,31 @@ public class Controller extends HttpServlet {
 			this.sendToPage(JSP_LOGIN, req, res);
 		}
 	}
+
+	/**
+	 * Handles GET requests made to "/details" endpoint
+	 * @param req Incoming request.
+	 * @param res Outgoing response.
+	 */
+	private void handleGetDetails(HttpServletRequest req, HttpServletResponse res) {
+		// Check access rights
+		if (!AuthenticatorService.isAuthenticated(req)) {
+			this.sendToPage(JSP_LOGIN, req, res);
+		}
+
+		// Gather queried employee thanks to employeeId passed as URL parameter
+		User queriedEmployee = User.withId(req.getParameter(PARAM_EMPLOYEE_ID));
+
+		// Check if request is valid (queried employee exists and has been retrieved)
+		if (queriedEmployee == null) {
+			this.redirectToHome(req, res);
+		} else {
+			req.setAttribute("employee", queriedEmployee);
+
+			this.sendToPage(JSP_DETAILS, req, res);
+		}
+	}
+
 
 	/**
 	 * Handles all requests made to "/delete" endpoint

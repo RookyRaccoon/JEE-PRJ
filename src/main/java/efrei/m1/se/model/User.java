@@ -1,6 +1,8 @@
 package efrei.m1.se.model;
 
 import efrei.m1.se.utils.DBActions;
+import lombok.*;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,30 +11,37 @@ import java.util.ArrayList;
 
 import static efrei.m1.se.utils.Constants.*;
 
+@NoArgsConstructor @ToString
 public class User {
-	private String dbId;
-	private String name;
-	private String surname;
-	private String personalPhone;
-	private String mobilePhone;
-	private String workPhone;
-	private String address;
-	private String postalCode;
-	private String city;
-	private String email;
+	@Getter @Setter @ToString.Exclude
+	transient private String dbId;
 
-	public User() {
-		name = "";
-		surname = "";
-		personalPhone = "";
-		mobilePhone = "";
-		workPhone = "";
-		address = "";
-		postalCode = "";
-		city = "";
-		email = "";
-		dbId = "";
-	}
+	@Getter @Setter
+	private String name;
+
+	@Getter @Setter
+	private String surname;
+
+	@Getter @Setter
+	private String personalPhone;
+
+	@Getter @Setter
+	private String mobilePhone;
+
+	@Getter @Setter
+	private String workPhone;
+
+	@Getter @Setter
+	private String address;
+
+	@Getter @Setter
+	private String postalCode;
+
+	@Getter @Setter
+	private String city;
+
+	@Getter @Setter
+	private String email;
 
 	public User(String name, String surname, String personalPhone, String mobilePhone, String workPhone, String address, String postalCode, String city, String email) {
 		this.name = name;
@@ -47,91 +56,37 @@ public class User {
 		this.dbId = "";
 	}
 
-	public String getDbId() {
-		return dbId;
-	}
+	/**
+	 * Retrieve a single {@link User} from the database based upon its {@code id}
+	 * @param id Id of the {@link User} to retrieve from the database
+	 * @return {@link User} object for the matching database record
+	 */
+	public static User withId(String id) {
+		User user = null;
 
-	public void setDbId(String dbId) {
-		this.dbId = dbId;
-	}
+		// No need to perform a DB read if no id was provided
+		if (id == null) {
+			return null;
+		}
 
-	public String getName() {
-		return this.name;
-	}
+		try {
+			PreparedStatement ps = DBActions.getPreparedStatement(SQL_PREP_SELECT_EMPLOYEE_WITH_ID);
 
-	public String getSurname() {
-		return this.surname;
-	}
+			if (ps != null) {
+				ps.setString(1, id);
 
-	public String getPersonalPhone() {
-		return this.personalPhone;
-	}
+				ResultSet rs = ps.executeQuery();
 
-	public String getMobilePhone() {
-		return this.mobilePhone;
-	}
+				// Check if a user was found and use it as a return value
+				if (rs.next()) {
+					user = User.castFromResultSetRow(rs);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
-	public String getWorkPhone() {
-		return this.workPhone;
-	}
-
-	public String getAddress() {
-		return this.address;
-	}
-
-	public String getPostalCode() {
-		return this.postalCode;
-	}
-
-	public String getCity() {
-		return this.city;
-	}
-
-	public String getEmail() {
-		return this.email;
-	}
-
-	public void setName(String nom) {
-		this.name = nom;
-	}
-
-	public void setSurname(String prenom) {
-		this.surname = prenom;
-	}
-
-	public void setPersonalPhone(String phone) {
-		this.personalPhone = phone;
-	}
-
-	public void setMobilePhone(String mobilePhone) {
-		this.mobilePhone = mobilePhone;
-	}
-
-	public void setWorkPhone(String workPhone) {
-		this.workPhone = workPhone;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public void setPostalCode(String postalCode) {
-		this.postalCode = postalCode;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String toString() {
-		return "USER : \n**IDENTITY** \n| Name : " + this.name + "\n| Surname : " + this.surname + "\n"
-			+ "**PHONES** \n| Personal phone : " + personalPhone + "\n| Mobile phone " + mobilePhone + "\n| Work Phone : " + workPhone + "\n"
-			+ "**ADRESS**\n| Street : " + address + "\n| Code : " + postalCode + "\n| City : " + city + "\n"
-			+ "**CONTACT** \n|Mail : " + email + "\n\n";
+		return user;
 	}
 
 	/**
@@ -142,15 +97,11 @@ public class User {
 		try {
 			final PreparedStatement stmt = DBActions.getPreparedStatement(SQL_PREP_INSERT_EMPLOYEE);
 
-			stmt.setString(1, this.name);
-			stmt.setString(2, this.surname);
-			stmt.setString(3, this.personalPhone);
-			stmt.setString(4, this.mobilePhone);
-			stmt.setString(5, this.workPhone);
-			stmt.setString(6, this.address);
-			stmt.setString(7, this.postalCode);
-			stmt.setString(8, this.city);
-			stmt.setString(9, this.email);
+			if (stmt == null) {
+				return -1;
+			}
+
+			setPreparedStatementStrings(stmt);
 
 			int rowsAffected = stmt.executeUpdate();
 			stmt.close();
@@ -163,6 +114,10 @@ public class User {
 	}
 
 
+	/**
+	 * Get all users from the database as an {@link ArrayList} of {@link User}. Water is wet.
+	 * @return {@link ArrayList} of {@link User}
+	 */
 	public static ArrayList<User> getAllUsers() {
 		ArrayList<User> users = new ArrayList<>();
 
@@ -180,7 +135,11 @@ public class User {
 		return users;
 	}
 
-
+	/**
+	 * Cast a {@link ResultSet} row to a {@link User} object
+	 * @param rs {@link ResultSet} row to cast
+	 * @return {@link User} casted from {@code rs}
+	 */
 	private static User castFromResultSetRow(ResultSet rs) {
 		User u = new User();
 
@@ -231,5 +190,45 @@ public class User {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+
+	/**
+	 * Update a {@link User} record in the database
+	 */
+	public int updateRecord() {
+		int rowsAffected = -1;
+
+		try {
+			final PreparedStatement ps = DBActions.getPreparedStatement(SQL_PREP_UPDATE_EMPLOYEE);
+
+			if (ps != null) {
+				setPreparedStatementStrings(ps);
+				ps.setString(10, this.dbId);  // Set DB ID to update the correct record
+
+				rowsAffected = ps.executeUpdate();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return rowsAffected;
+	}
+
+	/**
+	 * Refactored method to avoid duplicated prepared statement string setting code
+	 * @param ps Prepared statement to set
+	 * @throws SQLException If there is a SQL problem with the prepared statement (shouldn't happen)
+	 */
+	private void setPreparedStatementStrings(PreparedStatement ps) throws SQLException {
+		ps.setString(1, this.name);
+		ps.setString(2, this.surname);
+		ps.setString(3, this.personalPhone);
+		ps.setString(4, this.mobilePhone);
+		ps.setString(5, this.workPhone);
+		ps.setString(6, this.address);
+		ps.setString(7, this.postalCode);
+		ps.setString(8, this.city);
+		ps.setString(9, this.email);
 	}
 }

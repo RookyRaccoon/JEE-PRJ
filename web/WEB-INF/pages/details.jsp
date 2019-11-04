@@ -1,7 +1,9 @@
+<jsp:useBean id="employee" scope="request" type="efrei.m1.se.model.User"/>
 <c:url var="architectUI" value="/static/architect-ui"/>
 <c:url var="logoutUrl" value="/logout" />
-
-<c:url var="logoutUrl" value="/logout" />
+<c:url var="addUserUrl" value="/add-user" />
+<c:url var="homeUrl" value="/" />
+<c:url var="loginUrl" value="/login" />
 
 <!DOCTYPE html>
 <html lang="en">
@@ -26,8 +28,6 @@
 
 	<link rel="stylesheet" href="${architectUI}/pe-icon-7-stroke/css/pe-icon-7-stroke.css"/>
 	<link rel="stylesheet" href="${architectUI}/pe-icon-7-stroke/css/helper.css"/>
-
-	<%--	<script src="https://kit.fontawesome.com/05417d287a.js" crossorigin="anonymous"></script>--%>  <!-- TODO: determine if needed -->
 
 	<title>Employee Details</title>
 </head>
@@ -55,7 +55,7 @@
           <span class="btn-icon-wrapper text-center">
             <i class="text-white pe-7s-power pe-inverse pe-2x px-1 align-middle"></i>
           </span>
-        </a>
+        </button>
       </span>
 		</div>
 
@@ -74,7 +74,7 @@
 									<!-- Disconnect button -->
 									<button type="button" data-toggle="tooltip" title="Disconnect" data-placement="left" class="btn-shadow p-1 btn btn-primary btn-sm" onclick="window.location.href='${logoutUrl}'">
 										<i class="text-white pe-7s-power pe-2x p-1 align-middle"></i>
-									</a>
+									</button>
 								</div>
 							</div>
 							<div class="widget-content-right header-user-info ml-3"></div>
@@ -115,19 +115,18 @@
 			<div class="scrollbar-sidebar">
 				<div class="app-sidebar__inner">
 					<ul class="vertical-nav-menu">
-						<li class="app-sidebar__heading">Employees management</li>  <!-- TODO: update this title -->
-						<li class="mm-active">
-							<a href="${pageContext.request.contextPath}">
+						<li class="app-sidebar__heading">Employees management</li>
+						<li class="">
+							<a href="${homeUrl}">
 								<i class="metismenu-icon pe-7s-users"></i>
-								Users  <!-- TODO: update this title -->
+								List of employees
 							</a>
 						</li>
 
-						<!-- TODO: update this navigation item -->
 						<li>
-							<a href="${pageContext.request.contextPath}">
-								<i class="metismenu-icon pe-7s-note2"></i>
-								Dashboard Boxes
+							<a href="${addUserUrl}">
+								<i class="metismenu-icon pe-7s-add-user"></i>
+								Add a user
 							</a>
 						</li>
 					</ul>
@@ -148,7 +147,7 @@
 							</div>
 							<div>
 								<span>
-									Details of employee $employeeName  <!-- TODO: update user name -->
+									Details of employee <c:out value="${employee.surname} ${employee.name}" />
 								</span>
 							</div>
 						</div>
@@ -161,7 +160,6 @@
 					<div class="col-12">
 						<div class="main-card mb-3 card">
 							<div class="card-body p-5">
-								<!-- TODO: populate the form with the data of the employee -->
 								<form action="#" method="post" class="row">
 									<div class="form-group col-12 col-lg-6">
 										<label for="lastname-input">Last name</label>
@@ -171,7 +169,7 @@
 													<i class="pe-7s-user"></i>
 												</span>
 											</div>
-											<input id="lastname-input" type="text" class="form-control form-control-lg" placeholder="Doe" required />
+											<input id="lastname-input" name="lastname" value="${employee.name}" type="text" class="form-control form-control-lg" placeholder="Doe" required />
 										</div>
 									</div>
 
@@ -183,7 +181,7 @@
 													<i class="pe-7s-user"></i>
 												</span>
 											</div>
-											<input id="firstname-input" type="text" class="form-control form-control-lg" placeholder="John" required />
+											<input id="firstname-input" name="firstname" value="${employee.surname}" type="text" class="form-control form-control-lg" placeholder="John" required />
 										</div>
 									</div>
 
@@ -195,7 +193,7 @@
 													<i class="pe-7s-call"></i>
 												</span>
 											</div>
-											<input id="homephone-input" type="tel" class="form-control" placeholder="0112345678" required />
+											<input id="homephone-input" name="homephone" value="${employee.personalPhone}" type="tel" class="form-control" placeholder="0112345678" required />
 										</div>
 									</div>
 
@@ -207,7 +205,7 @@
 													<i class="pe-7s-phone"></i>
 												</span>
 											</div>
-											<input id="mobilephone-input" type="tel" class="form-control" placeholder="0612345678" required />
+											<input id="mobilephone-input" name="mobilephone" value="${employee.mobilePhone}" type="tel" class="form-control" placeholder="0612345678" required />
 										</div>
 									</div>
 
@@ -219,7 +217,7 @@
 													<i class="pe-7s-call"></i>
 												</span>
 											</div>
-											<input id="workphone-input" type="tel" class="form-control" placeholder="0912345678" required />
+											<input id="workphone-input" name="workphone" value="${employee.workPhone}" type="tel" class="form-control" placeholder="0912345678" required />
 										</div>
 									</div>
 
@@ -231,14 +229,14 @@
 													<i class="pe-7s-home"></i>
 												</span>
 											</div>
-											<input id="address-input" type="text" class="form-control" placeholder="742 Evergreen Terrace" required />
+											<input id="address-input" name="address" value="${employee.address}" type="text" class="form-control" placeholder="742 Evergreen Terrace" required />
 										</div>
 
 									</div>
 
 									<div class="form-group col-5 col-lg-2">
 										<label for="zipcode-input">ZIP Code</label>
-										<input id="zipcode-input" type="text" class="form-control" placeholder="89011" required />
+										<input id="zipcode-input" name="zipcode" value="${employee.postalCode}" type="text" class="form-control" placeholder="89011" required />
 									</div>
 
 									<div class="form-group col-7 col-lg-4">
@@ -249,7 +247,7 @@
 													<i class="pe-7s-map"></i>
 												</span>
 											</div>
-											<input id="city-input" type="text" class="form-control" placeholder="Springfield" required />
+											<input id="city-input" name="city" value="${employee.city}" type="text" class="form-control" placeholder="Springfield" required />
 										</div>
 									</div>
 
@@ -259,12 +257,12 @@
 											<div class="input-group-prepend">
 												<span class="input-group-text">@</span>
 											</div>
-											<input id="email-input" type="email" class="form-control form-control-lg" placeholder="jdoe@mail.com" required />
+											<input id="email-input" name="email" value="${employee.email}" type="email" class="form-control form-control-lg" placeholder="jdoe@mail.com" required />
 										</div>
 									</div>
 
 									<div class="form-group col-12 text-center text-md-right">
-										<a href="#" class="btn btn-lg btn-outline-secondary mx-2 px-3">Cancel</a>
+										<a href="${homeUrl}" class="btn btn-lg btn-outline-secondary mx-2 px-3">Cancel</a>
 										<input type="submit" value="Save" class="btn btn-primary btn-lg px-4" />
 									</div>
 								</form>
@@ -275,24 +273,7 @@
 			</div>
 
 
-			<!-- Footer -->
-			<div class="app-wrapper-footer">
-				<div class="app-footer">
-					<div class="app-footer__inner">
-						<div class="app-footer-left"></div>
-						<div class="app-footer-right">
-							<ul class="nav">
-								<li class="nav-item">
-									<a href="https://github.com/" class="nav-link align-middle" target="_blank">
-										<i class="pe-7s-link mr-1 align-bottom"></i>
-										<span>Repo</span>
-									</a>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
+			<jsp:include page="../components/footer.jsp" />
 		</div>
 	</div>
 </div>
