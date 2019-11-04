@@ -185,12 +185,17 @@ public class Controller extends HttpServlet {
 	 * @param res Outgoing response.
 	 */
 	private void handleGetDetails(HttpServletRequest req, HttpServletResponse res) {
-		// Gather employee id from URL parameter
-		String employeeId = req.getParameter(PARAM_EMPLOYEE_ID);
+		// Gather queried employee thanks to employeeId passed as URL parameter
+		User queriedEmployee = User.withId(req.getParameter(PARAM_EMPLOYEE_ID));
 
-		req.setAttribute("employee", User.withId(employeeId));
+		// Check if request is valid (queried employee exists and has been retrieved)
+		if (queriedEmployee == null) {
+			this.redirectToHome(req, res);
+		}
 
-		this.redirectToHome(req, res);
+		req.setAttribute("employee", queriedEmployee);
+
+		this.sendToPage(JSP_DETAILS, req, res);
 	}
 
 
