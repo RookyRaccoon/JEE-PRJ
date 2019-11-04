@@ -145,6 +145,12 @@ public class Controller extends HttpServlet {
 	 * @param res Outgoing response.
 	 */
 	private void handlePostDetails(HttpServletRequest req, HttpServletResponse res) {
+		// Create a User object representing the updated user
+		User updatedUser = new AddUserForm(req).getUser();
+		updatedUser.setDbId(req.getParameter(PARAM_EMPLOYEE_ID));
+
+
+
 		this.redirectToHome(req, res);
 	}
 
