@@ -1,8 +1,10 @@
 package efrei.m1.se.model;
 
 import efrei.m1.se.utils.DBActions;
-import lombok.*;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

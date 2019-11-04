@@ -1,7 +1,6 @@
 package efrei.m1.se.form;
 
 import efrei.m1.se.model.User;
-
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
