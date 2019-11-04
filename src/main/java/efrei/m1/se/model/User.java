@@ -76,6 +76,7 @@ public class User {
 				ps.setString(1, id);
 
 				ResultSet rs = ps.executeQuery();
+				ps.close();
 
 				// Check if a user was found and use it as a return value
 				if (rs.next()) {
@@ -186,6 +187,7 @@ public class User {
 			if (ps != null) {
 				ps.setString(1, id);
 				ps.executeUpdate();
+				ps.close();
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
