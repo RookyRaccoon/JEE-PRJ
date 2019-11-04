@@ -33,10 +33,11 @@ public class DBActions {
 			final String url = dbProperties.getProperty("dbUrl");
 			final String user = dbProperties.getProperty("dbUser");
 			final String pwd = dbProperties.getProperty("dbPassword");
+			final String driver = dbProperties.getProperty("jdbcDriver");
 
 			// Initialize database connection
 			try {
-				Class.forName("com.mysql.jdbc.Driver");
+				Class.forName(driver);
 
 				DBActions.dbConnection = DriverManager.getConnection(url, user, pwd);
 			} catch (ClassNotFoundException | SQLException e) {
