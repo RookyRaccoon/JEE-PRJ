@@ -51,13 +51,7 @@ public class DAOFactory {
 	 */
 	public static DAOFactory getInstance(@NonNull InputStream propertiesFile) throws DAOConfigurationException {
 		// Gather database properties
-		Properties dbProperties = new Properties();
-
-		try {
-			dbProperties.load(propertiesFile);
-		} catch (IOException e) {
-			throw new DAOConfigurationException("Unable to load database properties file.", e);
-		}
+		Properties dbProperties = DAOFactory.loadDatabaseProperties(propertiesFile);
 
 		final String dbUrl = dbProperties.getProperty(PROP_URL);
 		final String dbUser = dbProperties.getProperty(PROP_USER);
@@ -80,5 +74,31 @@ public class DAOFactory {
 		// Return a new instance of DAOFactory only if no initialization step failed
 		return new DAOFactory(cpConfig);
 	}
+	///endregion
+
+
+	///region Class refactoring
+	/////////////////////////////////////////////////////////////////////////////
+	// REFACTORING: SPECIALIZED CODE TO DIVIDE AND SIMPLIFY METHODS OF THE CLASS
+	/////////////////////////////////////////////////////////////////////////////
+
+	/**
+	 * Load the database properties into a {@link Properties} file
+	 * @param propertiesFile {@code db.properties} file
+	 * @return Instance of {@link Properties} loaded with the {@code db.properties} properties
+	 * @throws DAOConfigurationException In case of an {@link IOException}
+	 */
+	private static Properties loadDatabaseProperties(@NonNull InputStream propertiesFile) throws DAOConfigurationException {
+		Properties dbProperties = new Properties();
+
+		try {
+			dbProperties.load(propertiesFile);
+		} catch (IOException e) {
+			throw new DAOConfigurationException("Unable to load database properties file", e);
+		}
+
+		return dbProperties;
+	}
+
 	///endregion
 }
