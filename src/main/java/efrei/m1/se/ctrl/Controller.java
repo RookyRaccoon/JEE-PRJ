@@ -3,7 +3,7 @@ package efrei.m1.se.ctrl;
 import efrei.m1.se.form.AddUserForm;
 import efrei.m1.se.form.UserDetailsForm;
 import efrei.m1.se.model.User;
-import efrei.m1.se.utils.AuthenticatorService;
+import efrei.m1.se.utils.AuthenticationService;
 import efrei.m1.se.utils.NavigationUtils;
 
 import javax.servlet.http.HttpServlet;
@@ -97,13 +97,13 @@ public class Controller extends HttpServlet {
 	 */
 	private void handlePostLogin(HttpServletRequest req, HttpServletResponse res) {
 		// If user is already logged in, redirect him to home page
-		if (AuthenticatorService.isAuthenticated(req)) {
+		if (AuthenticationService.isAuthenticated(req)) {
 			NavigationUtils.redirectToHome(req, res);
 			return;
 		}
 
 		// Attempt to log the user in
-		if(!AuthenticatorService.login(req)) {
+		if(!AuthenticationService.login(req)) {
 			NavigationUtils.sendToPage(JSP_LOGIN, req, res);  // Send use to login page if authentication failed
 		} else {  // If authentication succeeded
 			NavigationUtils.redirectToHome(req, res);
@@ -129,7 +129,7 @@ public class Controller extends HttpServlet {
 	 * @param res Outgoing response.
 	 */
 	private void handleGetRoot(HttpServletRequest req, HttpServletResponse res) {
-		if (AuthenticatorService.isAuthenticated(req)) {
+		if (AuthenticationService.isAuthenticated(req)) {
 			// TODO: check access rights
 			req.setAttribute("employees", User.getAllUsers());
 			NavigationUtils.sendToPage(JSP_HOME, req, res);
@@ -144,8 +144,8 @@ public class Controller extends HttpServlet {
 	 * @param res Outgoing response.
 	 */
 	private void handleGetLogout(HttpServletRequest req, HttpServletResponse res) {
-		if (AuthenticatorService.isAuthenticated(req)) {
-			AuthenticatorService.logout(req);
+		if (AuthenticationService.isAuthenticated(req)) {
+			AuthenticationService.logout(req);
 			NavigationUtils.sendToPage(JSP_GOODBYE, req, res);
 		} else {
 			NavigationUtils.redirectToHome(req, res);
@@ -158,7 +158,7 @@ public class Controller extends HttpServlet {
 	 * @param res Outgoing response.
 	 */
 	private void handleGetAddUser(HttpServletRequest req, HttpServletResponse res) {
-		if (AuthenticatorService.isAuthenticated(req)) {
+		if (AuthenticationService.isAuthenticated(req)) {
 			// TODO: check access rights
 			NavigationUtils.sendToPage(JSP_ADDUSER, req, res);
 		} else {
@@ -173,7 +173,7 @@ public class Controller extends HttpServlet {
 	 */
 	private void handleGetDetails(HttpServletRequest req, HttpServletResponse res) {
 		// Check access rights
-		if (!AuthenticatorService.isAuthenticated(req)) {
+		if (!AuthenticationService.isAuthenticated(req)) {
 			NavigationUtils.sendToPage(JSP_LOGIN, req, res);
 		}
 

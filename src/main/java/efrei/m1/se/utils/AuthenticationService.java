@@ -4,14 +4,14 @@ import efrei.m1.se.form.LoginForm;
 
 import javax.servlet.http.HttpServletRequest;
 
-import static efrei.m1.se.utils.Constants.DEFAULT_ADMIN_PASSWORD;
-import static efrei.m1.se.utils.Constants.DEFAULT_ADMIN_USERNAME;
-
-public class AuthenticatorService {
+/**
+ * Simple authentication service to handle authentication checking as well as login users in and out
+ */
+public class AuthenticationService {
 	/**
 	 * Make the class "fully static"
 	 */
-	private AuthenticatorService() {}
+	private AuthenticationService() {}
 
 	/**
 	 * Check whether or not a User is authenticated through its session data
@@ -24,23 +24,11 @@ public class AuthenticatorService {
 		return sessionUsername != null && !sessionUsername.isEmpty();
 	}
 
-
-	public static boolean defaultLogin(HttpServletRequest req) {
-		final String username = req.getParameter("username");
-		final String password = req.getParameter("password");
-
-		if (username.equals(DEFAULT_ADMIN_USERNAME) && password.equals(DEFAULT_ADMIN_PASSWORD)) {
-			req.setAttribute("connectionFailed", false);
-
-			req.getSession().setAttribute("username", username);
-
-			return true;
-		}
-
-		req.setAttribute("connectionFailed", true);
-		return false;
-	}
-
+	/**
+	 * Log a user in thanks to form data
+	 * @param req Incoming request containing login form data
+	 * @return Whether the authentication succeeded
+	 */
 	public static boolean login(HttpServletRequest req){
 		final String username = req.getParameter("username");
 		final String password = req.getParameter("password");
@@ -64,9 +52,9 @@ public class AuthenticatorService {
 
 	/**
 	 * For admin users
-	 * @param req
-	 * @param username
-	 * @param password
+	 * @param req Incoming request.
+	 * @param username Check username.
+	 * @param password Checked password.
 	 * @return true if the field is the context param value we put in our web xml
 	 *
 	 */
@@ -82,8 +70,8 @@ public class AuthenticatorService {
 
 	/**
 	 * Same but for employees
-	 * @param req
-	 * @return
+	 * @param req Incoming request containing form data.
+	 * @return Whether the form data corresponds to an employee record.
 	 */
 	public static boolean isEmployee (HttpServletRequest req){
 
