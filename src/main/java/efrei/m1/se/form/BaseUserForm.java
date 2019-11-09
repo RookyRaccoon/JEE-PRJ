@@ -1,7 +1,9 @@
 package efrei.m1.se.form;
 
+import efrei.m1.se.dao.DAOFactory;
+import efrei.m1.se.dao.EmployeeDAO;
 import efrei.m1.se.model.User;
-import lombok.AccessLevel;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,12 +23,15 @@ abstract class BaseUserForm {
 	private static final String FRM_CITY = "city";
 	private static final String FRM_EMAIL = "email";
 
-	@Getter(AccessLevel.PUBLIC) @Setter(AccessLevel.PUBLIC)
+	@Getter @Setter
 	private User user;
+
+	protected EmployeeDAO employeeDAO;
 
 
 	BaseUserForm(HttpServletRequest req) {
 		this.processRequest(req);
+		this.employeeDAO = ((DAOFactory) req.getServletContext().getAttribute("daofactory")).getEmployeeDAO();
 	}
 
 	/**
