@@ -111,6 +111,7 @@ public class DAOUtils {
 		user.setWorkPhone(rs.getString(DB_COL_WORKPHONE));
 		user.setAddress(rs.getString(DB_COL_ADDRESS));
 		user.setPostalCode(rs.getString(DB_COL_POSTALCODE));
+		user.setCity(rs.getString(DB_COL_CITY));
 		user.setEmail(rs.getString(DB_COL_EMAIL));
 
 		return user;
