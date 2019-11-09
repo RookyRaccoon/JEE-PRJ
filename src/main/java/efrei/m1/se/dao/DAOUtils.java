@@ -13,8 +13,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+/**
+ * Utils class for all DAO-related repetitive actions
+ */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class DAOUtils {
+class DAOUtils {
 	/**
 	 * Get a {@link PreparedStatement} with all the needed parameters already set
 	 * @param conn Database connection to use
