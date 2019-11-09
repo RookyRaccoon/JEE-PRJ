@@ -6,6 +6,8 @@ import lombok.NonNull;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Properties;
 
 public class DAOFactory {
@@ -73,6 +75,22 @@ public class DAOFactory {
 
 		// Return a new instance of DAOFactory only if no initialization step failed
 		return new DAOFactory(cpConfig);
+	}
+	///endregion
+
+
+	///region Methods
+	///////////////////////////////////////////////////////////////////////////
+	// CLASS METHODS
+	///////////////////////////////////////////////////////////////////////////
+
+	/**
+	 * Get a database {@link Connection} from the connection pool
+	 * @return {@link Connection} to the database
+	 * @throws SQLException In case of a previously undetected problem with the configuration
+	 */
+	public Connection getConnection() throws SQLException {
+		return this.dataSource.getConnection();
 	}
 	///endregion
 
