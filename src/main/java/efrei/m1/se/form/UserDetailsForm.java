@@ -1,16 +1,17 @@
 package efrei.m1.se.form;
 
+import efrei.m1.se.dao.EmployeeDAO;
 import efrei.m1.se.model.User;
 
 import javax.servlet.http.HttpServletRequest;
 
 public class UserDetailsForm extends BaseUserForm {
 	/**
-	 * Create an instance of the form directly with the incoming {@link HttpServletRequest}
-	 * @param req Incoming {@link HttpServletRequest} to parse the {@link User} data from
+	 * Create an instance of the user details form
+	 * @param employeeDAO Instance of an implementation of {@link EmployeeDAO} to use
 	 */
-	public UserDetailsForm(HttpServletRequest req) {
-		super(req);
+	public UserDetailsForm(EmployeeDAO employeeDAO) {
+		super(employeeDAO);
 	}
 
 	/**

@@ -29,16 +29,15 @@ abstract class BaseUserForm {
 	protected EmployeeDAO employeeDAO;
 
 
-	BaseUserForm(HttpServletRequest req) {
-		this.processRequest(req);
-		this.employeeDAO = ((DAOFactory) req.getServletContext().getAttribute("daofactory")).getEmployeeDAO();
+	BaseUserForm(EmployeeDAO employeeDAO) {
+		this.employeeDAO = employeeDAO;
 	}
 
 	/**
 	 * Parses a {@link User} from form-contained data in a {@link HttpServletRequest}
 	 * @param req {@link HttpServletRequest} to parse {@link User} data from
 	 */
-	private void processRequest(HttpServletRequest req) {
+	protected void processRequest(HttpServletRequest req) {
 		this.user = new User(
 			req.getParameter(FRM_LAST_NAME),
 			req.getParameter(FRM_FIRST_NAME),
