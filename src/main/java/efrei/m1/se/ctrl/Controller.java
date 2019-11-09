@@ -3,13 +3,12 @@ package efrei.m1.se.ctrl;
 import efrei.m1.se.form.AddUserForm;
 import efrei.m1.se.form.UserDetailsForm;
 import efrei.m1.se.model.User;
-import efrei.m1.se.utils.AuthenticatorService;
+import efrei.m1.se.service.AuthenticationService;
+import efrei.m1.se.utils.NavigationUtils;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 import static efrei.m1.se.utils.Constants.*;
 
@@ -39,7 +38,7 @@ public class Controller extends HttpServlet {
 				break;
 
 			default:
-				this.redirectToHome(req, res);  // Redirects the user to "/", this URL shouldn't be GET
+				NavigationUtils.redirectToHome(req, res);  // Redirects the user to "/", this URL shouldn't be GET
 				break;
 		}
 	}
@@ -66,37 +65,8 @@ public class Controller extends HttpServlet {
 				break;
 
 			default:  // Redirect all unbound requests to home page ("/") as a GET request
-				this.redirectToHome(req, res);
+				NavigationUtils.redirectToHome(req, res);
 				break;
-		}
-	}
-
-
-
-	/**
-	 * Makes a forwarding to the passed in JSP
-	 * @param jspPath Path to the JSP to redirect to
-	 * @param req Incoming request.
-	 * @param res Outgoing response.
-	 */
-	private void sendToPage(String jspPath, HttpServletRequest req, HttpServletResponse res) {
-		try {
-			this.getServletContext().getRequestDispatcher(jspPath).forward(req, res);
-		} catch (ServletException | IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * Redirects the user to the home page (list of users).
-	 * @param req Incoming request.
-	 * @param res Outgoing response.
-	 */
-	private void redirectToHome(HttpServletRequest req, HttpServletResponse res) {
-		try {
-			res.sendRedirect(req.getContextPath());
-		} catch (IOException ex) {
-			ex.printStackTrace();
 		}
 	}
 
@@ -113,10 +83,10 @@ public class Controller extends HttpServlet {
 		// Set status code of the response if
 		if (rowsAffected != 1) {  // (We expect only 1 row to be affected since we use an INSERT statement)
 			res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-			this.sendToPage(JSP_ADDUSER, req, res);
+			NavigationUtils.sendToPage(JSP_ADDUSER, req, res);
 		} else {
 			res.setStatus(HttpServletResponse.SC_CREATED);
-			this.redirectToHome(req, res);
+			NavigationUtils.redirectToHome(req, res);
 		}
 	}
 
@@ -127,16 +97,16 @@ public class Controller extends HttpServlet {
 	 */
 	private void handlePostLogin(HttpServletRequest req, HttpServletResponse res) {
 		// If user is already logged in, redirect him to home page
-		if (AuthenticatorService.isAuthenticated(req)) {
-			this.redirectToHome(req, res);
+		if (AuthenticationService.isAuthenticated(req)) {
+			NavigationUtils.redirectToHome(req, res);
 			return;
 		}
 
 		// Attempt to log the user in
-		if(!AuthenticatorService.login(req)) {
-			this.sendToPage(JSP_LOGIN, req, res);  // Send use to login page if authentication failed
+		if(!AuthenticationService.login(req)) {
+			NavigationUtils.sendToPage(JSP_LOGIN, req, res);  // Send use to login page if authentication failed
 		} else {  // If authentication succeeded
-			this.redirectToHome(req, res);
+			NavigationUtils.redirectToHome(req, res);
 		}
 	}
 
@@ -149,7 +119,7 @@ public class Controller extends HttpServlet {
 		UserDetailsForm form = new UserDetailsForm(req);
 		form.store(req.getParameter(PARAM_EMPLOYEE_ID));
 
-		this.redirectToHome(req, res);
+		NavigationUtils.redirectToHome(req, res);
 	}
 
 
@@ -159,12 +129,12 @@ public class Controller extends HttpServlet {
 	 * @param res Outgoing response.
 	 */
 	private void handleGetRoot(HttpServletRequest req, HttpServletResponse res) {
-		if (AuthenticatorService.isAuthenticated(req)) {
+		if (AuthenticationService.isAuthenticated(req)) {
 			// TODO: check access rights
 			req.setAttribute("employees", User.getAllUsers());
-			this.sendToPage(JSP_HOME, req, res);
+			NavigationUtils.sendToPage(JSP_HOME, req, res);
 		} else {
-			this.sendToPage(JSP_LOGIN, req, res);
+			NavigationUtils.sendToPage(JSP_LOGIN, req, res);
 		}
 	}
 
@@ -174,11 +144,11 @@ public class Controller extends HttpServlet {
 	 * @param res Outgoing response.
 	 */
 	private void handleGetLogout(HttpServletRequest req, HttpServletResponse res) {
-		if (AuthenticatorService.isAuthenticated(req)) {
-			AuthenticatorService.logout(req);
-			this.sendToPage(JSP_GOODBYE, req, res);
+		if (AuthenticationService.isAuthenticated(req)) {
+			AuthenticationService.logout(req);
+			NavigationUtils.sendToPage(JSP_GOODBYE, req, res);
 		} else {
-			this.redirectToHome(req, res);
+			NavigationUtils.redirectToHome(req, res);
 		}
 	}
 
@@ -188,11 +158,11 @@ public class Controller extends HttpServlet {
 	 * @param res Outgoing response.
 	 */
 	private void handleGetAddUser(HttpServletRequest req, HttpServletResponse res) {
-		if (AuthenticatorService.isAuthenticated(req)) {
+		if (AuthenticationService.isAuthenticated(req)) {
 			// TODO: check access rights
-			this.sendToPage(JSP_ADDUSER, req, res);
+			NavigationUtils.sendToPage(JSP_ADDUSER, req, res);
 		} else {
-			this.sendToPage(JSP_LOGIN, req, res);
+			NavigationUtils.sendToPage(JSP_LOGIN, req, res);
 		}
 	}
 
@@ -203,8 +173,8 @@ public class Controller extends HttpServlet {
 	 */
 	private void handleGetDetails(HttpServletRequest req, HttpServletResponse res) {
 		// Check access rights
-		if (!AuthenticatorService.isAuthenticated(req)) {
-			this.sendToPage(JSP_LOGIN, req, res);
+		if (!AuthenticationService.isAuthenticated(req)) {
+			NavigationUtils.sendToPage(JSP_LOGIN, req, res);
 		}
 
 		// Gather queried employee thanks to employeeId passed as URL parameter
@@ -212,11 +182,11 @@ public class Controller extends HttpServlet {
 
 		// Check if request is valid (queried employee exists and has been retrieved)
 		if (queriedEmployee == null) {
-			this.redirectToHome(req, res);
+			NavigationUtils.redirectToHome(req, res);
 		} else {
 			req.setAttribute("employee", queriedEmployee);
 
-			this.sendToPage(JSP_DETAILS, req, res);
+			NavigationUtils.sendToPage(JSP_DETAILS, req, res);
 		}
 	}
 
@@ -233,6 +203,6 @@ public class Controller extends HttpServlet {
 			User.deleteRecord(employeeId);
 		}
 
-		this.redirectToHome(req, res);
+		NavigationUtils.redirectToHome(req, res);
 	}
 }

@@ -1,4 +1,4 @@
-package efrei.m1.se.ctrl;
+package efrei.m1.se.filter;
 
 import efrei.m1.se.utils.DBActions;
 
