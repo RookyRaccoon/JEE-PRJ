@@ -41,6 +41,10 @@
 	=============================================================
 	-->
 	
+	<listener>
+		<listener-class>efrei.m1.se.config.DAOFactoryInitializer</listener-class>
+	</listener>
+	
 	<!-- Filter responsible for database connection establishment -->
 	<filter>
 		<filter-name>DBInitFilter</filter-name>
