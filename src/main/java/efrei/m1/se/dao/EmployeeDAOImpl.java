@@ -103,6 +103,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		try {
 			conn = this.daoFactory.getConnection();
 
+			// Init a prepared statement with the UPDATE query and the User's object properties
 			preparedStatement = DAOUtils.initPreparedStatement(conn, SQL_UPDATE_ONE, false,
 				user.getName(),
 				user.getSurname(),
@@ -140,6 +141,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		try {
 			conn = this.daoFactory.getConnection();
 
+			// Init a prepared statement with the DELETE query and the User's object id
 			preparedStatement = DAOUtils.initPreparedStatement(conn, SQL_DELETE_ONE, false, user.getDbId());
 
 			// Execute update and check number of affected rows (deleteStatus) to check if deletion is successful
@@ -156,6 +158,31 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
 	@Override
 	public User findById(@NonNull String id) throws DAOException {
-		return null;
+		Connection conn = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		User employee = null;
+
+		try {
+			conn = this.daoFactory.getConnection();
+
+			// Init a prepared statement with the SELECT query and the id passed as a parameter to look for
+			preparedStatement = DAOUtils.initPreparedStatement(conn, SQL_SELECT_BY_ID, false, id);
+
+			resultSet = preparedStatement.executeQuery();
+
+			// Check if result set is not empty and gather the first row of user data returned
+			if (resultSet.next()) {
+				employee = DAOUtils.mapUser(resultSet);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DAOUtils.silentClose(resultSet, preparedStatement, conn);
+		}
+
+		return employee;
 	}
 }
