@@ -3,7 +3,7 @@ package efrei.m1.se.ctrl;
 import efrei.m1.se.form.AddUserForm;
 import efrei.m1.se.form.UserDetailsForm;
 import efrei.m1.se.model.User;
-import efrei.m1.se.utils.AuthenticationService;
+import efrei.m1.se.service.AuthenticationService;
 import efrei.m1.se.utils.NavigationUtils;
 
 import javax.servlet.http.HttpServlet;

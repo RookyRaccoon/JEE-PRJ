@@ -1,4 +1,4 @@
-package efrei.m1.se.utils;
+package efrei.m1.se.service;
 
 import efrei.m1.se.form.LoginForm;
 
