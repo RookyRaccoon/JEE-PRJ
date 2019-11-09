@@ -1,5 +1,4 @@
-<c:url var="architectUI" value="/static/architect-ui"/>
-<c:url var="loginUrl" value="/login"/>
+
 
 <%@ page pageEncoding="UTF-8" %>
 <!DOCTYPE html>
