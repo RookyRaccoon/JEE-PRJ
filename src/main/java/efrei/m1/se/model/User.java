@@ -149,16 +149,16 @@ public class User {
 
 		if (rs != null) {
 			try {
-				u.setDbId(rs.getString("employee_id"));
-				u.setName(rs.getString("name"));
-				u.setSurname(rs.getString("firstname"));
-				u.setPersonalPhone(rs.getString("homephone"));
-				u.setWorkPhone(rs.getString("workphone"));
-				u.setMobilePhone(rs.getString("mobilephone"));
-				u.setAddress(rs.getString("address"));
-				u.setPostalCode(rs.getString("postal"));
-				u.setCity(rs.getString("city"));
-				u.setEmail(rs.getString("email"));
+				u.setDbId(rs.getString("ID"));
+				u.setName(rs.getString("NAME"));
+				u.setSurname(rs.getString("FIRSTNAME"));
+				u.setPersonalPhone(rs.getString("HOMEPHONE"));
+				u.setWorkPhone(rs.getString("WORKPHONE"));
+				u.setMobilePhone(rs.getString("MOBILEPHONE"));
+				u.setAddress(rs.getString("ADDRESS"));
+				u.setPostalCode(rs.getString("POSTALCODE"));
+				u.setCity(rs.getString("CITY"));
+				u.setEmail(rs.getString("EMAIL"));
 
 				return u;
 			} catch (SQLException e) {
