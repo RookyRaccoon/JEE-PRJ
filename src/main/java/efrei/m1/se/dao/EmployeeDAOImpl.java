@@ -33,7 +33,6 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	public static final String DB_COL_CITY = "CITY";
 	public static final String DB_COL_EMAIL = "EMAIL";
 	public static final String DB_COL_ID = "ID";
-
 	///endregion
 
 
@@ -190,6 +189,30 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
 	@Override
 	public ArrayList<User> findAll() throws DAOException {
-		return null;
+		Connection conn = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		ArrayList<User> employees = new ArrayList<>();
+
+		try {
+			conn = this.daoFactory.getConnection();
+
+			// Using a prepared statement here to benefit from precompiled statements greater speed
+			preparedStatement = DAOUtils.initPreparedStatement(conn, SQL_SELECT_ALL, false);
+
+			resultSet = preparedStatement.executeQuery();
+
+			// Add all employees returned by the query to the ArrayList of User
+			while (resultSet.next()) {
+				employees.add(DAOUtils.mapUser(resultSet));
+			}
+		} catch (SQLException e) {
+			throw new DAOException(e);
+		} finally {
+			DAOUtils.silentClose(resultSet, preparedStatement, conn);
+		}
+
+		return employees;
 	}
 }
