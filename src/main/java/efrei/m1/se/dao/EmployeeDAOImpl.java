@@ -18,6 +18,24 @@ import java.sql.SQLException;
 @AllArgsConstructor @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class EmployeeDAOImpl implements EmployeeDAO {
 
+	///region SQL Table Columns
+	///////////////////////////////////////////////////////////////////////////
+	// SQL TABLE COLUMNS
+	///////////////////////////////////////////////////////////////////////////
+	public static final String DB_COL_NAME = "NAME";
+	public static final String DB_COL_SURNAME = "FIRSTNAME";
+	public static final String DB_COL_PERSONALPHONE = "HOMEPHONE";
+	public static final String DB_COL_MOBILEPHONE = "MOBILEPHONE";
+	public static final String DB_COL_WORKPHONE = "WORKPHONE";
+	public static final String DB_COL_ADDRESS = "ADDRESS";
+	public static final String DB_COL_POSTALCODE = "POSTALCODE";
+	public static final String DB_COL_CITY = "CITY";
+	public static final String DB_COL_EMAIL = "EMAIL";
+	public static final String DB_COL_ID = "ID";
+
+	///endregion
+
+
 	///region SQL Queries
 	///////////////////////////////////////////////////////////////////////////
 	// SQL Queries
