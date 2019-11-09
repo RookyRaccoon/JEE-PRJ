@@ -70,7 +70,7 @@ public class Controller extends HttpServlet {
 		}
 	}
 
-
+	///region POST requests handlers
 	/**
 	 * Handles POST requests made to "/add-user" endpoint
 	 * @param req Incoming request.
@@ -121,8 +121,9 @@ public class Controller extends HttpServlet {
 
 		NavigationUtils.redirectToHome(req, res);
 	}
+	///endregion
 
-
+	///region GET requests handlers
 	/**
 	 * Handles GET requests made to "/" endpoint.
 	 * @param req Incoming request.
@@ -130,7 +131,6 @@ public class Controller extends HttpServlet {
 	 */
 	private void handleGetRoot(HttpServletRequest req, HttpServletResponse res) {
 		if (AuthenticationService.isAuthenticated(req)) {
-			// TODO: check access rights
 			req.setAttribute("employees", User.getAllUsers());
 			NavigationUtils.sendToPage(JSP_HOME, req, res);
 		} else {
@@ -189,8 +189,9 @@ public class Controller extends HttpServlet {
 			NavigationUtils.sendToPage(JSP_DETAILS, req, res);
 		}
 	}
+	///endregion
 
-
+	///region Mixed requests handlers
 	/**
 	 * Handles all requests made to "/delete" endpoint
 	 * @param req Incoming request.
@@ -205,4 +206,5 @@ public class Controller extends HttpServlet {
 
 		NavigationUtils.redirectToHome(req, res);
 	}
+	///endregion
 }
