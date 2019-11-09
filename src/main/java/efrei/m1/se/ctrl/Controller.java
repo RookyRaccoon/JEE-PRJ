@@ -144,7 +144,7 @@ public class Controller extends HttpServlet {
 	 */
 	private void handleGetRoot(HttpServletRequest req, HttpServletResponse res) {
 		if (AuthenticationService.isAuthenticated(req)) {
-			req.setAttribute("employees", User.getAllUsers());
+			req.setAttribute("employees", this.employeeDAO.findAll());
 			NavigationUtils.sendToPage(JSP_HOME, req, res);
 		} else {
 			NavigationUtils.sendToPage(JSP_LOGIN, req, res);
