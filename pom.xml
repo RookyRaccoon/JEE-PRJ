@@ -30,7 +30,7 @@
 		
 		
 		<!--================================================
-		====               JDBC Drivers                 ====
+		====        Database utils & JDBC Drivers       ====
 		=================================================-->
 		
 		<!-- Needed to access Apache Derby databases with JDBC -->
@@ -47,6 +47,14 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.6</version>
 		</dependency>
+		
+		<!-- Needed for connection pooling -->
+		<dependency>
+			<groupId>com.zaxxer</groupId>
+			<artifactId>HikariCP</artifactId>
+			<version>3.4.1</version>
+		</dependency>
+		
 		
 		
 		<!--================================================
