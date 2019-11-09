@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  * Class to easily manipulate {@link User} objects in the database
@@ -44,6 +45,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	private static final String SQL_INSERT_ONE   = "INSERT INTO Employees(NAME, FIRSTNAME, HOMEPHONE, MOBILEPHONE, WORKPHONE, ADDRESS, POSTALCODE, CITY, EMAIL) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String SQL_DELETE_ONE   = "DELETE FROM Employees WHERE ID=?";
 	private static final String SQL_UPDATE_ONE   = "UPDATE Employees SET NAME = ?, FIRSTNAME = ?, HOMEPHONE = ?, MOBILEPHONE = ?, WORKPHONE = ?, ADDRESS = ?, POSTALCODE = ?, CITY = ?, EMAIL = ? WHERE ID = ?";
+	private static final String SQL_SELECT_ALL   = "SELECT ID, NAME, FIRSTNAME, HOMEPHONE, MOBILEPHONE, WORKPHONE, ADDRESS, POSTALCODE, CITY, EMAIL FROM Employees";
 	///endregion
 
 	/**
@@ -184,5 +186,10 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		}
 
 		return employee;
+	}
+
+	@Override
+	public ArrayList<User> findAll() throws DAOException {
+		return null;
 	}
 }

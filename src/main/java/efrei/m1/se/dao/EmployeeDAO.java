@@ -4,6 +4,8 @@ import efrei.m1.se.model.User;
 
 import lombok.NonNull;
 
+import java.util.ArrayList;
+
 /**
  * Interface describing all methods
  */
@@ -36,4 +38,11 @@ public interface EmployeeDAO {
 	 * @throws DAOException If an error occurs with the database
 	 */
 	User findById(@NonNull String id) throws DAOException;
+
+	/**
+	 * Get a list of all {@link User}s in the database
+	 * @return {@link ArrayList} of {@link User}s contained in the database
+	 * @throws DAOException If an error occurs with the database
+	 */
+	ArrayList<User> findAll() throws DAOException;
 }
