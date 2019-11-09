@@ -179,7 +179,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 			}
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new DAOException(e);
 		} finally {
 			DAOUtils.silentClose(resultSet, preparedStatement, conn);
 		}
