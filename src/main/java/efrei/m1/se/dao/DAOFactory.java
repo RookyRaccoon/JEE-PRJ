@@ -92,6 +92,14 @@ public class DAOFactory {
 	public Connection getConnection() throws SQLException {
 		return this.dataSource.getConnection();
 	}
+
+	/**
+	 * Get an instance of an implementation of {@link EmployeeDAO}
+	 * @return Instance of an implementation of {@link EmployeeDAO}
+	 */
+	public EmployeeDAO getEmployeeDAO() {
+		return new EmployeeDAOImpl(this);
+	}
 	///endregion
 
 
