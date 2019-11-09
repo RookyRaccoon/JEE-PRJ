@@ -1,5 +1,8 @@
 package efrei.m1.se.dao;
 
+/**
+ * Wrapper {@link Exception} for all DAO related exceptions
+ */
 public class DAOException extends RuntimeException {
 	public DAOException(String message) {
 		super(message);

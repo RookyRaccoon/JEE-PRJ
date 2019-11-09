@@ -1,6 +1,9 @@
 package efrei.m1.se.dao;
 
-public class DAOConfigurationException extends RuntimeException {
+/**
+ * Wrapper {@link Exception} for all DAO configuration related exceptions
+ */
+public class DAOConfigurationException extends DAOException {
 	public DAOConfigurationException(String message) {
 		super(message);
 	}
