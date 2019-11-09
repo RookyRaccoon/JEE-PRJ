@@ -4,6 +4,10 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import lombok.NonNull;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+
 public class DAOFactory {
 	///region Properties
 	///////////////////////////////////////////////////////////////////////////
@@ -39,5 +43,42 @@ public class DAOFactory {
 		this.dataSource = new HikariDataSource(config);
 	}
 
+	/**
+	 * Cleanly build an instance of {@link DAOFactory}
+	 * @param propertiesFile {@code db.properties} file
+	 * @return A new instance of {@link DAOFactory}
+	 * @throws DAOConfigurationException In case of a configuration problem (IO / JDBC)
+	 */
+	public static DAOFactory getInstance(@NonNull InputStream propertiesFile) throws DAOConfigurationException {
+		// Gather database properties
+		Properties dbProperties = new Properties();
+
+		try {
+			dbProperties.load(propertiesFile);
+		} catch (IOException e) {
+			throw new DAOConfigurationException("Unable to load database properties file.", e);
+		}
+
+		final String dbUrl = dbProperties.getProperty(PROP_URL);
+		final String dbUser = dbProperties.getProperty(PROP_USER);
+		final String dbPassword = dbProperties.getProperty(PROP_PASSWORD);
+		final String jdbcDriver = dbProperties.getProperty(PROP_DRIVER);
+
+		// Load JDBC driver
+		try {
+			Class.forName(jdbcDriver);
+		} catch (ClassNotFoundException e) {
+			throw new DAOConfigurationException("Unable to find driver " + jdbcDriver + " in classpath.", e);
+		}
+
+		// Create the database connection pooling properties
+		HikariConfig cpConfig = new HikariConfig();
+		cpConfig.setJdbcUrl(dbUrl);
+		cpConfig.setUsername(dbUser);
+		cpConfig.setPassword(dbPassword);
+
+		// Return a new instance of DAOFactory only if no initialization step failed
+		return new DAOFactory(cpConfig);
+	}
 	///endregion
 }
