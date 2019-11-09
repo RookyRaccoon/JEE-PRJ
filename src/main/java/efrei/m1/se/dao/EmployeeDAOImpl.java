@@ -35,15 +35,15 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
 	@Override
 	public void create(@NonNull User user) throws DAOException {
-		Connection con = null;
+		Connection conn = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet generatedKeys = null;
 
 		try {
-			con = this.daoFactory.getConnection();
+			conn = this.daoFactory.getConnection();
 
 			// Init a prepared statement with the INSERT query and the User's object properties
-			preparedStatement = DAOUtils.initPreparedStatement(con, SQL_INSERT_ONE, true,
+			preparedStatement = DAOUtils.initPreparedStatement(conn, SQL_INSERT_ONE, true,
 				user.getName(),
 				user.getSurname(),
 				user.getPersonalPhone(),
@@ -68,13 +68,13 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		} catch (SQLException e) {
 			throw new DAOException(e);
 		} finally {
-			DAOUtils.silentClose(generatedKeys, preparedStatement, con);
+			DAOUtils.silentClose(generatedKeys, preparedStatement, conn);
 		}
 	}
 
 	@Override
 	public void update(@NonNull User user) throws DAOException {
-		Connection con = null;
+		Connection conn = null;
 		PreparedStatement preparedStatement = null;
 
 		// Check if User object has a valid id property (otherwise it will be impossible to update a record in the database)
@@ -83,9 +83,9 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		}
 
 		try {
-			con = this.daoFactory.getConnection();
+			conn = this.daoFactory.getConnection();
 
-			preparedStatement = DAOUtils.initPreparedStatement(con, SQL_UPDATE_ONE, false,
+			preparedStatement = DAOUtils.initPreparedStatement(conn, SQL_UPDATE_ONE, false,
 				user.getName(),
 				user.getSurname(),
 				user.getPersonalPhone(),
@@ -105,13 +105,35 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		} catch (SQLException e) {
 			throw new DAOException(e);
 		} finally {
-			DAOUtils.silentClose(preparedStatement, con);
+			DAOUtils.silentClose(preparedStatement, conn);
 		}
 	}
 
 	@Override
 	public void delete(@NonNull User user) throws DAOException {
+		Connection conn = null;
+		PreparedStatement preparedStatement = null;
 
+		// Check if User object has a valid id property (otherwise it will be impossible to delete a record from the database)
+		if (user.getDbId() == null || user.getDbId().isEmpty()) {
+			throw new DAOException("Cannot delete a database record without its ID");
+		}
+
+		try {
+			conn = this.daoFactory.getConnection();
+
+			preparedStatement = DAOUtils.initPreparedStatement(conn, SQL_DELETE_ONE, false, user.getDbId());
+
+			// Execute update and check number of affected rows (deleteStatus) to check if deletion is successful
+			int deleteStatus = preparedStatement.executeUpdate();
+			if (deleteStatus == 0) {  // If no rows were affected, deletion failed
+				throw new DAOException("Unable to delete Employee record from the database, 0 rows affected.");
+			}
+		} catch (SQLException e) {
+			throw new DAOException(e);
+		} finally {
+			DAOUtils.silentClose(preparedStatement, conn);
+		}
 	}
 
 	@Override
