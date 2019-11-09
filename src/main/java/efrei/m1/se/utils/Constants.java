@@ -17,9 +17,9 @@ public class Constants {
 	public static final String DEFAULT_ADMIN_USERNAME = "admin";
 	public static final String DEFAULT_ADMIN_PASSWORD = "admin";
 
-	public static final String SQL_PREP_INSERT_EMPLOYEE = "INSERT INTO employees(name, firstname, homephone, mobilephone, workphone, address, postal, city, email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-	public static final String SQL_PREP_DELETE_EMPLOYEE = "DELETE FROM employees WHERE employee_id=?";
-	public static final String SQL_PREP_UPDATE_EMPLOYEE = "UPDATE employees SET name = ?, firstname = ?, homephone = ?, mobilephone = ?, workphone = ?, address = ?, postal = ?, city = ?, email = ? WHERE employee_id = ?";
-	public static final String SQL_PREP_SELECT_EMPLOYEE_WITH_ID = "SELECT employee_id, name, firstname, homephone, mobilephone, workphone, address, postal, city, email FROM employees WHERE employee_id = ?";
-	public static final String SQL_SELECT_ALL_EMPLOYEES = "SELECT employee_id, name, firstname, homephone, mobilephone, workphone, address, postal, city, email FROM employees";
+	public static final String SQL_PREP_INSERT_EMPLOYEE = "INSERT INTO Employees(NAME, FIRSTNAME, HOMEPHONE, MOBILEPHONE, WORKPHONE, ADDRESS, POSTALCODE, CITY, EMAIL) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	public static final String SQL_PREP_DELETE_EMPLOYEE = "DELETE FROM Employees WHERE ID=?";
+	public static final String SQL_PREP_UPDATE_EMPLOYEE = "UPDATE Employees SET NAME = ?, FIRSTNAME = ?, HOMEPHONE = ?, MOBILEPHONE = ?, WORKPHONE = ?, ADDRESS = ?, POSTALCODE = ?, CITY = ?, EMAIL = ? WHERE ID = ?";
+	public static final String SQL_PREP_SELECT_EMPLOYEE_WITH_ID = "SELECT ID, NAME, FIRSTNAME, HOMEPHONE, MOBILEPHONE, WORKPHONE, ADDRESS, POSTALCODE, CITY, EMAIL FROM Employees WHERE ID = ?";
+	public static final String SQL_SELECT_ALL_EMPLOYEES = "SELECT ID, NAME, FIRSTNAME, HOMEPHONE, MOBILEPHONE, WORKPHONE, ADDRESS, POSTALCODE, CITY, EMAIL FROM Employees";
 }
