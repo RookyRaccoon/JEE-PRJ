@@ -1,10 +1,17 @@
 package efrei.m1.se.dao;
 
+import static efrei.m1.se.dao.EmployeeDAOImpl.*;
+
+import efrei.m1.se.model.User;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class DAOUtils {
@@ -27,6 +34,7 @@ public class DAOUtils {
 	}
 
 
+	///region silentClose
 	/**
 	 * Silently close a {@link Statement}
 	 * @param statement Statement to close
@@ -82,5 +90,29 @@ public class DAOUtils {
 	public static void silentClose(ResultSet rs, Statement statement, Connection conn) {
 		silentClose(rs);
 		silentClose(statement, conn);
+	}
+	///endregion
+
+
+	/**
+	 * Map a {@link ResultSet} line to a {@link User}
+	 * @param rs {@link ResultSet} line containing data to populate the {@link User} object with
+	 * @return {@link User} object populated with the {@link ResultSet} line data
+	 * @throws SQLException In case of a SQL related problem
+	 */
+	public static User mapUser(@NonNull ResultSet rs) throws SQLException {
+		User user = new User();
+
+		user.setDbId(rs.getString(DB_COL_ID));
+		user.setName(rs.getString(DB_COL_NAME));
+		user.setSurname(rs.getString(DB_COL_SURNAME));
+		user.setPersonalPhone(rs.getString(DB_COL_PERSONALPHONE));
+		user.setMobilePhone(rs.getString(DB_COL_MOBILEPHONE));
+		user.setWorkPhone(rs.getString(DB_COL_WORKPHONE));
+		user.setAddress(rs.getString(DB_COL_ADDRESS));
+		user.setPostalCode(rs.getString(DB_COL_POSTALCODE));
+		user.setEmail(rs.getString(DB_COL_EMAIL));
+
+		return user;
 	}
 }
