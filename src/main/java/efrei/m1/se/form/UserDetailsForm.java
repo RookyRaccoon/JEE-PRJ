@@ -16,14 +16,11 @@ public class UserDetailsForm extends BaseUserForm {
 
 	/**
 	 * Update the {@link User} associated with the form data in the database
-	 * @return Number of rows affected by the operation
 	 */
-	public int store(String dbId) {
+	public void store(String dbId) {
 		if (this.getUser() != null) {  // Check if there really is a User to update in the database
 			this.getUser().setDbId(dbId);
-			return this.getUser().updateRecord();
+			this.getUser().updateRecord();
 		}
-
-		return -1;
 	}
 }
