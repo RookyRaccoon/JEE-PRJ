@@ -142,17 +142,11 @@ public class User {
 	 */
 	public static void deleteRecord(String id) {
 		try {
-			PreparedStatement ps = DBActions.getPreparedStatement(SQL_PREP_DELETE_EMPLOYEE);
-
-			// Check if prepared statement is OK
-			if (ps != null) {
-				ps.setString(1, id);
-				ps.executeUpdate();
-				ps.close();
+			User u = User.employeeDAO.findById(id);
+			if (u != null) {
+				User.employeeDAO.delete(u);
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		} catch (DAOException ignore) {}
 	}
 
 
