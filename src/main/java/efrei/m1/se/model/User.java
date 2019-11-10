@@ -153,24 +153,10 @@ public class User {
 	/**
 	 * Update a {@link User} record in the database
 	 */
-	public int updateRecord() {
-		int rowsAffected = -1;
-
+	public void updateRecord() {
 		try {
-			final PreparedStatement ps = DBActions.getPreparedStatement(SQL_PREP_UPDATE_EMPLOYEE);
-
-			if (ps != null) {
-				setPreparedStatementStrings(ps);
-				ps.setString(10, this.dbId);  // Set DB ID to update the correct record
-
-				rowsAffected = ps.executeUpdate();
-				ps.close();
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		return rowsAffected;
+			User.employeeDAO.update(this);
+		} catch (DAOException ignore) {}
 	}
 
 	/**
