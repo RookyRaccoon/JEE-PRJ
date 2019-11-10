@@ -1,5 +1,6 @@
 package efrei.m1.se.form;
 
+import efrei.m1.se.dao.DAOException;
 import efrei.m1.se.dao.EmployeeDAO;
 import efrei.m1.se.model.User;
 
@@ -17,10 +18,13 @@ public class UserDetailsForm extends BaseUserForm {
 	/**
 	 * Update the {@link User} associated with the form data in the database
 	 */
-	public void store(String dbId) {
+	public void store(HttpServletRequest req, String dbId) {
+		this.processRequest(req);
 		if (this.getUser() != null) {  // Check if there really is a User to update in the database
 			this.getUser().setDbId(dbId);
-			this.employeeDAO.update(this.getUser());
+			try {
+				this.employeeDAO.update(this.getUser());
+			} catch (DAOException ignore) {}
 		}
 	}
 }

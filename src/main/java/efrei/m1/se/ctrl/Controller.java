@@ -131,7 +131,7 @@ public class Controller extends HttpServlet {
 	 */
 	private void handlePostDetails(HttpServletRequest req, HttpServletResponse res) {
 		UserDetailsForm form = new UserDetailsForm(this.employeeDAO);
-		form.store(req.getParameter(PARAM_EMPLOYEE_ID));
+		form.store(req, req.getParameter(PARAM_EMPLOYEE_ID));
 
 		NavigationUtils.redirectToHome(req, res);
 	}
