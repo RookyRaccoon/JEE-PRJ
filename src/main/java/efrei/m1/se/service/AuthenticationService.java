@@ -2,6 +2,8 @@ package efrei.m1.se.service;
 
 import efrei.m1.se.form.LoginForm;
 
+import static efrei.m1.se.utils.Constants.*;
+
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -63,6 +65,8 @@ public class AuthenticationService {
 		String adminlogin = req.getServletContext().getInitParameter("adminLogin");
 		String pwrdlogin = req.getServletContext().getInitParameter("adminPwd");
 		if ((adminlogin.equals(req.getParameter(LoginForm.USERNAME_FIELD))) && (pwrdlogin.equals(req.getParameter(LoginForm.PASSWORD_FIELD)))){
+			req.getSession().setAttribute(SESS_IS_EMPLOYEE, true);
+			req.getSession().setAttribute(SESS_IS_ADMIN, true);
 			return true;
 		}
 		 return false;
@@ -78,6 +82,7 @@ public class AuthenticationService {
 		String employeelogin = req.getServletContext().getInitParameter("employeeLogin");
 		String pwrdlogin = req.getServletContext().getInitParameter("employeePwd");
 		if ((employeelogin.equals(req.getParameter(LoginForm.USERNAME_FIELD))) && pwrdlogin.equals(req.getParameter(LoginForm.PASSWORD_FIELD))){
+			req.getSession().setAttribute(SESS_IS_EMPLOYEE, true);
 			return true;
 		}
 		return false;
