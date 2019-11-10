@@ -137,15 +137,6 @@ public class User {
 	}
 
 	/**
-	 * Check if the passed in {@code id} is a valid database id
-	 * @param id Id to check
-	 * @return Whether the id is a valid id
-	 */
-	public static boolean isDBIdValid(String id) {
-		return id != null && id.matches("\\d+");
-	}
-
-	/**
 	 * Securely handles the deletion of a User record in the database
 	 * @param id Id of the user to delete
 	 */
