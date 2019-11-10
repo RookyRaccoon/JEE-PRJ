@@ -72,6 +72,9 @@ public class DAOFactory {
 		cpConfig.setJdbcUrl(dbUrl);
 		cpConfig.setUsername(dbUser);
 		cpConfig.setPassword(dbPassword);
+		cpConfig.addDataSourceProperty("cachePrepStmts", "true");
+		cpConfig.addDataSourceProperty("prepStmtCacheSize", "250");
+		cpConfig.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
 
 		// Return a new instance of DAOFactory only if no initialization step failed
 		return new DAOFactory(cpConfig);
