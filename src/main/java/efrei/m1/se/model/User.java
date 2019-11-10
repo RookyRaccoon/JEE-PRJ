@@ -1,5 +1,6 @@
 package efrei.m1.se.model;
 
+import efrei.m1.se.dao.EmployeeDAO;
 import efrei.m1.se.utils.DBActions;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,6 +16,13 @@ import static efrei.m1.se.utils.Constants.*;
 
 @NoArgsConstructor @ToString
 public class User {
+
+	/**
+	 * {@link EmployeeDAO} implementation used to handle interaction with database
+	 */
+	@Getter @Setter @ToString.Exclude
+	private static EmployeeDAO employeeDAO;
+
 	@Getter @Setter @ToString.Exclude
 	transient private String dbId;
 
