@@ -27,12 +27,25 @@ public class NavigationUtils {
 	}
 
 	/**
+	 * Redirects the user to the login page.
+	 * @param req Incoming request.
+	 * @param res Outgoing response.
+	 */
+	public static void redirectToLogin(HttpServletRequest req, HttpServletResponse res) {
+		try {
+			res.sendRedirect(req.getContextPath() + "/login");
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
 	 * Makes a forwarding to the passed in JSP
 	 * @param jspPath Path to the JSP to redirect to
 	 * @param req Incoming request.
 	 * @param res Outgoing response.
 	 */
-	public static void sendToPage(String jspPath, HttpServletRequest req, HttpServletResponse res) {
+	public static void displayJSP(String jspPath, HttpServletRequest req, HttpServletResponse res) {
 		try {
 			req.getServletContext().getRequestDispatcher(jspPath).forward(req, res);
 		} catch (ServletException | IOException e) {

@@ -1,6 +1,9 @@
 package efrei.m1.se.service;
 
 import efrei.m1.se.form.LoginForm;
+import efrei.m1.se.utils.AccessRights;
+
+import static efrei.m1.se.utils.Constants.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,31 +17,29 @@ public class AuthenticationService {
 	private AuthenticationService() {}
 
 	/**
-	 * Check whether or not a User is authenticated through its session data
-	 * @param req Incoming HTTP request (needed too find the session)
-	 * @return Whether the user is authenticated
-	 */
-	public static boolean isAuthenticated(HttpServletRequest req) {
-		String sessionUsername = (String) req.getSession().getAttribute("username");
-
-		return sessionUsername != null && !sessionUsername.isEmpty();
-	}
-
-	/**
 	 * Log a user in thanks to form data
 	 * @param req Incoming request containing login form data
 	 * @return Whether the authentication succeeded
 	 */
-	public static boolean login(HttpServletRequest req){
-		final String username = req.getParameter("username");
-		final String password = req.getParameter("password");
+	public static boolean login(HttpServletRequest req) {
+		if (isEmployee(req)) {
+			req.setAttribute(REQ_CONNECTION_FAILED, false);
 
-		if (isAdmin(req, username, password)){
-			req.setAttribute("connectionFailed", false);
-			req.getSession().setAttribute("username", username);
-				return true;
+			req.getSession().setAttribute(SESS_IS_EMPLOYEE, true);
+
+			return true;
 		}
-		req.setAttribute("connectionFailed", true);
+
+		if (isAdmin(req)) {
+			req.setAttribute(REQ_CONNECTION_FAILED, false);
+
+			req.getSession().setAttribute(SESS_IS_EMPLOYEE, true);
+			req.getSession().setAttribute(SESS_IS_ADMIN, true);
+
+			return true;
+		}
+
+		req.setAttribute(REQ_CONNECTION_FAILED, true);
 		return false;
 	}
 
@@ -53,12 +54,10 @@ public class AuthenticationService {
 	/**
 	 * For admin users
 	 * @param req Incoming request.
-	 * @param username Check username.
-	 * @param password Checked password.
 	 * @return true if the field is the context param value we put in our web xml
 	 *
 	 */
-	public static boolean isAdmin (HttpServletRequest req, String username, String password){
+	private static boolean isAdmin(HttpServletRequest req){
 
 		String adminlogin = req.getServletContext().getInitParameter("adminLogin");
 		String pwrdlogin = req.getServletContext().getInitParameter("adminPwd");
@@ -73,13 +72,36 @@ public class AuthenticationService {
 	 * @param req Incoming request containing form data.
 	 * @return Whether the form data corresponds to an employee record.
 	 */
-	public static boolean isEmployee (HttpServletRequest req){
+	private static boolean isEmployee (HttpServletRequest req){
 
 		String employeelogin = req.getServletContext().getInitParameter("employeeLogin");
 		String pwrdlogin = req.getServletContext().getInitParameter("employeePwd");
 		if ((employeelogin.equals(req.getParameter(LoginForm.USERNAME_FIELD))) && pwrdlogin.equals(req.getParameter(LoginForm.PASSWORD_FIELD))){
+			req.getSession().setAttribute(SESS_IS_EMPLOYEE, true);
 			return true;
 		}
+		return false;
+	}
+
+	/**
+	 * Chooses to allow or disallow access based on the content of the session
+	 * @param req Incoming request (holding the session to check)
+	 * @param requiredRights Minimum access level needed to access the resource
+	 * @return Whether the user has the ability to access the resource
+	 */
+	public static boolean canAccess (HttpServletRequest req, AccessRights requiredRights) {
+		if (requiredRights.equals(AccessRights.PUBLIC)) {
+			return true;
+		}
+
+		if (req.getSession().getAttribute(SESS_IS_EMPLOYEE) != null) {
+			if (requiredRights.equals(AccessRights.AUTHENTICATED) || requiredRights.equals(AccessRights.EMPLOYEE)) {
+				return true;
+			}
+
+			return req.getSession().getAttribute(SESS_IS_ADMIN) != null && (boolean) req.getSession().getAttribute(SESS_IS_ADMIN);
+		}
+
 		return false;
 	}
 }

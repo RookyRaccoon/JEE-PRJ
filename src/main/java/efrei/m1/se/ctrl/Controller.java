@@ -7,6 +7,7 @@ import efrei.m1.se.form.AddUserForm;
 import efrei.m1.se.form.UserDetailsForm;
 import efrei.m1.se.model.User;
 import efrei.m1.se.service.AuthenticationService;
+import efrei.m1.se.utils.AccessRights;
 import efrei.m1.se.utils.NavigationUtils;
 
 import javax.servlet.http.HttpServlet;
@@ -31,6 +32,10 @@ public class Controller extends HttpServlet {
 		switch (req.getServletPath()) {
 			case "/":
 				handleGetRoot(req, res);
+				break;
+
+			case "/login":
+				handleGetLogin(req, res);
 				break;
 
 			case "/logout":
@@ -89,17 +94,17 @@ public class Controller extends HttpServlet {
 	 * @param res Outgoing response.
 	 */
 	private void handlePostAddUser(HttpServletRequest req, HttpServletResponse res) {
-		AddUserForm form = new AddUserForm(this.employeeDAO);
+		if (AuthenticationService.canAccess(req, AccessRights.ADMIN)) {
+			AddUserForm form = new AddUserForm(this.employeeDAO);
 
-		try {
-			form.store(req);
-		} catch (DAOException e) {  // If an error occurs, consider the request to be a bad request
-			res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-			NavigationUtils.sendToPage(JSP_ADDUSER, req, res);
-			return;
+			try {
+				form.store(req);
+			} catch (DAOException e) {  // If an error occurs, consider the request to be a bad request
+				NavigationUtils.displayJSP(JSP_ADDUSER, req, res);
+				return;
+			}
 		}
 
-		res.setStatus(HttpServletResponse.SC_CREATED);
 		NavigationUtils.redirectToHome(req, res);
 	}
 
@@ -109,17 +114,15 @@ public class Controller extends HttpServlet {
 	 * @param res Outgoing response.
 	 */
 	private void handlePostLogin(HttpServletRequest req, HttpServletResponse res) {
-		// If user is already logged in, redirect him to home page
-		if (AuthenticationService.isAuthenticated(req)) {
+		if (AuthenticationService.canAccess(req, AccessRights.AUTHENTICATED)) {
 			NavigationUtils.redirectToHome(req, res);
-			return;
-		}
-
-		// Attempt to log the user in
-		if(!AuthenticationService.login(req)) {
-			NavigationUtils.sendToPage(JSP_LOGIN, req, res);  // Send use to login page if authentication failed
-		} else {  // If authentication succeeded
-			NavigationUtils.redirectToHome(req, res);
+		} else {
+			// Attempt to log the user in
+			if(!AuthenticationService.login(req)) {
+				NavigationUtils.displayJSP(JSP_LOGIN, req, res);  // Send user to login page if authentication failed
+			} else {  // If authentication succeeded
+				NavigationUtils.redirectToHome(req, res);
+			}
 		}
 	}
 
@@ -129,8 +132,10 @@ public class Controller extends HttpServlet {
 	 * @param res Outgoing response.
 	 */
 	private void handlePostDetails(HttpServletRequest req, HttpServletResponse res) {
-		UserDetailsForm form = new UserDetailsForm(this.employeeDAO);
-		form.store(req, req.getParameter(PARAM_EMPLOYEE_ID));
+		if (AuthenticationService.canAccess(req, AccessRights.ADMIN)) {
+			UserDetailsForm form = new UserDetailsForm(this.employeeDAO);
+			form.store(req, req.getParameter(PARAM_EMPLOYEE_ID));
+		}
 
 		NavigationUtils.redirectToHome(req, res);
 	}
@@ -143,11 +148,24 @@ public class Controller extends HttpServlet {
 	 * @param res Outgoing response.
 	 */
 	private void handleGetRoot(HttpServletRequest req, HttpServletResponse res) {
-		if (AuthenticationService.isAuthenticated(req)) {
+		if (AuthenticationService.canAccess(req, AccessRights.AUTHENTICATED)) {
 			req.setAttribute("employees", this.employeeDAO.findAll());
-			NavigationUtils.sendToPage(JSP_HOME, req, res);
+			NavigationUtils.displayJSP(JSP_HOME, req, res);
 		} else {
-			NavigationUtils.sendToPage(JSP_LOGIN, req, res);
+			NavigationUtils.redirectToLogin(req, res);
+		}
+	}
+
+	/**
+	 * Handles GET requests made to "/login" endpoint.
+	 * @param req Incoming request.
+	 * @param res Outgoing response.
+	 */
+	private void handleGetLogin(HttpServletRequest req, HttpServletResponse res) {
+		if (AuthenticationService.canAccess(req, AccessRights.AUTHENTICATED)) {
+			NavigationUtils.redirectToHome(req, res);
+		} else {
+			NavigationUtils.displayJSP(JSP_LOGIN, req, res);
 		}
 	}
 
@@ -157,11 +175,11 @@ public class Controller extends HttpServlet {
 	 * @param res Outgoing response.
 	 */
 	private void handleGetLogout(HttpServletRequest req, HttpServletResponse res) {
-		if (AuthenticationService.isAuthenticated(req)) {
+		if (AuthenticationService.canAccess(req, AccessRights.AUTHENTICATED)) {
 			AuthenticationService.logout(req);
-			NavigationUtils.sendToPage(JSP_GOODBYE, req, res);
+			NavigationUtils.displayJSP(JSP_GOODBYE, req, res);
 		} else {
-			NavigationUtils.redirectToHome(req, res);
+			NavigationUtils.redirectToLogin(req, res);
 		}
 	}
 
@@ -171,11 +189,10 @@ public class Controller extends HttpServlet {
 	 * @param res Outgoing response.
 	 */
 	private void handleGetAddUser(HttpServletRequest req, HttpServletResponse res) {
-		if (AuthenticationService.isAuthenticated(req)) {
-			// TODO: check access rights
-			NavigationUtils.sendToPage(JSP_ADDUSER, req, res);
+		if (AuthenticationService.canAccess(req, AccessRights.ADMIN)) {
+			NavigationUtils.displayJSP(JSP_ADDUSER, req, res);
 		} else {
-			NavigationUtils.sendToPage(JSP_LOGIN, req, res);
+			NavigationUtils.redirectToHome(req, res);
 		}
 	}
 
@@ -185,21 +202,20 @@ public class Controller extends HttpServlet {
 	 * @param res Outgoing response.
 	 */
 	private void handleGetDetails(HttpServletRequest req, HttpServletResponse res) {
-		// Check access rights
-		if (!AuthenticationService.isAuthenticated(req)) {
-			NavigationUtils.sendToPage(JSP_LOGIN, req, res);
-		}
+		if (AuthenticationService.canAccess(req, AccessRights.ADMIN)) {
+			// Gather queried employee thanks to employeeId passed as URL parameter
+			User queriedEmployee = ((DAOFactory) this.getServletContext().getAttribute("daofactory")).getEmployeeDAO().findById(req.getParameter(PARAM_EMPLOYEE_ID));
 
-		// Gather queried employee thanks to employeeId passed as URL parameter
-		User queriedEmployee = ((DAOFactory) this.getServletContext().getAttribute("daofactory")).getEmployeeDAO().findById(req.getParameter(PARAM_EMPLOYEE_ID));
+			// Check if request is valid (queried employee exists and has been retrieved)
+			if (queriedEmployee == null) {
+				NavigationUtils.redirectToHome(req, res);
+			} else {
+				req.setAttribute("employee", queriedEmployee);
 
-		// Check if request is valid (queried employee exists and has been retrieved)
-		if (queriedEmployee == null) {
-			NavigationUtils.redirectToHome(req, res);
+				NavigationUtils.displayJSP(JSP_DETAILS, req, res);
+			}
 		} else {
-			req.setAttribute("employee", queriedEmployee);
-
-			NavigationUtils.sendToPage(JSP_DETAILS, req, res);
+			NavigationUtils.redirectToHome(req, res);
 		}
 	}
 	///endregion
@@ -211,14 +227,15 @@ public class Controller extends HttpServlet {
 	 * @param res Outgoing response.
 	 */
 	private void handleUserDeletion(HttpServletRequest req, HttpServletResponse res) {
-		final String employeeId = req.getParameter(PARAM_EMPLOYEE_ID);
+		if (AuthenticationService.canAccess(req, AccessRights.ADMIN)) {
+			final String employeeId = req.getParameter(PARAM_EMPLOYEE_ID);
 
-		try {
-			User employeeToDelete = this.employeeDAO.findById(employeeId);
+			try {
+				User employeeToDelete = this.employeeDAO.findById(employeeId);
 
-			this.employeeDAO.delete(employeeToDelete);
-		} catch (DAOException ignore) {}
-
+				this.employeeDAO.delete(employeeToDelete);
+			} catch (DAOException ignore) {}
+		}
 
 		NavigationUtils.redirectToHome(req, res);
 	}
