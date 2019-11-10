@@ -22,7 +22,7 @@ public class User {
 	/**
 	 * {@link EmployeeDAO} implementation used to handle interaction with database
 	 */
-	@Getter @Setter @ToString.Exclude
+	@Getter @Setter
 	private static EmployeeDAO employeeDAO;
 
 	@Getter @Setter @ToString.Exclude
@@ -91,7 +91,7 @@ public class User {
 
 				// Check if a user was found and use it as a return value
 				if (rs.next()) {
-					user = User.castFromResultSetRow(rs);
+					user = DAOUtils.mapUser(rs);
 				}
 
 				ps.close();
@@ -121,20 +121,6 @@ public class User {
 		return User.employeeDAO.findAll();
 	}
 
-	/**
-	 * Cast a {@link ResultSet} row to a {@link User} object
-	 * @param rs {@link ResultSet} row to cast
-	 * @return {@link User} casted from {@code rs}
-	 */
-	private static User castFromResultSetRow(ResultSet rs) {
-		try {
-			return DAOUtils.mapUser(rs);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		return null;
-	}
 
 	/**
 	 * Securely handles the deletion of a User record in the database
