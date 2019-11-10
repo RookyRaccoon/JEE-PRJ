@@ -1,20 +1,15 @@
 package efrei.m1.se.model;
 
 import efrei.m1.se.dao.DAOException;
-import efrei.m1.se.dao.DAOUtils;
 import efrei.m1.se.dao.EmployeeDAO;
-import efrei.m1.se.utils.DBActions;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
-import static efrei.m1.se.utils.Constants.*;
 
 @NoArgsConstructor @ToString
 public class User {
