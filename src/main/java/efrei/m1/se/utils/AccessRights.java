@@ -22,5 +22,5 @@ public enum AccessRights {
 	/**
 	 * Defines a mixed restricted access : all logged-in users can access
 	 */
-	NEEDS_AUTHENTICATION
+	AUTHENTICATED
 }

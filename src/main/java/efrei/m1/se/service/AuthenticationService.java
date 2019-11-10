@@ -108,7 +108,7 @@ public class AuthenticationService {
 		}
 
 		if (req.getSession().getAttribute(SESS_IS_EMPLOYEE) != null) {
-			if (requiredRights.equals(AccessRights.NEEDS_AUTHENTICATION) || requiredRights.equals(AccessRights.EMPLOYEE)) {
+			if (requiredRights.equals(AccessRights.AUTHENTICATED) || requiredRights.equals(AccessRights.EMPLOYEE)) {
 				return true;
 			}
 
