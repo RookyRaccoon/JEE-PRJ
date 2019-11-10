@@ -1,4 +1,4 @@
-# Java Enterprise Edition Final Project
+# Java Enterprise Edition Final Project - V1 *(1.0.0)*
 
 ## Team members
 
