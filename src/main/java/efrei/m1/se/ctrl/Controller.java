@@ -90,18 +90,21 @@ public class Controller extends HttpServlet {
 	 * @param res Outgoing response.
 	 */
 	private void handlePostAddUser(HttpServletRequest req, HttpServletResponse res) {
-		AddUserForm form = new AddUserForm(this.employeeDAO);
+		if (AuthenticationService.canAccess(req, AccessRights.ADMIN)) {
+			AddUserForm form = new AddUserForm(this.employeeDAO);
 
-		try {
-			form.store(req);
-		} catch (DAOException e) {  // If an error occurs, consider the request to be a bad request
-			res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-			NavigationUtils.displayJSP(JSP_ADDUSER, req, res);
-			return;
+			try {
+				form.store(req);
+			} catch (DAOException e) {  // If an error occurs, consider the request to be a bad request
+				res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+				NavigationUtils.displayJSP(JSP_ADDUSER, req, res);
+				return;
+			}
+
+			NavigationUtils.redirectToHome(req, res);
+		} else {
+			NavigationUtils.redirectToLogin(req, res);
 		}
-
-		res.setStatus(HttpServletResponse.SC_CREATED);
-		NavigationUtils.redirectToHome(req, res);
 	}
 
 	/**
