@@ -9,7 +9,6 @@ import efrei.m1.se.model.User;
 import efrei.m1.se.service.AuthenticationService;
 import efrei.m1.se.utils.NavigationUtils;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,7 +20,7 @@ public class Controller extends HttpServlet {
 	private EmployeeDAO employeeDAO;
 
 	@Override
-	public void init() throws ServletException {
+	public void init() {
 		// Gather an instance of EmployeeDAO to use with all services
 		this.employeeDAO = ((DAOFactory) this.getServletContext().getAttribute("daofactory")).getEmployeeDAO();
 	}
