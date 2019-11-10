@@ -34,6 +34,10 @@ public class Controller extends HttpServlet {
 				handleGetRoot(req, res);
 				break;
 
+			case "/login":
+				handleGetLogin(req, res);
+				break;
+
 			case "/logout":
 				handleGetLogout(req, res);
 				break;
@@ -150,6 +154,19 @@ public class Controller extends HttpServlet {
 			NavigationUtils.displayJSP(JSP_HOME, req, res);
 		} else {
 			NavigationUtils.redirectToLogin(req, res);
+		}
+	}
+
+	/**
+	 * Handles GET requests made to "/login" endpoint.
+	 * @param req Incoming request.
+	 * @param res Outgoing response.
+	 */
+	private void handleGetLogin(HttpServletRequest req, HttpServletResponse res) {
+		if (AuthenticationService.canAccess(req, AccessRights.AUTHENTICATED)) {
+			NavigationUtils.redirectToHome(req, res);
+		} else {
+			NavigationUtils.displayJSP(JSP_LOGIN, req, res);
 		}
 	}
 
