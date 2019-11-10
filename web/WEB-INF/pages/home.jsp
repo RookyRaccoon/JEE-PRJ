@@ -40,12 +40,14 @@
 							</a>
 						</li>
 
-						<li>
-							<a href="${addUserUrl}">
-								<i class="metismenu-icon pe-7s-add-user"></i>
-								Add a user
-							</a>
-						</li>
+						<c:if test="${sessionScope.isAdmin}">
+							<li>
+								<a href="${addUserUrl}">
+									<i class="metismenu-icon pe-7s-add-user"></i>
+									Add a user
+								</a>
+							</li>
+						</c:if>
 					</ul>
 				</div>
 			</div>
@@ -69,10 +71,12 @@
 							</div>
 						</div>
 						<div class="page-title-actions">
-							<!-- "Add a user" button -->
-							<button type="button" data-toggle="tooltip" title="Add a user" data-placement="left" class="btn-shadow mr-lg-3 btn btn-dark" onclick="window.location.href='${addUserUrl}'">
-								<i class="pe-7s-add-user pe-2x align-middle"></i>
-							</button>
+							<c:if test="${sessionScope.isAdmin}">
+								<!-- "Add a user" button -->
+								<button type="button" data-toggle="tooltip" title="Add an employee" data-placement="left" class="btn-shadow mr-lg-3 btn btn-dark" onclick="window.location.href='${addUserUrl}'">
+									<i class="pe-7s-add-user pe-2x align-middle"></i>
+								</button>
+							</c:if>
 						</div>
 					</div>
 				</div>
@@ -88,9 +92,11 @@
 							</div>
 
 							<div class="card-footer">
-								<input type="submit" formaction="${deleteUserUrl}" value="Delete" class="btn btn-outline-danger mr-1" />
-								<input type="submit" formaction="${userDetailsUrl}" value="Details" class="btn btn-outline-secondary mx-1" />
-								<a href="${addUserUrl}" class="btn btn-outline-primary ml-1">Add</a>
+								<c:if test="${sessionScope.isAdmin}">
+									<input type="submit" formaction="${deleteUserUrl}" value="Delete" class="btn btn-outline-danger mr-1" />
+									<input type="submit" formaction="${userDetailsUrl}" value="Details" class="btn btn-outline-secondary mx-1" />
+									<a href="${addUserUrl}" class="btn btn-outline-primary ml-1">Add</a>
+								</c:if>
 							</div>
 						</form>
 					</div>

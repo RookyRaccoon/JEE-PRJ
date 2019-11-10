@@ -33,10 +33,10 @@
 						<div class="widget-content-left mr-4">
 							<c:choose>
 								<c:when test="${sessionScope.isAdmin}">
-									<span>Hello, admin</span>
+									<span>Hello, Admin</span>
 								</c:when>
 								<c:when test="${sessionScope.isEmployee}">
-									<span>Hello, employee</span>
+									<span>Hello, Employee</span>
 								</c:when>
 							</c:choose>
 						</div>
