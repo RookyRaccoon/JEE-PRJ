@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <!--
@@ -55,7 +53,14 @@
 					<div class="widget-content p-0">
 						<div class="widget-content-wrapper">
 							<div class="widget-content-left mr-4">
-								<span>Hello, $username</span>  <!-- TODO: update $username here -->
+								<c:choose>
+									<c:when test="${sessionScope.isAdmin}">
+										<span>Hello, admin</span>
+									</c:when>
+									<c:when test="${sessionScope.isEmployee}">
+										<span>Hello, employee</span>
+									</c:when>
+								</c:choose>
 							</div>
 							<div class="widget-content-left">
 								<div class="btn-group">
