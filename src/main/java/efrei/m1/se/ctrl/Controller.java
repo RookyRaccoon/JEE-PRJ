@@ -172,11 +172,10 @@ public class Controller extends HttpServlet {
 	 * @param res Outgoing response.
 	 */
 	private void handleGetAddUser(HttpServletRequest req, HttpServletResponse res) {
-		if (AuthenticationService.isAuthenticated(req)) {
-			// TODO: check access rights
+		if (AuthenticationService.canAccess(req, AccessRights.ADMIN)) {
 			NavigationUtils.displayJSP(JSP_ADDUSER, req, res);
 		} else {
-			NavigationUtils.displayJSP(JSP_LOGIN, req, res);
+			NavigationUtils.redirectToLogin(req, res);
 		}
 	}
 
