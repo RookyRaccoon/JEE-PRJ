@@ -18,6 +18,10 @@ public class Constants {
 	public static final String PARAM_EMPLOYEE_ID = "employeeId";
 	///endregion
 
+	///region Request attributes
+	public static final String REQ_CONNECTION_FAILED = "connectionFailed";
+	///endregion
+
 	///region Session attributes
 	public static final String SESS_IS_ADMIN = "isAdmin";
 	public static final String SESS_IS_EMPLOYEE = "isEmployee";

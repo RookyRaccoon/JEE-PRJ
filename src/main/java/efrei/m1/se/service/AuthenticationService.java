@@ -33,16 +33,25 @@ public class AuthenticationService {
 	 * @param req Incoming request containing login form data
 	 * @return Whether the authentication succeeded
 	 */
-	public static boolean login(HttpServletRequest req){
-		final String username = req.getParameter("username");
-		final String password = req.getParameter("password");
+	public static boolean login(HttpServletRequest req) {
+		if (isEmployee(req)) {
+			req.setAttribute(REQ_CONNECTION_FAILED, false);
 
-		if (isAdmin(req)){
-			req.setAttribute("connectionFailed", false);
-			req.getSession().setAttribute("username", username);
-				return true;
+			req.getSession().setAttribute(SESS_IS_EMPLOYEE, true);
+
+			return true;
 		}
-		req.setAttribute("connectionFailed", true);
+
+		if (isAdmin(req)) {
+			req.setAttribute(REQ_CONNECTION_FAILED, false);
+
+			req.getSession().setAttribute(SESS_IS_EMPLOYEE, true);
+			req.getSession().setAttribute(SESS_IS_ADMIN, true);
+
+			return false;
+		}
+
+		req.setAttribute(REQ_CONNECTION_FAILED, true);
 		return false;
 	}
 
@@ -65,8 +74,6 @@ public class AuthenticationService {
 		String adminlogin = req.getServletContext().getInitParameter("adminLogin");
 		String pwrdlogin = req.getServletContext().getInitParameter("adminPwd");
 		if ((adminlogin.equals(req.getParameter(LoginForm.USERNAME_FIELD))) && (pwrdlogin.equals(req.getParameter(LoginForm.PASSWORD_FIELD)))){
-			req.getSession().setAttribute(SESS_IS_EMPLOYEE, true);
-			req.getSession().setAttribute(SESS_IS_ADMIN, true);
 			return true;
 		}
 		 return false;
