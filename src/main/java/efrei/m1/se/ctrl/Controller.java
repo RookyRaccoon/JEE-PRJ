@@ -111,17 +111,15 @@ public class Controller extends HttpServlet {
 	 * @param res Outgoing response.
 	 */
 	private void handlePostLogin(HttpServletRequest req, HttpServletResponse res) {
-		// If user is already logged in, redirect him to home page
-		if (AuthenticationService.isAuthenticated(req)) {
+		if (AuthenticationService.canAccess(req, AccessRights.AUTHENTICATED)) {
 			NavigationUtils.redirectToHome(req, res);
-			return;
-		}
-
-		// Attempt to log the user in
-		if(!AuthenticationService.login(req)) {
-			NavigationUtils.displayJSP(JSP_LOGIN, req, res);  // Send use to login page if authentication failed
-		} else {  // If authentication succeeded
-			NavigationUtils.redirectToHome(req, res);
+		} else {
+			// Attempt to log the user in
+			if(!AuthenticationService.login(req)) {
+				NavigationUtils.displayJSP(JSP_LOGIN, req, res);  // Send user to login page if authentication failed
+			} else {  // If authentication succeeded
+				NavigationUtils.redirectToHome(req, res);
+			}
 		}
 	}
 
