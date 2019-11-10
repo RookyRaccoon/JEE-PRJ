@@ -1,5 +1,5 @@
 <jsp:useBean id="employee" scope="request" type="efrei.m1.se.model.User"/>
-
+<%@ page pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
 <!--
