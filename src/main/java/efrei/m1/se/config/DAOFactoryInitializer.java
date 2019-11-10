@@ -1,6 +1,7 @@
 package efrei.m1.se.config;
 
 import efrei.m1.se.dao.DAOFactory;
+import efrei.m1.se.model.User;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -16,5 +17,6 @@ public class DAOFactoryInitializer implements ServletContextListener {
 		this.daoFactory = DAOFactory.getInstance(context.getResourceAsStream(context.getInitParameter("dbPropFilePath")));
 
 		context.setAttribute("daofactory", this.daoFactory);
+		User.setEmployeeDAO(this.daoFactory.getEmployeeDAO());
 	}
 }
