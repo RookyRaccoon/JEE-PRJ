@@ -4,10 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8"/>
-
-	<!-- Bootstrap -->
-	<link type="text/css" rel="stylesheet" href="${architectUI}/main.css"/>
+	<jsp:include page="../components/head-content.jsp" />
 
 	<title>Login</title>
 </head>

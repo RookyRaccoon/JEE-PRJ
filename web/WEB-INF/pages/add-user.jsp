@@ -18,16 +18,7 @@
 	* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 -->
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta http-equiv="Content-Language" content="en">
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no"/>
-
-	<link href="${architectUI}/main.css" rel="stylesheet">
-
-	<link rel="stylesheet" href="${architectUI}/pe-icon-7-stroke/css/pe-icon-7-stroke.css"/>
-	<link rel="stylesheet" href="${architectUI}/pe-icon-7-stroke/css/helper.css"/>
+	<jsp:include page="../components/head-content.jsp" />
 
 	<title>Add Employee</title>
 </head>

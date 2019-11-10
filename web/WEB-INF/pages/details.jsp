@@ -13,7 +13,7 @@
 	* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 -->
 <head>
-	<jsp:include page="../components/header.jsp"/>
+	<jsp:include page="../components/head-content.jsp" />
 
 	<title>Employee Details</title>
 </head>
