@@ -100,11 +100,9 @@ public class Controller extends HttpServlet {
 				NavigationUtils.displayJSP(JSP_ADDUSER, req, res);
 				return;
 			}
-
-			NavigationUtils.redirectToHome(req, res);
-		} else {
-			NavigationUtils.redirectToHome(req, res);
 		}
+
+		NavigationUtils.redirectToHome(req, res);
 	}
 
 	/**
