@@ -1,6 +1,7 @@
 package efrei.m1.se.service;
 
 import efrei.m1.se.form.LoginForm;
+import efrei.m1.se.utils.AccessRights;
 
 import static efrei.m1.se.utils.Constants.*;
 
@@ -92,6 +93,28 @@ public class AuthenticationService {
 			req.getSession().setAttribute(SESS_IS_EMPLOYEE, true);
 			return true;
 		}
+		return false;
+	}
+
+	/**
+	 * Chooses to allow or disallow access based on the content of the session
+	 * @param req Incoming request (holding the session to check)
+	 * @param requiredRights Minimum access level needed to access the resource
+	 * @return Whether the user has the ability to access the resource
+	 */
+	public static boolean canAccess (HttpServletRequest req, AccessRights requiredRights) {
+		if (requiredRights.equals(AccessRights.PUBLIC)) {
+			return true;
+		}
+
+		if (req.getSession().getAttribute(SESS_IS_EMPLOYEE) != null) {
+			if (requiredRights.equals(AccessRights.NEEDS_AUTHENTICATION) || requiredRights.equals(AccessRights.EMPLOYEE)) {
+				return true;
+			}
+
+			return req.getSession().getAttribute(SESS_IS_ADMIN) != null && (boolean) req.getSession().getAttribute(SESS_IS_ADMIN);
+		}
+
 		return false;
 	}
 }
