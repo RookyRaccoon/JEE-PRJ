@@ -28,6 +28,8 @@ For this project, the following libraries were used:
 * **[Lombok](https://projectlombok.org)** Lightweight library to improve readability in Java Beans thanks
   to a simple annotations system
 
+* **[HikariCP](https://github.com/brettwooldridge/HikariCP)** Solid, high-performance, JDBC connection pool to prevent database server from crashing
+
 ## External Resources ("Special thanks to...")
 
 For this project, the following external resources were used:
