@@ -31,28 +31,7 @@
 	<div class="app-main">
 		<!-- Sidebar -->
 		<div class="app-sidebar sidebar-shadow">
-			<div class="app-header__logo">
-				<div class="header__pane ml-auto">
-					<div>
-						<button type="button" class="hamburger close-sidebar-btn hamburger--elastic" data-class="closed-sidebar">
-              <span class="hamburger-box">
-                <span class="hamburger-inner"></span>
-              </span>
-						</button>
-					</div>
-				</div>
-			</div>
-
-			<div class="app-header__mobile-menu">
-				<div>
-					<button type="button" class="hamburger hamburger--elastic mobile-toggle-nav">
-            <span class="hamburger-box">
-              <span class="hamburger-inner"></span>
-            </span>
-					</button>
-				</div>
-			</div>
-
+			<jsp:include page="../components/sidebar-start.jsp" />
 
 			<div class="scrollbar-sidebar">
 				<div class="app-sidebar__inner">
