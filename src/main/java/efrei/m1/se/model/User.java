@@ -1,6 +1,7 @@
 package efrei.m1.se.model;
 
 import efrei.m1.se.dao.DAOException;
+import efrei.m1.se.dao.DAOUtils;
 import efrei.m1.se.dao.EmployeeDAO;
 import efrei.m1.se.utils.DBActions;
 import lombok.Getter;
@@ -117,20 +118,7 @@ public class User {
 	 * @return {@link ArrayList} of {@link User}
 	 */
 	public static ArrayList<User> getAllUsers() {
-		ArrayList<User> users = new ArrayList<>();
-
-		try {
-			ResultSet rs = DBActions.executeRead(SQL_SELECT_ALL_EMPLOYEES);
-			if (rs != null) {
-				while (rs.next()) {
-					users.add(User.castFromResultSetRow(rs));
-				}
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		return users;
+		return User.employeeDAO.findAll();
 	}
 
 	/**
@@ -139,25 +127,10 @@ public class User {
 	 * @return {@link User} casted from {@code rs}
 	 */
 	private static User castFromResultSetRow(ResultSet rs) {
-		User u = new User();
-
-		if (rs != null) {
-			try {
-				u.setDbId(rs.getString("ID"));
-				u.setName(rs.getString("NAME"));
-				u.setSurname(rs.getString("FIRSTNAME"));
-				u.setPersonalPhone(rs.getString("HOMEPHONE"));
-				u.setWorkPhone(rs.getString("WORKPHONE"));
-				u.setMobilePhone(rs.getString("MOBILEPHONE"));
-				u.setAddress(rs.getString("ADDRESS"));
-				u.setPostalCode(rs.getString("POSTALCODE"));
-				u.setCity(rs.getString("CITY"));
-				u.setEmail(rs.getString("EMAIL"));
-
-				return u;
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+		try {
+			return DAOUtils.mapUser(rs);
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 
 		return null;

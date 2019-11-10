@@ -17,7 +17,7 @@ import java.sql.Statement;
  * Utils class for all DAO-related repetitive actions
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-class DAOUtils {
+public class DAOUtils {
 	/**
 	 * Get a {@link PreparedStatement} with all the needed parameters already set
 	 * @param conn Database connection to use
