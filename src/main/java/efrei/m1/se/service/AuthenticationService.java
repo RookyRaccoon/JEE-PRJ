@@ -21,9 +21,11 @@ public class AuthenticationService {
 	 * @return Whether the user is authenticated
 	 */
 	public static boolean isAuthenticated(HttpServletRequest req) {
-		String sessionUsername = (String) req.getSession().getAttribute("username");
+		if (req.getSession().getAttribute(SESS_IS_EMPLOYEE) != null) {
+			return (boolean) req.getSession().getAttribute(SESS_IS_EMPLOYEE);
+		}
 
-		return sessionUsername != null && !sessionUsername.isEmpty();
+		return false;
 	}
 
 	/**
@@ -35,7 +37,7 @@ public class AuthenticationService {
 		final String username = req.getParameter("username");
 		final String password = req.getParameter("password");
 
-		if (isAdmin(req, username, password)){
+		if (isAdmin(req)){
 			req.setAttribute("connectionFailed", false);
 			req.getSession().setAttribute("username", username);
 				return true;
@@ -55,12 +57,10 @@ public class AuthenticationService {
 	/**
 	 * For admin users
 	 * @param req Incoming request.
-	 * @param username Check username.
-	 * @param password Checked password.
 	 * @return true if the field is the context param value we put in our web xml
 	 *
 	 */
-	public static boolean isAdmin (HttpServletRequest req, String username, String password){
+	private static boolean isAdmin(HttpServletRequest req){
 
 		String adminlogin = req.getServletContext().getInitParameter("adminLogin");
 		String pwrdlogin = req.getServletContext().getInitParameter("adminPwd");
@@ -77,7 +77,7 @@ public class AuthenticationService {
 	 * @param req Incoming request containing form data.
 	 * @return Whether the form data corresponds to an employee record.
 	 */
-	public static boolean isEmployee (HttpServletRequest req){
+	private static boolean isEmployee (HttpServletRequest req){
 
 		String employeelogin = req.getServletContext().getInitParameter("employeeLogin");
 		String pwrdlogin = req.getServletContext().getInitParameter("employeePwd");
