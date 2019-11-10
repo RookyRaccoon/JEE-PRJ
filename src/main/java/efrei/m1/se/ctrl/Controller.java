@@ -22,6 +22,7 @@ public class Controller extends HttpServlet {
 
 	@Override
 	public void init() throws ServletException {
+		// Gather an instance of EmployeeDAO to use with all services
 		this.employeeDAO = ((DAOFactory) this.getServletContext().getAttribute("daofactory")).getEmployeeDAO();
 	}
 
@@ -213,9 +214,12 @@ public class Controller extends HttpServlet {
 	private void handleUserDeletion(HttpServletRequest req, HttpServletResponse res) {
 		final String employeeId = req.getParameter(PARAM_EMPLOYEE_ID);
 
-		if (User.isDBIdValid(employeeId)) {
-			User.deleteRecord(employeeId);
-		}
+		try {
+			User employeeToDelete = this.employeeDAO.findById(employeeId);
+
+			this.employeeDAO.delete(employeeToDelete);
+		} catch (DAOException ignore) {}
+
 
 		NavigationUtils.redirectToHome(req, res);
 	}
