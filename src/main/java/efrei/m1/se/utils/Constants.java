@@ -17,4 +17,9 @@ public class Constants {
 	///region Request parameters names
 	public static final String PARAM_EMPLOYEE_ID = "employeeId";
 	///endregion
+
+	///region Session attributes
+	public static final String SESS_IS_ADMIN = "isAdmin";
+	public static final String SESS_IS_EMPLOYEE = "isEmployee";
+	///endregion
 }
