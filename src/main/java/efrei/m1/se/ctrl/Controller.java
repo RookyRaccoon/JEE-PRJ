@@ -103,7 +103,7 @@ public class Controller extends HttpServlet {
 
 			NavigationUtils.redirectToHome(req, res);
 		} else {
-			NavigationUtils.redirectToLogin(req, res);
+			NavigationUtils.redirectToHome(req, res);
 		}
 	}
 
@@ -178,7 +178,7 @@ public class Controller extends HttpServlet {
 		if (AuthenticationService.canAccess(req, AccessRights.ADMIN)) {
 			NavigationUtils.displayJSP(JSP_ADDUSER, req, res);
 		} else {
-			NavigationUtils.redirectToLogin(req, res);
+			NavigationUtils.redirectToHome(req, res);
 		}
 	}
 
@@ -201,7 +201,7 @@ public class Controller extends HttpServlet {
 				NavigationUtils.displayJSP(JSP_DETAILS, req, res);
 			}
 		} else {
-			NavigationUtils.redirectToLogin(req, res);
+			NavigationUtils.redirectToHome(req, res);
 		}
 	}
 	///endregion
