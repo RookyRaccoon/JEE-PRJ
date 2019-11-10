@@ -49,7 +49,7 @@ public class AuthenticationService {
 			req.getSession().setAttribute(SESS_IS_EMPLOYEE, true);
 			req.getSession().setAttribute(SESS_IS_ADMIN, true);
 
-			return false;
+			return true;
 		}
 
 		req.setAttribute(REQ_CONNECTION_FAILED, true);
