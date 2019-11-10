@@ -236,9 +236,9 @@ public class Controller extends HttpServlet {
 
 				this.employeeDAO.delete(employeeToDelete);
 			} catch (DAOException ignore) {}
-		} else {
-			NavigationUtils.redirectToHome(req, res);
 		}
+
+		NavigationUtils.redirectToHome(req, res);
 	}
 	///endregion
 }
