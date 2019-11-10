@@ -144,11 +144,11 @@ public class Controller extends HttpServlet {
 	 * @param res Outgoing response.
 	 */
 	private void handleGetRoot(HttpServletRequest req, HttpServletResponse res) {
-		if (AuthenticationService.isAuthenticated(req)) {
+		if (AuthenticationService.canAccess(req, AccessRights.AUTHENTICATED)) {
 			req.setAttribute("employees", this.employeeDAO.findAll());
 			NavigationUtils.displayJSP(JSP_HOME, req, res);
 		} else {
-			NavigationUtils.sendToPage(JSP_LOGIN, req, res);
+			NavigationUtils.redirectToLogin(req, res);
 		}
 	}
 
