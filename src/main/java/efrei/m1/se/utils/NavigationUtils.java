@@ -32,7 +32,7 @@ public class NavigationUtils {
 	 * @param req Incoming request.
 	 * @param res Outgoing response.
 	 */
-	public static void sendToPage(String jspPath, HttpServletRequest req, HttpServletResponse res) {
+	public static void displayJSP(String jspPath, HttpServletRequest req, HttpServletResponse res) {
 		try {
 			req.getServletContext().getRequestDispatcher(jspPath).forward(req, res);
 		} catch (ServletException | IOException e) {

@@ -96,7 +96,7 @@ public class Controller extends HttpServlet {
 			form.store(req);
 		} catch (DAOException e) {  // If an error occurs, consider the request to be a bad request
 			res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-			NavigationUtils.sendToPage(JSP_ADDUSER, req, res);
+			NavigationUtils.displayJSP(JSP_ADDUSER, req, res);
 			return;
 		}
 
@@ -118,7 +118,7 @@ public class Controller extends HttpServlet {
 
 		// Attempt to log the user in
 		if(!AuthenticationService.login(req)) {
-			NavigationUtils.sendToPage(JSP_LOGIN, req, res);  // Send use to login page if authentication failed
+			NavigationUtils.displayJSP(JSP_LOGIN, req, res);  // Send use to login page if authentication failed
 		} else {  // If authentication succeeded
 			NavigationUtils.redirectToHome(req, res);
 		}
@@ -146,7 +146,7 @@ public class Controller extends HttpServlet {
 	private void handleGetRoot(HttpServletRequest req, HttpServletResponse res) {
 		if (AuthenticationService.isAuthenticated(req)) {
 			req.setAttribute("employees", this.employeeDAO.findAll());
-			NavigationUtils.sendToPage(JSP_HOME, req, res);
+			NavigationUtils.displayJSP(JSP_HOME, req, res);
 		} else {
 			NavigationUtils.sendToPage(JSP_LOGIN, req, res);
 		}
@@ -160,7 +160,7 @@ public class Controller extends HttpServlet {
 	private void handleGetLogout(HttpServletRequest req, HttpServletResponse res) {
 		if (AuthenticationService.isAuthenticated(req)) {
 			AuthenticationService.logout(req);
-			NavigationUtils.sendToPage(JSP_GOODBYE, req, res);
+			NavigationUtils.displayJSP(JSP_GOODBYE, req, res);
 		} else {
 			NavigationUtils.redirectToHome(req, res);
 		}
@@ -174,9 +174,9 @@ public class Controller extends HttpServlet {
 	private void handleGetAddUser(HttpServletRequest req, HttpServletResponse res) {
 		if (AuthenticationService.isAuthenticated(req)) {
 			// TODO: check access rights
-			NavigationUtils.sendToPage(JSP_ADDUSER, req, res);
+			NavigationUtils.displayJSP(JSP_ADDUSER, req, res);
 		} else {
-			NavigationUtils.sendToPage(JSP_LOGIN, req, res);
+			NavigationUtils.displayJSP(JSP_LOGIN, req, res);
 		}
 	}
 
@@ -188,7 +188,7 @@ public class Controller extends HttpServlet {
 	private void handleGetDetails(HttpServletRequest req, HttpServletResponse res) {
 		// Check access rights
 		if (!AuthenticationService.isAuthenticated(req)) {
-			NavigationUtils.sendToPage(JSP_LOGIN, req, res);
+			NavigationUtils.displayJSP(JSP_LOGIN, req, res);
 		}
 
 		// Gather queried employee thanks to employeeId passed as URL parameter
@@ -200,7 +200,7 @@ public class Controller extends HttpServlet {
 		} else {
 			req.setAttribute("employee", queriedEmployee);
 
-			NavigationUtils.sendToPage(JSP_DETAILS, req, res);
+			NavigationUtils.displayJSP(JSP_DETAILS, req, res);
 		}
 	}
 	///endregion
