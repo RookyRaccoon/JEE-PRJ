@@ -185,21 +185,20 @@ public class Controller extends HttpServlet {
 	 * @param res Outgoing response.
 	 */
 	private void handleGetDetails(HttpServletRequest req, HttpServletResponse res) {
-		// Check access rights
-		if (!AuthenticationService.isAuthenticated(req)) {
-			NavigationUtils.displayJSP(JSP_LOGIN, req, res);
-		}
+		if (AuthenticationService.canAccess(req, AccessRights.ADMIN)) {
+			// Gather queried employee thanks to employeeId passed as URL parameter
+			User queriedEmployee = ((DAOFactory) this.getServletContext().getAttribute("daofactory")).getEmployeeDAO().findById(req.getParameter(PARAM_EMPLOYEE_ID));
 
-		// Gather queried employee thanks to employeeId passed as URL parameter
-		User queriedEmployee = ((DAOFactory) this.getServletContext().getAttribute("daofactory")).getEmployeeDAO().findById(req.getParameter(PARAM_EMPLOYEE_ID));
+			// Check if request is valid (queried employee exists and has been retrieved)
+			if (queriedEmployee == null) {
+				NavigationUtils.redirectToHome(req, res);
+			} else {
+				req.setAttribute("employee", queriedEmployee);
 
-		// Check if request is valid (queried employee exists and has been retrieved)
-		if (queriedEmployee == null) {
-			NavigationUtils.redirectToHome(req, res);
+				NavigationUtils.displayJSP(JSP_DETAILS, req, res);
+			}
 		} else {
-			req.setAttribute("employee", queriedEmployee);
-
-			NavigationUtils.displayJSP(JSP_DETAILS, req, res);
+			NavigationUtils.redirectToLogin(req, res);
 		}
 	}
 	///endregion
