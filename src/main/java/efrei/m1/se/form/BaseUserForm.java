@@ -1,7 +1,8 @@
 package efrei.m1.se.form;
 
+import efrei.m1.se.dao.EmployeeDAO;
 import efrei.m1.se.model.User;
-import lombok.AccessLevel;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,19 +22,21 @@ abstract class BaseUserForm {
 	private static final String FRM_CITY = "city";
 	private static final String FRM_EMAIL = "email";
 
-	@Getter(AccessLevel.PUBLIC) @Setter(AccessLevel.PUBLIC)
+	@Getter @Setter
 	private User user;
 
+	protected EmployeeDAO employeeDAO;
 
-	BaseUserForm(HttpServletRequest req) {
-		this.processRequest(req);
+
+	BaseUserForm(EmployeeDAO employeeDAO) {
+		this.employeeDAO = employeeDAO;
 	}
 
 	/**
 	 * Parses a {@link User} from form-contained data in a {@link HttpServletRequest}
 	 * @param req {@link HttpServletRequest} to parse {@link User} data from
 	 */
-	private void processRequest(HttpServletRequest req) {
+	protected void processRequest(HttpServletRequest req) {
 		this.user = new User(
 			req.getParameter(FRM_LAST_NAME),
 			req.getParameter(FRM_FIRST_NAME),

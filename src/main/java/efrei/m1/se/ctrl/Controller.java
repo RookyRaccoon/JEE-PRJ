@@ -1,5 +1,8 @@
 package efrei.m1.se.ctrl;
 
+import efrei.m1.se.dao.DAOException;
+import efrei.m1.se.dao.DAOFactory;
+import efrei.m1.se.dao.EmployeeDAO;
 import efrei.m1.se.form.AddUserForm;
 import efrei.m1.se.form.UserDetailsForm;
 import efrei.m1.se.model.User;
@@ -13,6 +16,15 @@ import javax.servlet.http.HttpServletResponse;
 import static efrei.m1.se.utils.Constants.*;
 
 public class Controller extends HttpServlet {
+
+	private EmployeeDAO employeeDAO;
+
+	@Override
+	public void init() {
+		// Gather an instance of EmployeeDAO to use with all services
+		this.employeeDAO = ((DAOFactory) this.getServletContext().getAttribute("daofactory")).getEmployeeDAO();
+	}
+
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse res) {
 		// Pick the right action to perform based on the route (URL)
@@ -70,24 +82,25 @@ public class Controller extends HttpServlet {
 		}
 	}
 
-
+	///region POST requests handlers
 	/**
 	 * Handles POST requests made to "/add-user" endpoint
 	 * @param req Incoming request.
 	 * @param res Outgoing response.
 	 */
 	private void handlePostAddUser(HttpServletRequest req, HttpServletResponse res) {
-		AddUserForm form = new AddUserForm(req);
-		int rowsAffected = form.store();
+		AddUserForm form = new AddUserForm(this.employeeDAO);
 
-		// Set status code of the response if
-		if (rowsAffected != 1) {  // (We expect only 1 row to be affected since we use an INSERT statement)
+		try {
+			form.store(req);
+		} catch (DAOException e) {  // If an error occurs, consider the request to be a bad request
 			res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			NavigationUtils.sendToPage(JSP_ADDUSER, req, res);
-		} else {
-			res.setStatus(HttpServletResponse.SC_CREATED);
-			NavigationUtils.redirectToHome(req, res);
+			return;
 		}
+
+		res.setStatus(HttpServletResponse.SC_CREATED);
+		NavigationUtils.redirectToHome(req, res);
 	}
 
 	/**
@@ -116,13 +129,14 @@ public class Controller extends HttpServlet {
 	 * @param res Outgoing response.
 	 */
 	private void handlePostDetails(HttpServletRequest req, HttpServletResponse res) {
-		UserDetailsForm form = new UserDetailsForm(req);
-		form.store(req.getParameter(PARAM_EMPLOYEE_ID));
+		UserDetailsForm form = new UserDetailsForm(this.employeeDAO);
+		form.store(req, req.getParameter(PARAM_EMPLOYEE_ID));
 
 		NavigationUtils.redirectToHome(req, res);
 	}
+	///endregion
 
-
+	///region GET requests handlers
 	/**
 	 * Handles GET requests made to "/" endpoint.
 	 * @param req Incoming request.
@@ -130,8 +144,7 @@ public class Controller extends HttpServlet {
 	 */
 	private void handleGetRoot(HttpServletRequest req, HttpServletResponse res) {
 		if (AuthenticationService.isAuthenticated(req)) {
-			// TODO: check access rights
-			req.setAttribute("employees", User.getAllUsers());
+			req.setAttribute("employees", this.employeeDAO.findAll());
 			NavigationUtils.sendToPage(JSP_HOME, req, res);
 		} else {
 			NavigationUtils.sendToPage(JSP_LOGIN, req, res);
@@ -178,7 +191,7 @@ public class Controller extends HttpServlet {
 		}
 
 		// Gather queried employee thanks to employeeId passed as URL parameter
-		User queriedEmployee = User.withId(req.getParameter(PARAM_EMPLOYEE_ID));
+		User queriedEmployee = ((DAOFactory) this.getServletContext().getAttribute("daofactory")).getEmployeeDAO().findById(req.getParameter(PARAM_EMPLOYEE_ID));
 
 		// Check if request is valid (queried employee exists and has been retrieved)
 		if (queriedEmployee == null) {
@@ -189,8 +202,9 @@ public class Controller extends HttpServlet {
 			NavigationUtils.sendToPage(JSP_DETAILS, req, res);
 		}
 	}
+	///endregion
 
-
+	///region Mixed requests handlers
 	/**
 	 * Handles all requests made to "/delete" endpoint
 	 * @param req Incoming request.
@@ -199,10 +213,14 @@ public class Controller extends HttpServlet {
 	private void handleUserDeletion(HttpServletRequest req, HttpServletResponse res) {
 		final String employeeId = req.getParameter(PARAM_EMPLOYEE_ID);
 
-		if (User.isDBIdValid(employeeId)) {
-			User.deleteRecord(employeeId);
-		}
+		try {
+			User employeeToDelete = this.employeeDAO.findById(employeeId);
+
+			this.employeeDAO.delete(employeeToDelete);
+		} catch (DAOException ignore) {}
+
 
 		NavigationUtils.redirectToHome(req, res);
 	}
+	///endregion
 }

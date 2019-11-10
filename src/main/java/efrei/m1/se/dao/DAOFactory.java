@@ -15,10 +15,10 @@ public class DAOFactory {
 	///////////////////////////////////////////////////////////////////////////
 	// STATIC PROPERTIES
 	///////////////////////////////////////////////////////////////////////////
-	private static final String PROP_URL = "jdbcUrl";
-	private static final String PROP_USER = "user";
-	private static final String PROP_PASSWORD = "password";
-	private static final String PROP_DRIVER = "driver";
+	private static final String PROP_URL = "dbUrl";
+	private static final String PROP_USER = "dbUser";
+	private static final String PROP_PASSWORD = "dbPassword";
+	private static final String PROP_DRIVER = "jdbcDriver";
 
 	///////////////////////////////////////////////////////////////////////////
 	// INSTANCE PROPERTIES
@@ -72,6 +72,9 @@ public class DAOFactory {
 		cpConfig.setJdbcUrl(dbUrl);
 		cpConfig.setUsername(dbUser);
 		cpConfig.setPassword(dbPassword);
+		cpConfig.addDataSourceProperty("cachePrepStmts", "true");
+		cpConfig.addDataSourceProperty("prepStmtCacheSize", "250");
+		cpConfig.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
 
 		// Return a new instance of DAOFactory only if no initialization step failed
 		return new DAOFactory(cpConfig);
@@ -91,6 +94,14 @@ public class DAOFactory {
 	 */
 	public Connection getConnection() throws SQLException {
 		return this.dataSource.getConnection();
+	}
+
+	/**
+	 * Get an instance of an implementation of {@link EmployeeDAO}
+	 * @return Instance of an implementation of {@link EmployeeDAO}
+	 */
+	public EmployeeDAO getEmployeeDAO() {
+		return new EmployeeDAOImpl(this);
 	}
 	///endregion
 
