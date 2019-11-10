@@ -2,3 +2,11 @@
 target/**
 out/**
 *.iml
+classes/**
+lib/**
+
+# OS Specific files
+**.DS_STORE
+
+# Project files that should no longer be under version control
+**.log

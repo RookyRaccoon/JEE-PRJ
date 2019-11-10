@@ -2,30 +2,87 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-
-    <groupId>efrei.m1.se</groupId>
-    <artifactId>javaee_final_project</artifactId>
-    <version>0.0.0</version>
-    
-    
-    <dependencies>
-        <!--    Empty for now, but will soon be used    -->
-    </dependencies>
-    
-    
-    <!--  Get rid of IDE warnings regarding deprecated target 1.5  -->
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.0</version>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+	<modelVersion>4.0.0</modelVersion>
+	
+	<groupId>efrei.m1.se</groupId>
+	<artifactId>javaee_final_project</artifactId>
+	<version>1.0.0</version>
+	
+	
+	<dependencies>
+		<!--================================================
+		====        General Purpose Dependencies        ====
+		=================================================-->
+		
+		<!-- Needed to access the DefaultServlet class that allows to serve static resources -->
+		<dependency>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>tomcat-catalina</artifactId>
+			<version>9.0.27</version>
+		</dependency>
+		
+		<!-- Needed to access the JSTL in the JPSs of the project -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+		
+		
+		<!--================================================
+		====        Database utils & JDBC Drivers       ====
+		=================================================-->
+		
+		<!-- Needed to access Apache Derby databases with JDBC -->
+		<dependency>
+			<groupId>org.apache.derby</groupId>
+			<artifactId>derby</artifactId>
+			<version>10.14.2.0</version>
+			<scope>test</scope>
+		</dependency>
+		
+		<!-- Needed to access MySQL databases with JDBC -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.6</version>
+		</dependency>
+		
+		<!-- Needed for connection pooling -->
+		<dependency>
+			<groupId>com.zaxxer</groupId>
+			<artifactId>HikariCP</artifactId>
+			<version>3.4.1</version>
+		</dependency>
+		
+		
+		
+		<!--================================================
+		====             Other Dependencies             ====
+		=================================================-->
+		
+		<!-- Needed for annotations allowing clearer and simplified development of Java Beans -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.10</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+	
+	
+	<build>
+		<plugins>
+			<!--  Get rid of IDE warnings regarding deprecated target 1.5  -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.0</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>

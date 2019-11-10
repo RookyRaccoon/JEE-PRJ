@@ -3,4 +3,95 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
+	
+	<!--
+	=============================================================
+	===============         Credentials         =================
+	=============================================================
+	-->
+	<context-param>
+		<param-name>adminLogin</param-name>
+		<param-value>admin</param-value>
+	</context-param>
+	
+	<context-param>
+		<param-name>adminPwd</param-name>
+		<param-value>admin</param-value>
+	</context-param>
+	
+	<context-param>
+		<param-name>employeeLogin</param-name>
+		<param-value>empl</param-value>
+	</context-param>
+	
+	<context-param>
+		<param-name>employeePwd</param-name>
+		<param-value>empl</param-value>
+	</context-param>
+	
+	<context-param>
+		<param-name>dbPropFilePath</param-name>
+		<param-value>/WEB-INF/db.properties</param-value>
+	</context-param>
+	
+	
+	<!--
+	=============================================================
+	===============          Listeners          =================
+	=============================================================
+	-->
+	
+	<listener>
+		<listener-class>efrei.m1.se.config.DAOFactoryInitializer</listener-class>
+	</listener>
+	
+	<!--
+	=============================================================
+	===============          Servlets           =================
+	=============================================================
+	-->
+	<servlet>
+		<servlet-name>Controller</servlet-name>
+		<servlet-class>efrei.m1.se.ctrl.Controller</servlet-class>
+	</servlet>
+	
+	
+	<servlet-mapping>
+		<servlet-name>Controller</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+	
+	
+	<!-- Needed to serve static files -->
+	<servlet>
+		<servlet-name>static</servlet-name>
+		<servlet-class>
+			org.apache.catalina.servlets.DefaultServlet
+		</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>static</servlet-name>
+		<url-pattern>*.css</url-pattern>
+		<url-pattern>*.js</url-pattern>
+		<url-pattern>*.svg</url-pattern>
+		<url-pattern>*.ttf</url-pattern>
+		<url-pattern>*.woff</url-pattern>
+		<url-pattern>*.woff2</url-pattern>
+	</servlet-mapping>
+	
+	
+	<!--
+	=============================================================
+	===============           TagLibs           =================
+	=============================================================
+	-->
+	<jsp-config>
+		<jsp-property-group>
+			<url-pattern>*.jsp</url-pattern>
+			<include-prelude>/WEB-INF/taglibs.jsp</include-prelude>
+			<include-prelude>/WEB-INF/url.jsp</include-prelude>
+		</jsp-property-group>
+	</jsp-config>
 </web-app>
