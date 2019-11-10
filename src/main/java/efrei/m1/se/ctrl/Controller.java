@@ -100,7 +100,6 @@ public class Controller extends HttpServlet {
 			try {
 				form.store(req);
 			} catch (DAOException e) {  // If an error occurs, consider the request to be a bad request
-				res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 				NavigationUtils.displayJSP(JSP_ADDUSER, req, res);
 				return;
 			}
