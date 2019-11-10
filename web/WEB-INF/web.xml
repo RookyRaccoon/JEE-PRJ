@@ -45,16 +45,6 @@
 		<listener-class>efrei.m1.se.config.DAOFactoryInitializer</listener-class>
 	</listener>
 	
-	<!-- Filter responsible for database connection establishment -->
-	<filter>
-		<filter-name>DBInitFilter</filter-name>
-		<filter-class>efrei.m1.se.filter.DBInitFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>DBInitFilter</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
-	
 	<!--
 	=============================================================
 	===============          Servlets           =================
