@@ -74,33 +74,16 @@ public class User {
 	 * @return {@link User} object for the matching database record
 	 */
 	public static User withId(String id) {
-		User user = null;
-
 		// No need to perform a DB read if no id was provided
 		if (id == null) {
 			return null;
 		}
 
 		try {
-			PreparedStatement ps = DBActions.getPreparedStatement(SQL_PREP_SELECT_EMPLOYEE_WITH_ID);
+			return User.employeeDAO.findById(id);
+		} catch (DAOException ignore) {}
 
-			if (ps != null) {
-				ps.setString(1, id);
-
-				ResultSet rs = ps.executeQuery();
-
-				// Check if a user was found and use it as a return value
-				if (rs.next()) {
-					user = DAOUtils.mapUser(rs);
-				}
-
-				ps.close();
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		return user;
+		return null;
 	}
 
 	/**

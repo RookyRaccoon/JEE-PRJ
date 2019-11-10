@@ -192,7 +192,7 @@ public class Controller extends HttpServlet {
 		}
 
 		// Gather queried employee thanks to employeeId passed as URL parameter
-		User queriedEmployee = User.withId(req.getParameter(PARAM_EMPLOYEE_ID));
+		User queriedEmployee = ((DAOFactory) this.getServletContext().getAttribute("daofactory")).getEmployeeDAO().findById(req.getParameter(PARAM_EMPLOYEE_ID));
 
 		// Check if request is valid (queried employee exists and has been retrieved)
 		if (queriedEmployee == null) {

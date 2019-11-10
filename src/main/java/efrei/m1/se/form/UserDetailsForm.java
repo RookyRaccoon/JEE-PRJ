@@ -20,7 +20,7 @@ public class UserDetailsForm extends BaseUserForm {
 	public void store(String dbId) {
 		if (this.getUser() != null) {  // Check if there really is a User to update in the database
 			this.getUser().setDbId(dbId);
-			this.getUser().updateRecord();
+			this.employeeDAO.update(this.getUser());
 		}
 	}
 }
