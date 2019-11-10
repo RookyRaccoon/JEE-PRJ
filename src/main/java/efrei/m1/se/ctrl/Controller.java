@@ -129,8 +129,10 @@ public class Controller extends HttpServlet {
 	 * @param res Outgoing response.
 	 */
 	private void handlePostDetails(HttpServletRequest req, HttpServletResponse res) {
-		UserDetailsForm form = new UserDetailsForm(this.employeeDAO);
-		form.store(req, req.getParameter(PARAM_EMPLOYEE_ID));
+		if (AuthenticationService.canAccess(req, AccessRights.ADMIN)) {
+			UserDetailsForm form = new UserDetailsForm(this.employeeDAO);
+			form.store(req, req.getParameter(PARAM_EMPLOYEE_ID));
+		}
 
 		NavigationUtils.redirectToHome(req, res);
 	}
