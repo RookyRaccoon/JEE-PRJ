@@ -158,23 +158,4 @@ public class User {
 			User.employeeDAO.update(this);
 		} catch (DAOException ignore) {}
 	}
-
-	/**
-	 * Refactored method to avoid duplicated prepared statement string setting code
-	 * @param ps Prepared statement to set
-	 * @throws SQLException If there is a SQL problem with the prepared statement (shouldn't happen)
-	 */
-	private void setPreparedStatementStrings(PreparedStatement ps) throws SQLException {
-		DBActions.initPreparedStatement(ps,
-			this.name,
-			this.surname,
-			this.personalPhone,
-			this.mobilePhone,
-			this.workPhone,
-			this.address,
-			this.postalCode,
-			this.city,
-			this.email
-			);
-	}
 }
