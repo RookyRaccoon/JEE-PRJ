@@ -23,16 +23,16 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	///////////////////////////////////////////////////////////////////////////
 	// SQL TABLE COLUMNS
 	///////////////////////////////////////////////////////////////////////////
-	public static final String DB_COL_NAME = "NAME";
-	public static final String DB_COL_SURNAME = "FIRSTNAME";
-	public static final String DB_COL_PERSONALPHONE = "HOMEPHONE";
-	public static final String DB_COL_MOBILEPHONE = "MOBILEPHONE";
-	public static final String DB_COL_WORKPHONE = "WORKPHONE";
-	public static final String DB_COL_ADDRESS = "ADDRESS";
-	public static final String DB_COL_POSTALCODE = "POSTALCODE";
-	public static final String DB_COL_CITY = "CITY";
-	public static final String DB_COL_EMAIL = "EMAIL";
-	public static final String DB_COL_ID = "ID";
+	static final String DB_COL_NAME = "NAME";
+	static final String DB_COL_SURNAME = "FIRSTNAME";
+	static final String DB_COL_PERSONALPHONE = "HOMEPHONE";
+	static final String DB_COL_MOBILEPHONE = "MOBILEPHONE";
+	static final String DB_COL_WORKPHONE = "WORKPHONE";
+	static final String DB_COL_ADDRESS = "ADDRESS";
+	static final String DB_COL_POSTALCODE = "POSTALCODE";
+	static final String DB_COL_CITY = "CITY";
+	static final String DB_COL_EMAIL = "EMAIL";
+	static final String DB_COL_ID = "ID";
 	///endregion
 
 

@@ -1,8 +1,7 @@
 package efrei.m1.se.dao;
 
-import static efrei.m1.se.dao.EmployeeDAOImpl.*;
-
 import efrei.m1.se.model.User;
+
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -12,6 +11,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
+import static efrei.m1.se.dao.EmployeeDAOImpl.*;
 
 /**
  * Utils class for all DAO-related repetitive actions

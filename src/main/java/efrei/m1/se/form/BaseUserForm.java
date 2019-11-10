@@ -1,6 +1,5 @@
 package efrei.m1.se.form;
 
-import efrei.m1.se.dao.DAOFactory;
 import efrei.m1.se.dao.EmployeeDAO;
 import efrei.m1.se.model.User;
 
