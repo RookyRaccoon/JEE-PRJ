@@ -17,19 +17,6 @@ public class AuthenticationService {
 	private AuthenticationService() {}
 
 	/**
-	 * Check whether or not a User is authenticated through its session data
-	 * @param req Incoming HTTP request (needed too find the session)
-	 * @return Whether the user is authenticated
-	 */
-	public static boolean isAuthenticated(HttpServletRequest req) {
-		if (req.getSession().getAttribute(SESS_IS_EMPLOYEE) != null) {
-			return (boolean) req.getSession().getAttribute(SESS_IS_EMPLOYEE);
-		}
-
-		return false;
-	}
-
-	/**
 	 * Log a user in thanks to form data
 	 * @param req Incoming request containing login form data
 	 * @return Whether the authentication succeeded
