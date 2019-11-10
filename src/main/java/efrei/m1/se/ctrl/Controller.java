@@ -7,6 +7,7 @@ import efrei.m1.se.form.AddUserForm;
 import efrei.m1.se.form.UserDetailsForm;
 import efrei.m1.se.model.User;
 import efrei.m1.se.service.AuthenticationService;
+import efrei.m1.se.utils.AccessRights;
 import efrei.m1.se.utils.NavigationUtils;
 
 import javax.servlet.http.HttpServlet;
@@ -211,16 +212,17 @@ public class Controller extends HttpServlet {
 	 * @param res Outgoing response.
 	 */
 	private void handleUserDeletion(HttpServletRequest req, HttpServletResponse res) {
-		final String employeeId = req.getParameter(PARAM_EMPLOYEE_ID);
+		if (AuthenticationService.canAccess(req, AccessRights.ADMIN)) {
+			final String employeeId = req.getParameter(PARAM_EMPLOYEE_ID);
 
-		try {
-			User employeeToDelete = this.employeeDAO.findById(employeeId);
+			try {
+				User employeeToDelete = this.employeeDAO.findById(employeeId);
 
-			this.employeeDAO.delete(employeeToDelete);
-		} catch (DAOException ignore) {}
-
-
-		NavigationUtils.redirectToHome(req, res);
+				this.employeeDAO.delete(employeeToDelete);
+			} catch (DAOException ignore) {}
+		} else {
+			NavigationUtils.redirectToHome(req, res);
+		}
 	}
 	///endregion
 }
