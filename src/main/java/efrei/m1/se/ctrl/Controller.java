@@ -158,11 +158,11 @@ public class Controller extends HttpServlet {
 	 * @param res Outgoing response.
 	 */
 	private void handleGetLogout(HttpServletRequest req, HttpServletResponse res) {
-		if (AuthenticationService.isAuthenticated(req)) {
+		if (AuthenticationService.canAccess(req, AccessRights.AUTHENTICATED)) {
 			AuthenticationService.logout(req);
 			NavigationUtils.displayJSP(JSP_GOODBYE, req, res);
 		} else {
-			NavigationUtils.redirectToHome(req, res);
+			NavigationUtils.redirectToLogin(req, res);
 		}
 	}
 
