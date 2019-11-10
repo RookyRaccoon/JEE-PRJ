@@ -1,5 +1,6 @@
 package efrei.m1.se.model;
 
+import efrei.m1.se.dao.DAOException;
 import efrei.m1.se.dao.EmployeeDAO;
 import efrei.m1.se.utils.DBActions;
 import lombok.Getter;
@@ -103,26 +104,11 @@ public class User {
 
 	/**
 	 * Create a user record in the database
-	 * @return Status of the request (number of rows affected), <code>-1</code> if an error occurs
 	 */
-	public int createRecord() {
+	public void createRecord() {
 		try {
-			final PreparedStatement stmt = DBActions.getPreparedStatement(SQL_PREP_INSERT_EMPLOYEE);
-
-			if (stmt == null) {
-				return -1;
-			}
-
-			setPreparedStatementStrings(stmt);
-
-			int rowsAffected = stmt.executeUpdate();
-			stmt.close();
-
-			return rowsAffected;
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return -1;
-		}
+			User.employeeDAO.create(this);
+		} catch (DAOException ignore) {}
 	}
 
 
