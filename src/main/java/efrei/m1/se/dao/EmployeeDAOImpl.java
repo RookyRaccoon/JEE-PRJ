@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
+import javax.persistence.EntityManager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,6 +22,8 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
 	///region JPA Config
 	private static final String JPA_PERSISTENCE_UNIT = "EmployeePU";
+
+	private EntityManager entityManager;
 	///endregion
 
 	///region SQL Table Columns
