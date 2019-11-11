@@ -1,7 +1,5 @@
 package efrei.m1.se.model;
 
-import efrei.m1.se.dao.EmployeeDAO;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,12 +16,6 @@ import javax.persistence.Table;
 @Entity @Table(name = "Employees")
 @NoArgsConstructor @ToString
 public class User {
-
-	/**
-	 * {@link EmployeeDAO} implementation used to handle interaction with database
-	 */
-	@Getter @Setter
-	private static EmployeeDAO employeeDAO;
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name = "ID")
 	@Getter @Setter @ToString.Exclude
