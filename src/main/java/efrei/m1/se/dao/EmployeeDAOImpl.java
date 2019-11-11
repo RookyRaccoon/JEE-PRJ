@@ -27,7 +27,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	/**
 	 * Create a new instance of EmployeeDAOImpl
 	 */
-	EmployeeDAOImpl() {
+	public EmployeeDAOImpl() {
 		this.entityManager = Persistence.createEntityManagerFactory(JPA_PERSISTENCE_UNIT).createEntityManager();
 	}
 
@@ -74,14 +74,20 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	@Override
 	public void delete(@NonNull User user) throws DAOException {
 		try {
+			// Prepare a transaction to ensure the changes are written into the database
+			EntityTransaction transaction = this.entityManager.getTransaction();
+			transaction.begin();
+
 			this.entityManager.remove(user);
+
+			transaction.commit();  // Commit the transaction to write changes to the database
 		} catch (Exception e) {
 			throw new DAOException(e);
 		}
 	}
 
 	@Override
-	public User findById(@NonNull String id) throws DAOException {
+	public User findById(String id) throws DAOException {
 		User employee;
 
 		// Setting up the JPQL query responsible for selection by id
