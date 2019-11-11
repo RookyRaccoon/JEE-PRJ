@@ -20,7 +20,6 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
 	///region JPQL Queries
 	private static final String JPQL_FIND_ALL = "SELECT u FROM User u";
-	private static final String JPQL_FIND_BY_ID = "SELECT u FROM User u WHERE u.id=:employeeId";
 	///endregion
 
 
@@ -90,12 +89,8 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	public User findById(String id) throws DAOException {
 		User employee;
 
-		// Setting up the JPQL query responsible for selection by id
-		TypedQuery<User> findByIdQuery = this.entityManager.createQuery(JPQL_FIND_BY_ID, User.class);
-		findByIdQuery.setParameter("employeeId", id);
-
 		try {
-			employee = findByIdQuery.getSingleResult();
+			employee = this.entityManager.find(User.class, id);
 		} catch (NoResultException e) {
 			return null;
 		} catch (Exception e) {
