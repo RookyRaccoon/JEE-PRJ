@@ -3,12 +3,10 @@ package efrei.m1.se.dao;
 import efrei.m1.se.model.User;
 
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
-import javax.persistence.EntityManager;
-import javax.persistence.Persistence;
+import javax.persistence.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,6 +23,11 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	private static final String JPA_PERSISTENCE_UNIT = "EmployeePU";
 
 	private EntityManager entityManager;
+	///endregion
+
+	///region JPQL Queries
+	private static final String JPQL_FIND_ALL = "SELECT u FROM User u";
+	private static final String JPQL_FIND_BY_ID = "SELECT u FROM User u WHERE u.id=:employeeId";
 	///endregion
 
 	///region SQL Table Columns
@@ -98,29 +101,18 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
 	@Override
 	public User findById(@NonNull String id) throws DAOException {
-		Connection conn = null;
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
+		User employee;
 
-		User employee = null;
+		// Setting up the JPQL query responsible for selection by id
+		TypedQuery<User> findByIdQuery = this.entityManager.createQuery(JPQL_FIND_BY_ID, User.class);
+		findByIdQuery.setParameter("employeeId", id);
 
 		try {
-			conn = this.daoFactory.getConnection();
-
-			// Init a prepared statement with the SELECT query and the id passed as a parameter to look for
-			preparedStatement = DAOUtils.initPreparedStatement(conn, SQL_SELECT_BY_ID, false, id);
-
-			resultSet = preparedStatement.executeQuery();
-
-			// Check if result set is not empty and gather the first row of user data returned
-			if (resultSet.next()) {
-				employee = DAOUtils.mapUser(resultSet);
-			}
-
-		} catch (SQLException e) {
+			employee = findByIdQuery.getSingleResult();
+		} catch (NoResultException e) {
+			return null;
+		} catch (Exception e) {
 			throw new DAOException(e);
-		} finally {
-			DAOUtils.silentClose(resultSet, preparedStatement, conn);
 		}
 
 		return employee;
