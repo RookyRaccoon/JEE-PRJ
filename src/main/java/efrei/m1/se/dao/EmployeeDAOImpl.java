@@ -2,186 +2,99 @@ package efrei.m1.se.dao;
 
 import efrei.m1.se.model.User;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import javax.persistence.*;
 import java.util.ArrayList;
 
 /**
  * Class to easily manipulate {@link User} objects in the database
  */
-@AllArgsConstructor @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class EmployeeDAOImpl implements EmployeeDAO {
 
-	///region SQL Table Columns
-	///////////////////////////////////////////////////////////////////////////
-	// SQL TABLE COLUMNS
-	///////////////////////////////////////////////////////////////////////////
-	static final String DB_COL_NAME = "NAME";
-	static final String DB_COL_SURNAME = "FIRSTNAME";
-	static final String DB_COL_PERSONALPHONE = "HOMEPHONE";
-	static final String DB_COL_MOBILEPHONE = "MOBILEPHONE";
-	static final String DB_COL_WORKPHONE = "WORKPHONE";
-	static final String DB_COL_ADDRESS = "ADDRESS";
-	static final String DB_COL_POSTALCODE = "POSTALCODE";
-	static final String DB_COL_CITY = "CITY";
-	static final String DB_COL_EMAIL = "EMAIL";
-	static final String DB_COL_ID = "ID";
+	///region JPA Config
+	private static final String JPA_PERSISTENCE_UNIT = "EmployeePU";
+
+	private EntityManager entityManager;
 	///endregion
 
-
-	///region SQL Queries
-	///////////////////////////////////////////////////////////////////////////
-	// SQL Queries
-	///////////////////////////////////////////////////////////////////////////
-	private static final String SQL_SELECT_BY_ID = "SELECT ID, NAME, FIRSTNAME, HOMEPHONE, MOBILEPHONE, WORKPHONE, ADDRESS, POSTALCODE, CITY, EMAIL FROM Employees WHERE ID = ?";
-	private static final String SQL_INSERT_ONE   = "INSERT INTO Employees(NAME, FIRSTNAME, HOMEPHONE, MOBILEPHONE, WORKPHONE, ADDRESS, POSTALCODE, CITY, EMAIL) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-	private static final String SQL_DELETE_ONE   = "DELETE FROM Employees WHERE ID=?";
-	private static final String SQL_UPDATE_ONE   = "UPDATE Employees SET NAME = ?, FIRSTNAME = ?, HOMEPHONE = ?, MOBILEPHONE = ?, WORKPHONE = ?, ADDRESS = ?, POSTALCODE = ?, CITY = ?, EMAIL = ? WHERE ID = ?";
-	private static final String SQL_SELECT_ALL   = "SELECT ID, NAME, FIRSTNAME, HOMEPHONE, MOBILEPHONE, WORKPHONE, ADDRESS, POSTALCODE, CITY, EMAIL FROM Employees";
+	///region JPQL Queries
+	private static final String JPQL_FIND_ALL = "SELECT u FROM User u";
 	///endregion
+
 
 	/**
-	 * Needed to get connections to the database
+	 * Create a new instance of EmployeeDAOImpl
 	 */
-	private DAOFactory daoFactory;
+	public EmployeeDAOImpl() {
+		this.entityManager = Persistence.createEntityManagerFactory(JPA_PERSISTENCE_UNIT).createEntityManager();
+	}
 
 	@Override
 	public void create(@NonNull User user) throws DAOException {
-		Connection conn = null;
-		PreparedStatement preparedStatement = null;
-		ResultSet generatedKeys = null;
-
 		try {
-			conn = this.daoFactory.getConnection();
+			// Prepare a transaction to ensure the changes are written into the database
+			EntityTransaction transaction = this.entityManager.getTransaction();
+			transaction.begin();
 
-			// Init a prepared statement with the INSERT query and the User's object properties
-			preparedStatement = DAOUtils.initPreparedStatement(conn, SQL_INSERT_ONE, true,
-				user.getName(),
-				user.getSurname(),
-				user.getPersonalPhone(),
-				user.getMobilePhone(),
-				user.getWorkPhone(),
-				user.getAddress(),
-				user.getPostalCode(),
-				user.getCity(),
-				user.getEmail());
+			this.entityManager.persist(user);
 
-			// Execute statement and gather number of rows affected (status)
-			int insertStatus = preparedStatement.executeUpdate();
-			if (insertStatus == 0) {  // If no row were affected (no record inserted into the database)
-				throw new DAOException("Unable to create Employee record in the database, 0 rows added.");
-			}
-
-			// Gather generated keys (ID of the inserted Employee)
-			generatedKeys = preparedStatement.getGeneratedKeys();
-			if (!generatedKeys.next()) {  // If no generated key was returned, then the Employee was not inserted in the database
-				throw new DAOException("Unable to create Employee record in the database: no ID obtained.");
-			}
-		} catch (SQLException e) {
+			transaction.commit();  // Commit the transaction to write changes to the database
+		} catch (Exception e) {
 			throw new DAOException(e);
-		} finally {
-			DAOUtils.silentClose(generatedKeys, preparedStatement, conn);
 		}
 	}
 
 	@Override
-	public void update(@NonNull User user) throws DAOException {
-		Connection conn = null;
-		PreparedStatement preparedStatement = null;
-
-		// Check if User object has a valid id property (otherwise it will be impossible to update a record in the database)
-		if (user.getDbId() == null || user.getDbId().isEmpty()) {
-			throw new DAOException("Cannot update a database record without its ID");
-		}
-
+	public void update(@NonNull User user, String dbId) throws DAOException {
 		try {
-			conn = this.daoFactory.getConnection();
+			// Gather the employee record to update
+			User employeeToUpdate = this.entityManager.find(User.class, dbId);
 
-			// Init a prepared statement with the UPDATE query and the User's object properties
-			preparedStatement = DAOUtils.initPreparedStatement(conn, SQL_UPDATE_ONE, false,
-				user.getName(),
-				user.getSurname(),
-				user.getPersonalPhone(),
-				user.getMobilePhone(),
-				user.getWorkPhone(),
-				user.getAddress(),
-				user.getPostalCode(),
-				user.getCity(),
-				user.getEmail(),
-				user.getDbId());
+			// Prepare a transaction to ensure the changes are written into the database
+			EntityTransaction transaction = this.entityManager.getTransaction();
+			transaction.begin();
 
-			// Execute update and get the number of affected rows (updateStatus) to check if update succeeded
-			int updateStatus = preparedStatement.executeUpdate();
-			if (updateStatus == 0) {  // If no rows were affected, update failed
-				throw new DAOException("Unable to update Employee record in the database, 0 rows affected.");
-			}
-		} catch (SQLException e) {
+			employeeToUpdate.setName(user.getName());
+			employeeToUpdate.setSurname(user.getSurname());
+			employeeToUpdate.setPersonalPhone(user.getPersonalPhone());
+			employeeToUpdate.setMobilePhone(user.getMobilePhone());
+			employeeToUpdate.setWorkPhone(user.getWorkPhone());
+			employeeToUpdate.setAddress(user.getAddress());
+			employeeToUpdate.setCity(user.getCity());
+			employeeToUpdate.setEmail(user.getEmail());
+
+			transaction.commit();  // Commit the transaction to write changes to the database
+		} catch (Exception e) {
 			throw new DAOException(e);
-		} finally {
-			DAOUtils.silentClose(preparedStatement, conn);
 		}
 	}
 
 	@Override
 	public void delete(@NonNull User user) throws DAOException {
-		Connection conn = null;
-		PreparedStatement preparedStatement = null;
-
-		// Check if User object has a valid id property (otherwise it will be impossible to delete a record from the database)
-		if (user.getDbId() == null || user.getDbId().isEmpty()) {
-			throw new DAOException("Cannot delete a database record without its ID");
-		}
-
 		try {
-			conn = this.daoFactory.getConnection();
+			// Prepare a transaction to ensure the changes are written into the database
+			EntityTransaction transaction = this.entityManager.getTransaction();
+			transaction.begin();
 
-			// Init a prepared statement with the DELETE query and the User's object id
-			preparedStatement = DAOUtils.initPreparedStatement(conn, SQL_DELETE_ONE, false, user.getDbId());
+			this.entityManager.remove(user);
 
-			// Execute update and check number of affected rows (deleteStatus) to check if deletion is successful
-			int deleteStatus = preparedStatement.executeUpdate();
-			if (deleteStatus == 0) {  // If no rows were affected, deletion failed
-				throw new DAOException("Unable to delete Employee record from the database, 0 rows affected.");
-			}
-		} catch (SQLException e) {
+			transaction.commit();  // Commit the transaction to write changes to the database
+		} catch (Exception e) {
 			throw new DAOException(e);
-		} finally {
-			DAOUtils.silentClose(preparedStatement, conn);
 		}
 	}
 
 	@Override
-	public User findById(@NonNull String id) throws DAOException {
-		Connection conn = null;
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
-
-		User employee = null;
+	public User findById(String id) throws DAOException {
+		User employee;
 
 		try {
-			conn = this.daoFactory.getConnection();
-
-			// Init a prepared statement with the SELECT query and the id passed as a parameter to look for
-			preparedStatement = DAOUtils.initPreparedStatement(conn, SQL_SELECT_BY_ID, false, id);
-
-			resultSet = preparedStatement.executeQuery();
-
-			// Check if result set is not empty and gather the first row of user data returned
-			if (resultSet.next()) {
-				employee = DAOUtils.mapUser(resultSet);
-			}
-
-		} catch (SQLException e) {
+			employee = this.entityManager.find(User.class, id);
+		} catch (NoResultException e) {
+			return null;
+		} catch (Exception e) {
 			throw new DAOException(e);
-		} finally {
-			DAOUtils.silentClose(resultSet, preparedStatement, conn);
 		}
 
 		return employee;
@@ -189,28 +102,16 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
 	@Override
 	public ArrayList<User> findAll() throws DAOException {
-		Connection conn = null;
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
+		ArrayList<User> employees;
 
-		ArrayList<User> employees = new ArrayList<>();
+		TypedQuery<User> findAllQuery = this.entityManager.createQuery(JPQL_FIND_ALL, User.class);
 
 		try {
-			conn = this.daoFactory.getConnection();
-
-			// Using a prepared statement here to benefit from precompiled statements greater speed
-			preparedStatement = DAOUtils.initPreparedStatement(conn, SQL_SELECT_ALL, false);
-
-			resultSet = preparedStatement.executeQuery();
-
-			// Add all employees returned by the query to the ArrayList of User
-			while (resultSet.next()) {
-				employees.add(DAOUtils.mapUser(resultSet));
-			}
-		} catch (SQLException e) {
+			employees = (ArrayList<User>) findAllQuery.getResultList();
+		} catch (NoResultException e) {
+			return new ArrayList<>();
+		} catch (Exception e) {
 			throw new DAOException(e);
-		} finally {
-			DAOUtils.silentClose(resultSet, preparedStatement, conn);
 		}
 
 		return employees;

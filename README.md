@@ -8,6 +8,69 @@ The team behind this project is composed of:
 * [Jules Lagny *(RaEace)*](https://github.com/RaEace)
 
 
+## How to setup and use the project
+
+This project needs a bit of configuration (database connection configuration) to work, so be sure to follow these steps
+
+### V 1.x.x
+
+**In the first version of the project, the database connection was set thanks to the `web/WEB-INF/db.properties` file**
+
+To make the database connection work, please modify the db.properties file accordingly to the database you want to connect to
+
+```properties
+dbUrl      = REPLACE_ME__DATABASE_JDBC_URL
+dbUser     = REPLACE_ME__DATABASE_USER
+dbPassword = REPLACE_ME__DATABASE_PASSWORD
+jdbcDriver = com.mysql.jdbc.Driver
+```
+
+As you can see, this file awaits configuration, and you only have to plug in the right database url, database user and password
+as well as the JDBC driver to use.
+This is an example of good configuration with a locally hosted MySQL database:
+
+```properties
+dbUrl      = jdbc:mysql://localhost:3306/JEEPRJ
+dbUser     = jee
+dbPassword = jee
+jdbcDriver = com.mysql.jdbc.Driver
+``` 
+
+### V 2.x.x
+
+**In the second version of the project, the database connection is managed by the persistence provider, in this case [RedHat's Hibernate](https://hibernate.org/)**
+
+The configuration for this version is a little more complicated, but still fairly simple:
+
+1. Open the `src/java/META-INF/persistence.xml` file which contains the database configuration
+2. Locate the following lines in this file:
+
+```xml
+<property name="javax.persistence.jdbc.driver" value="REPLACE_ME__JDBC_DRIVER" />
+<property name="javax.persistence.jdbc.url" value="REPLACE_ME__DATABASE_JDBC_URL" />
+<property name="javax.persistence.jdbc.user" value="REPLACE_ME__DATABASE_USER" />
+<property name="javax.persistence.jdbc.password" value="REPLACE_ME__DATABASE_PASSWORD" />
+```
+
+3. As for [V1.x.x](#v-1xx), you just have to replace everything prefixed with "REPLACE_ME__":
+
+3.1. Replace `REPLACE_ME__JDBC_DRIVER` with the classname of the JDBC driver to use
+
+3.2. Replace `REPLACE_ME__DATABASE_JDBC_URL` with the JDBC url of the database you want to connect to
+
+3.3. Replace `REPLACE_ME__DATABASE_USER` with the database user to use
+
+3.4. Replace `REPLACE_ME__DATABASE_PASSWORD` with the password of the database user you just set 
+
+
+Example of what your setup should look like for a locally hosted MySQL database:
+```xml
+<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/JEEPRJ" />
+<property name="javax.persistence.jdbc.user" value="jee" />
+<property name="javax.persistence.jdbc.password" value="jee" />
+```
+
 ## Tools
 
 This project was built using the following tools:

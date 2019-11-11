@@ -20,9 +20,10 @@ public interface EmployeeDAO {
 	/**
 	 * Update a {@link User} database record
 	 * @param user User to update in the database
+	 * @param dbId
 	 * @throws DAOException If an error occurs with the database
 	 */
-	void update(@NonNull User user) throws DAOException;
+	void update(@NonNull User user, String dbId) throws DAOException;
 
 	/**
 	 * Delete a {@link User} database record
