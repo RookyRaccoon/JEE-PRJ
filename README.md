@@ -86,12 +86,14 @@ This project was built using the following tools:
 
 ## Libraries
 
-For this project, the following libraries were used:
+For this project, the following libraries were used *(dependencies choices are explained on a per-dependency basis in the pom.xml file)*:
 
 * **[Lombok](https://projectlombok.org)** Lightweight library to improve readability in Java Beans thanks
   to a simple annotations system
 
 * **[HikariCP](https://github.com/brettwooldridge/HikariCP)** Solid, high-performance, JDBC connection pool to prevent database server from crashing
+
+* **[Hibernate](https://hibernate.org/)** JPA Implementation, chosen because it is a standard and is easily configurable with HikariCP, contrary to [EclipseLink](https://www.eclipse.org/eclipselink/)
 
 ## External Resources ("Special thanks to...")
 
