@@ -89,29 +89,10 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
 	@Override
 	public void delete(@NonNull User user) throws DAOException {
-		Connection conn = null;
-		PreparedStatement preparedStatement = null;
-
-		// Check if User object has a valid id property (otherwise it will be impossible to delete a record from the database)
-		if (user.getDbId() == null || user.getDbId().isEmpty()) {
-			throw new DAOException("Cannot delete a database record without its ID");
-		}
-
 		try {
-			conn = this.daoFactory.getConnection();
-
-			// Init a prepared statement with the DELETE query and the User's object id
-			preparedStatement = DAOUtils.initPreparedStatement(conn, SQL_DELETE_ONE, false, user.getDbId());
-
-			// Execute update and check number of affected rows (deleteStatus) to check if deletion is successful
-			int deleteStatus = preparedStatement.executeUpdate();
-			if (deleteStatus == 0) {  // If no rows were affected, deletion failed
-				throw new DAOException("Unable to delete Employee record from the database, 0 rows affected.");
-			}
-		} catch (SQLException e) {
+			this.entityManager.remove(user);
+		} catch (Exception e) {
 			throw new DAOException(e);
-		} finally {
-			DAOUtils.silentClose(preparedStatement, conn);
 		}
 	}
 
