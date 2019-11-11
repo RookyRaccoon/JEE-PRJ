@@ -71,40 +71,10 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
 	@Override
 	public void create(@NonNull User user) throws DAOException {
-		Connection conn = null;
-		PreparedStatement preparedStatement = null;
-		ResultSet generatedKeys = null;
-
 		try {
-			conn = this.daoFactory.getConnection();
-
-			// Init a prepared statement with the INSERT query and the User's object properties
-			preparedStatement = DAOUtils.initPreparedStatement(conn, SQL_INSERT_ONE, true,
-				user.getName(),
-				user.getSurname(),
-				user.getPersonalPhone(),
-				user.getMobilePhone(),
-				user.getWorkPhone(),
-				user.getAddress(),
-				user.getPostalCode(),
-				user.getCity(),
-				user.getEmail());
-
-			// Execute statement and gather number of rows affected (status)
-			int insertStatus = preparedStatement.executeUpdate();
-			if (insertStatus == 0) {  // If no row were affected (no record inserted into the database)
-				throw new DAOException("Unable to create Employee record in the database, 0 rows added.");
-			}
-
-			// Gather generated keys (ID of the inserted Employee)
-			generatedKeys = preparedStatement.getGeneratedKeys();
-			if (!generatedKeys.next()) {  // If no generated key was returned, then the Employee was not inserted in the database
-				throw new DAOException("Unable to create Employee record in the database: no ID obtained.");
-			}
-		} catch (SQLException e) {
+			this.entityManager.persist(user);
+		} catch (Exception e) {
 			throw new DAOException(e);
-		} finally {
-			DAOUtils.silentClose(generatedKeys, preparedStatement, conn);
 		}
 	}
 
