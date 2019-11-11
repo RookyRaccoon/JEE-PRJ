@@ -19,6 +19,10 @@ import java.util.ArrayList;
 @AllArgsConstructor @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class EmployeeDAOImpl implements EmployeeDAO {
 
+	///region JPA Config
+	private static final String JPA_PERSISTENCE_UNIT = "EmployeePU";
+	///endregion
+
 	///region SQL Table Columns
 	///////////////////////////////////////////////////////////////////////////
 	// SQL TABLE COLUMNS
