@@ -101,7 +101,7 @@ public class DAOFactory {
 	 * @return Instance of an implementation of {@link EmployeeDAO}
 	 */
 	public EmployeeDAO getEmployeeDAO() {
-		return new EmployeeDAOImpl(this);
+		return new EmployeeDAOImpl();
 	}
 	///endregion
 
