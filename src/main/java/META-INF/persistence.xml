@@ -5,7 +5,7 @@
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 		<properties>
 			<property name="javax.persistence.schema-generation.database.action" value="none" />
-			<property name="javax.persistence.jdbc.driver" value="org.h2.Driver" />
+			<property name="javax.persistence.jdbc.driver" value="REPLACE_ME__JDBC_DRIVER" />
 			<property name="javax.persistence.jdbc.url" value="REPLACE_ME__DATABASE_JDBC_URL" />
 			<property name="javax.persistence.jdbc.user" value="REPLACE_ME__DATABASE_USER" />
 			<property name="javax.persistence.jdbc.password" value="REPLACE_ME__DATABASE_PASSWORD" />
