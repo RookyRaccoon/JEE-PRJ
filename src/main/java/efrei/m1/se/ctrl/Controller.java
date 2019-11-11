@@ -1,8 +1,8 @@
 package efrei.m1.se.ctrl;
 
 import efrei.m1.se.dao.DAOException;
-import efrei.m1.se.dao.DAOFactory;
 import efrei.m1.se.dao.EmployeeDAO;
+import efrei.m1.se.dao.EmployeeDAOImpl;
 import efrei.m1.se.form.AddUserForm;
 import efrei.m1.se.form.UserDetailsForm;
 import efrei.m1.se.model.User;
@@ -22,8 +22,7 @@ public class Controller extends HttpServlet {
 
 	@Override
 	public void init() {
-		// Gather an instance of EmployeeDAO to use with all services
-		this.employeeDAO = ((DAOFactory) this.getServletContext().getAttribute("daofactory")).getEmployeeDAO();
+		this.employeeDAO = new EmployeeDAOImpl();
 	}
 
 	@Override
@@ -204,7 +203,7 @@ public class Controller extends HttpServlet {
 	private void handleGetDetails(HttpServletRequest req, HttpServletResponse res) {
 		if (AuthenticationService.canAccess(req, AccessRights.ADMIN)) {
 			// Gather queried employee thanks to employeeId passed as URL parameter
-			User queriedEmployee = ((DAOFactory) this.getServletContext().getAttribute("daofactory")).getEmployeeDAO().findById(req.getParameter(PARAM_EMPLOYEE_ID));
+			User queriedEmployee = this.employeeDAO.findById(req.getParameter(PARAM_EMPLOYEE_ID));
 
 			// Check if request is valid (queried employee exists and has been retrieved)
 			if (queriedEmployee == null) {
