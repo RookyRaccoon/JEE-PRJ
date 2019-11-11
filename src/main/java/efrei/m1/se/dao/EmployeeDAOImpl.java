@@ -2,21 +2,14 @@ package efrei.m1.se.dao;
 
 import efrei.m1.se.model.User;
 
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 import javax.persistence.*;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
  * Class to easily manipulate {@link User} objects in the database
  */
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class EmployeeDAOImpl implements EmployeeDAO {
 
 	///region JPA Config
@@ -47,28 +40,10 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	///endregion
 
 
-	///region SQL Queries
-	///////////////////////////////////////////////////////////////////////////
-	// SQL Queries
-	///////////////////////////////////////////////////////////////////////////
-	private static final String SQL_SELECT_BY_ID = "SELECT ID, NAME, FIRSTNAME, HOMEPHONE, MOBILEPHONE, WORKPHONE, ADDRESS, POSTALCODE, CITY, EMAIL FROM Employees WHERE ID = ?";
-	private static final String SQL_INSERT_ONE   = "INSERT INTO Employees(NAME, FIRSTNAME, HOMEPHONE, MOBILEPHONE, WORKPHONE, ADDRESS, POSTALCODE, CITY, EMAIL) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-	private static final String SQL_DELETE_ONE   = "DELETE FROM Employees WHERE ID=?";
-	private static final String SQL_UPDATE_ONE   = "UPDATE Employees SET NAME = ?, FIRSTNAME = ?, HOMEPHONE = ?, MOBILEPHONE = ?, WORKPHONE = ?, ADDRESS = ?, POSTALCODE = ?, CITY = ?, EMAIL = ? WHERE ID = ?";
-	private static final String SQL_SELECT_ALL   = "SELECT ID, NAME, FIRSTNAME, HOMEPHONE, MOBILEPHONE, WORKPHONE, ADDRESS, POSTALCODE, CITY, EMAIL FROM Employees";
-	///endregion
-
 	/**
-	 * Needed to get connections to the database
+	 * Create a new instance of EmployeeDAOImpl
 	 */
-	private DAOFactory daoFactory;
-
-	/**
-	 *
-	 * @param daoFactory DAOFactory to use
-	 */
-	EmployeeDAOImpl(@NonNull DAOFactory daoFactory) {
-		this.daoFactory = daoFactory;
+	EmployeeDAOImpl() {
 		this.entityManager = Persistence.createEntityManagerFactory(JPA_PERSISTENCE_UNIT).createEntityManager();
 	}
 
