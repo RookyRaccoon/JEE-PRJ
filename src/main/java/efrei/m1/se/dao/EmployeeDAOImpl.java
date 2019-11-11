@@ -23,22 +23,6 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	private static final String JPQL_FIND_BY_ID = "SELECT u FROM User u WHERE u.id=:employeeId";
 	///endregion
 
-	///region SQL Table Columns
-	///////////////////////////////////////////////////////////////////////////
-	// SQL TABLE COLUMNS
-	///////////////////////////////////////////////////////////////////////////
-	static final String DB_COL_NAME = "NAME";
-	static final String DB_COL_SURNAME = "FIRSTNAME";
-	static final String DB_COL_PERSONALPHONE = "HOMEPHONE";
-	static final String DB_COL_MOBILEPHONE = "MOBILEPHONE";
-	static final String DB_COL_WORKPHONE = "WORKPHONE";
-	static final String DB_COL_ADDRESS = "ADDRESS";
-	static final String DB_COL_POSTALCODE = "POSTALCODE";
-	static final String DB_COL_CITY = "CITY";
-	static final String DB_COL_EMAIL = "EMAIL";
-	static final String DB_COL_ID = "ID";
-	///endregion
-
 
 	/**
 	 * Create a new instance of EmployeeDAOImpl
