@@ -1,7 +1,9 @@
 <table class="mb-0 table table-striped table-hover" id="users-table">
 	<thead>
 	<tr>
-		<th></th>
+		<c:if test="${sessionScope.isAdmin}">
+			<th></th>
+		</c:if>
 		<th>First Name</th>
 		<th>Last Name</th>
 		<th>Email</th>
@@ -16,9 +18,11 @@
 	<tbody>
 	<c:forEach items="${requestScope.employees}" var="employee" varStatus="status">
 		<tr>
-			<td>
-				<input type="radio" name="employeeId" value="${employee.dbId}" />
-			</td>
+			<c:if test="${sessionScope.isAdmin}">
+				<td>
+					<input type="radio" name="employeeId" value="${employee.dbId}"/>
+				</td>
+			</c:if>
 			<td><c:out value="${employee.surname}" /></td>
 			<td><c:out value="${employee.name}" /></td>
 			<td><c:out value="${employee.email}" /></td>
