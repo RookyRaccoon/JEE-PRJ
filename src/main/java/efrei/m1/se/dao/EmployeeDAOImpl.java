@@ -120,28 +120,16 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
 	@Override
 	public ArrayList<User> findAll() throws DAOException {
-		Connection conn = null;
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
+		ArrayList<User> employees;
 
-		ArrayList<User> employees = new ArrayList<>();
+		TypedQuery<User> findAllQuery = this.entityManager.createQuery(JPQL_FIND_ALL, User.class);
 
 		try {
-			conn = this.daoFactory.getConnection();
-
-			// Using a prepared statement here to benefit from precompiled statements greater speed
-			preparedStatement = DAOUtils.initPreparedStatement(conn, SQL_SELECT_ALL, false);
-
-			resultSet = preparedStatement.executeQuery();
-
-			// Add all employees returned by the query to the ArrayList of User
-			while (resultSet.next()) {
-				employees.add(DAOUtils.mapUser(resultSet));
-			}
-		} catch (SQLException e) {
+			employees = (ArrayList<User>) findAllQuery.getResultList();
+		} catch (NoResultException e) {
+			return new ArrayList<>();
+		} catch (Exception e) {
 			throw new DAOException(e);
-		} finally {
-			DAOUtils.silentClose(resultSet, preparedStatement, conn);
 		}
 
 		return employees;
