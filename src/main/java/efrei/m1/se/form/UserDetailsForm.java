@@ -21,9 +21,8 @@ public class UserDetailsForm extends BaseUserForm {
 	public void store(HttpServletRequest req, String dbId) {
 		this.processRequest(req);
 		if (this.getUser() != null) {  // Check if there really is a User to update in the database
-			this.getUser().setDbId(dbId);
 			try {
-				this.employeeDAO.update(this.getUser());
+				this.employeeDAO.update(this.getUser(), dbId);
 			} catch (DAOException ignore) {}
 		}
 	}
