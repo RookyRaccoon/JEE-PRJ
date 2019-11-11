@@ -33,6 +33,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
 	@Override
 	public void create(@NonNull User user) throws DAOException {
+		user.setDbId(null);
 		try {
 			this.entityManager.persist(user);
 		} catch (Exception e) {
@@ -41,9 +42,25 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	}
 
 	@Override
-	public void update(@NonNull User user) throws DAOException {
+	public void update(@NonNull User user, String dbId) throws DAOException {
 		try {
-			this.entityManager.persist(user);
+			// Gather the employee record to update
+			User employeeToUpdate = this.entityManager.find(User.class, dbId);
+
+			// Prepare a transaction to ensure the changes are written into the database
+			EntityTransaction transaction = this.entityManager.getTransaction();
+			transaction.begin();
+
+			employeeToUpdate.setName(user.getName());
+			employeeToUpdate.setSurname(user.getSurname());
+			employeeToUpdate.setPersonalPhone(user.getPersonalPhone());
+			employeeToUpdate.setMobilePhone(user.getMobilePhone());
+			employeeToUpdate.setWorkPhone(user.getWorkPhone());
+			employeeToUpdate.setAddress(user.getAddress());
+			employeeToUpdate.setCity(user.getCity());
+			employeeToUpdate.setEmail(user.getEmail());
+
+			transaction.commit();  // Commit the transaction to write changes to the database
 		} catch (Exception e) {
 			throw new DAOException(e);
 		}
