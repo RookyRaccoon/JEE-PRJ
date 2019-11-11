@@ -80,39 +80,10 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
 	@Override
 	public void update(@NonNull User user) throws DAOException {
-		Connection conn = null;
-		PreparedStatement preparedStatement = null;
-
-		// Check if User object has a valid id property (otherwise it will be impossible to update a record in the database)
-		if (user.getDbId() == null || user.getDbId().isEmpty()) {
-			throw new DAOException("Cannot update a database record without its ID");
-		}
-
 		try {
-			conn = this.daoFactory.getConnection();
-
-			// Init a prepared statement with the UPDATE query and the User's object properties
-			preparedStatement = DAOUtils.initPreparedStatement(conn, SQL_UPDATE_ONE, false,
-				user.getName(),
-				user.getSurname(),
-				user.getPersonalPhone(),
-				user.getMobilePhone(),
-				user.getWorkPhone(),
-				user.getAddress(),
-				user.getPostalCode(),
-				user.getCity(),
-				user.getEmail(),
-				user.getDbId());
-
-			// Execute update and get the number of affected rows (updateStatus) to check if update succeeded
-			int updateStatus = preparedStatement.executeUpdate();
-			if (updateStatus == 0) {  // If no rows were affected, update failed
-				throw new DAOException("Unable to update Employee record in the database, 0 rows affected.");
-			}
-		} catch (SQLException e) {
+			this.entityManager.persist(user);
+		} catch (Exception e) {
 			throw new DAOException(e);
-		} finally {
-			DAOUtils.silentClose(preparedStatement, conn);
 		}
 	}
 
