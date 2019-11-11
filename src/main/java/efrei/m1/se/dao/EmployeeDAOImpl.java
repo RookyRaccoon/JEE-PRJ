@@ -33,9 +33,14 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
 	@Override
 	public void create(@NonNull User user) throws DAOException {
-		user.setDbId(null);
 		try {
+			// Prepare a transaction to ensure the changes are written into the database
+			EntityTransaction transaction = this.entityManager.getTransaction();
+			transaction.begin();
+
 			this.entityManager.persist(user);
+
+			transaction.commit();  // Commit the transaction to write changes to the database
 		} catch (Exception e) {
 			throw new DAOException(e);
 		}
