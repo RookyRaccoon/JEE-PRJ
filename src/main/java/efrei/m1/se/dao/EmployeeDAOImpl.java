@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Persistence;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 /**
  * Class to easily manipulate {@link User} objects in the database
  */
-@AllArgsConstructor @NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class EmployeeDAOImpl implements EmployeeDAO {
 
 	///region JPA Config
@@ -58,6 +59,15 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	 * Needed to get connections to the database
 	 */
 	private DAOFactory daoFactory;
+
+	/**
+	 *
+	 * @param daoFactory DAOFactory to use
+	 */
+	EmployeeDAOImpl(@NonNull DAOFactory daoFactory) {
+		this.daoFactory = daoFactory;
+		this.entityManager = Persistence.createEntityManagerFactory(JPA_PERSISTENCE_UNIT).createEntityManager();
+	}
 
 	@Override
 	public void create(@NonNull User user) throws DAOException {
